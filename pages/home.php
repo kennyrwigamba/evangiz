@@ -102,20 +102,47 @@
                     Evangiz Restaurant celebrates Ugandan flavours and hospitality. We offer relaxed, family-friendly dining and thoughtfully prepared meals using local ingredients &mdash; perfect for everyday lunches, special dinners, and events.
                 </p>
                 
-                <ul class="why-choose-features-list">
-                    <li class="feature-item">
-                        <span class="feature-marker"></span>
-                        <span class="feature-text">Food is always fresh</span>
-                    </li>
-                    <li class="feature-item">
-                        <span class="feature-marker"></span>
-                        <span class="feature-text">Professional chefs</span>
-                    </li>
-                    <li class="feature-item">
-                        <span class="feature-marker"></span>
-                        <span class="feature-text">Sea view dining table</span>
-                    </li>
-                </ul>
+                <!-- Why Choose Accordion -->
+                <div class="why-choose-accordion" style="margin-top: var(--space-md);">
+                    <!-- Item 1: Food is always fresh -->
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span class="accordion-toggle-icon">&plus;</span>
+                            <span class="accordion-title">Food is always fresh</span>
+                        </button>
+                        <div class="accordion-panel">
+                            <p class="accordion-desc">
+                                We prepare our dishes daily using fresh, locally sourced Ugandan ingredients, organic produce, and premium seafood delivered straight to our kitchen.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2: Professional chefs -->
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span class="accordion-toggle-icon">&plus;</span>
+                            <span class="accordion-title">Professional chefs</span>
+                        </button>
+                        <div class="accordion-panel">
+                            <p class="accordion-desc">
+                                Our culinary team consists of highly trained and experienced chefs who cook with passion, bringing you authentic local flavors and high-quality fast foods.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3: Sea view dining table -->
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span class="accordion-toggle-icon">&plus;</span>
+                            <span class="accordion-title">Sea view dining table</span>
+                        </button>
+                        <div class="accordion-panel">
+                            <p class="accordion-desc">
+                                Relax and dine in style with our beautifully arranged tables, scenic ambiance, and welcoming spaces perfect for families, couples, or solo guests.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -330,7 +357,7 @@
 <!-- Accordion Toggle JavaScript -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const accHeaders = document.querySelectorAll('.catering-accordion .accordion-header');
+    const accHeaders = document.querySelectorAll('.catering-accordion .accordion-header, .why-choose-accordion .accordion-header');
     accHeaders.forEach(header => {
         header.addEventListener('click', () => {
             const item = header.parentElement;
@@ -908,11 +935,11 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 .feature-marker {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background-color: rgba(231, 86, 42, 0.1);
-    border: 2px solid var(--color-accent);
+    border: 1px solid var(--color-accent);
     position: relative;
     flex-shrink: 0;
 }
@@ -922,8 +949,8 @@ document.addEventListener('DOMContentLoaded', () => {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     background-color: var(--color-accent);
     border-radius: 50%;
     transform: translate(-50%, -50%);
@@ -931,8 +958,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 .feature-text {
     font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.15rem;
+    font-weight: 600;
+    font-size: 1rem;
     color: var(--color-primary);
     letter-spacing: -0.01em;
 }
@@ -979,24 +1006,24 @@ document.addEventListener('DOMContentLoaded', () => {
     line-height: 1.7;
 }
 
-.catering-accordion {
+.catering-accordion, .why-choose-accordion {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
     margin-bottom: var(--space-lg);
 }
 
-.catering-accordion .accordion-item {
+.catering-accordion .accordion-item, .why-choose-accordion .accordion-item {
     border-bottom: 1px solid rgba(235, 220, 208, 0.4);
     padding-bottom: var(--space-sm);
 }
 
-.catering-accordion .accordion-item:last-child {
+.catering-accordion .accordion-item:last-child, .why-choose-accordion .accordion-item:last-child {
     border-bottom: none;
     padding-bottom: 0;
 }
 
-.catering-accordion .accordion-header {
+.catering-accordion .accordion-header, .why-choose-accordion .accordion-header {
     background: none;
     border: none;
     outline: none;
@@ -1009,7 +1036,7 @@ document.addEventListener('DOMContentLoaded', () => {
     text-align: left;
 }
 
-.catering-accordion .accordion-toggle-icon {
+.catering-accordion .accordion-toggle-icon, .why-choose-accordion .accordion-toggle-icon {
     color: var(--color-accent);
     font-size: 1.275rem;
     font-weight: 400;
@@ -1020,7 +1047,7 @@ document.addEventListener('DOMContentLoaded', () => {
     flex-shrink: 0;
 }
 
-.catering-accordion .accordion-title {
+.catering-accordion .accordion-title, .why-choose-accordion .accordion-title {
     font-family: var(--font-heading);
     font-weight: 500;
     font-size: 1rem;
@@ -1028,7 +1055,7 @@ document.addEventListener('DOMContentLoaded', () => {
     letter-spacing: -0.01em;
 }
 
-.catering-accordion .accordion-panel {
+.catering-accordion .accordion-panel, .why-choose-accordion .accordion-panel {
     padding-left: 28px;
     max-height: 0;
     overflow: hidden;
@@ -1036,13 +1063,13 @@ document.addEventListener('DOMContentLoaded', () => {
     transition: max-height 0.22s ease-out, opacity 0.2s ease;
 }
 
-.catering-accordion .accordion-item.active .accordion-panel {
+.catering-accordion .accordion-item.active .accordion-panel, .why-choose-accordion .accordion-item.active .accordion-panel {
     max-height: 80px;
     opacity: 1;
     margin-top: var(--space-xs);
 }
 
-.catering-accordion .accordion-desc {
+.catering-accordion .accordion-desc, .why-choose-accordion .accordion-desc {
     font-size: 0.925rem;
     color: var(--color-text-muted);
     line-height: 1.6;
