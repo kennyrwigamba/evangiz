@@ -32,17 +32,17 @@ try {
 <!-- Metric KPI Grid -->
 <div class="kpi-grid">
     <div class="kpi-card">
-        <span class="kpi-lbl">📅 Table Bookings</span>
+        <span class="kpi-lbl"><i class="hgi-stroke hgi-calendar-01 kpi-icon"></i>Table Bookings</span>
         <span class="kpi-val"><?php echo $bookings_count; ?></span>
         <a href="<?php echo admin_url('/bookings.php'); ?>" style="font-size: 0.85rem; color: var(--color-accent); margin-top: var(--space-xs); font-weight: 500;">View all bookings &rarr;</a>
     </div>
     <div class="kpi-card">
-        <span class="kpi-lbl">✍️ Blog Stories</span>
+        <span class="kpi-lbl"><i class="hgi-stroke hgi-pencil-edit-01 kpi-icon"></i>Blog Stories</span>
         <span class="kpi-val"><?php echo $blogs_count; ?></span>
         <a href="<?php echo admin_url('/blogs.php'); ?>" style="font-size: 0.85rem; color: var(--color-accent); margin-top: var(--space-xs); font-weight: 500;">Manage stories &rarr;</a>
     </div>
     <div class="kpi-card">
-        <span class="kpi-lbl">✉️ Contact Messages</span>
+        <span class="kpi-lbl"><i class="hgi-stroke hgi-mail-01 kpi-icon"></i>Contact Messages</span>
         <span class="kpi-val"><?php echo $inquiries_count; ?></span>
         <a href="<?php echo admin_url('/inquiries.php'); ?>" style="font-size: 0.85rem; color: var(--color-accent); margin-top: var(--space-xs); font-weight: 500;">Read inquiries &rarr;</a>
     </div>

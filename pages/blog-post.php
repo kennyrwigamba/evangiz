@@ -36,15 +36,19 @@ $image = !empty($post['image_path']) ? htmlspecialchars($post['image_path']) : '
 ?>
 
 <!-- Blog Header -->
-<section class="blog-header-section page-header">
+<section class="blog-header-section page-header" style="background-image: url('<?php echo url($image ?: "/image/page-header/slide-index-2.jpg"); ?>');">
     <div class="container">
-        <time class="blog-post-date text-accent"><?php echo $date; ?></time>
-        <h1 class="animate-fade-in" style="margin-top: var(--space-sm); font-size: clamp(2rem, 4vw, 3.25rem);"><?php echo htmlspecialchars($post['title']); ?></h1>
+        <div class="blog-meta animate-fade-in">
+            <span class="blog-meta-item"><i class="hgi-stroke hgi-calendar-01"></i> <?php echo $date; ?></span>
+            <span class="blog-meta-divider">•</span>
+            <span class="blog-meta-item"><i class="hgi-stroke hgi-user-circle"></i> By Evangiz Team</span>
+        </div>
+        <h1 class="animate-fade-in blog-post-title-main" style="margin-top: var(--space-sm);"><?php echo htmlspecialchars($post['title']); ?></h1>
         <div class="breadcrumb animate-fade-in delay-100" style="margin-top: var(--space-md);">
             <a href="<?php echo url('/'); ?>">Home</a>
             <span class="breadcrumb-separator">/</span>
             <a href="<?php echo url('/blog'); ?>">Blog</a>
-            <span class="breadcrumb-separator">&rarr;</span>
+            <span class="breadcrumb-separator">/</span>
             <span class="breadcrumb-current">Story Details</span>
         </div>
     </div>
@@ -55,16 +59,22 @@ $image = !empty($post['image_path']) ? htmlspecialchars($post['image_path']) : '
     <div class="container blog-details-container">
         <article class="blog-post-full animate-fade-in">
             
-            <!-- Blog Visual Banner -->
-            <?php if (!empty($image)): ?>
-                <div class="blog-post-banner">
-                    <img src="<?php echo url($image); ?>" alt="<?php echo htmlspecialchars($post['title']); ?>">
-                </div>
-            <?php endif; ?>
-
             <!-- Content Area -->
             <div class="blog-post-body text-justify">
-                <?php echo nl2br(htmlspecialchars($post['content'])); ?>
+                <?php 
+                $paragraphs = explode("\n\n", $post['content']);
+                $first = true;
+                foreach ($paragraphs as $para) {
+                    $para = trim($para);
+                    if (empty($para)) continue;
+                    if ($first) {
+                        echo '<p class="lead-paragraph">' . nl2br(htmlspecialchars($para)) . '</p>';
+                        $first = false;
+                    } else {
+                        echo '<p>' . nl2br(htmlspecialchars($para)) . '</p>';
+                    }
+                }
+                ?>
             </div>
 
             <!-- Footer Navigation -->
@@ -91,6 +101,46 @@ $image = !empty($post['image_path']) ? htmlspecialchars($post['image_path']) : '
     letter-spacing: 0.1em;
 }
 
+.blog-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+    color: var(--color-white);
+    opacity: 0.95;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.blog-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.blog-meta-item i {
+    font-size: 1.05rem;
+    color: var(--color-secondary);
+}
+
+.blog-meta-divider {
+    color: var(--color-secondary);
+    font-weight: 700;
+}
+
+.blog-post-title-main {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    max-width: 900px;
+    margin: var(--space-sm) auto 0;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    color: var(--color-white);
+}
+
 .blog-details-container {
     max-width: 800px;
 }
@@ -103,28 +153,33 @@ $image = !empty($post['image_path']) ? htmlspecialchars($post['image_path']) : '
     padding: var(--space-xl);
 }
 
-.blog-post-banner {
-    margin-bottom: var(--space-xl);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    max-height: 450px;
-    background-color: #eee;
-}
-
-.blog-post-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 .blog-post-body {
     font-size: 1.1rem;
-    line-height: 1.8;
+    line-height: 1.85;
     color: var(--color-text-dark);
 }
 
 .blog-post-body p {
     margin-bottom: var(--space-lg);
+}
+
+.lead-paragraph {
+    font-size: 1.25rem;
+    color: var(--color-primary-light);
+    line-height: 1.85;
+    font-weight: 500;
+    margin-bottom: var(--space-lg);
+}
+
+.lead-paragraph::first-letter {
+    font-family: var(--font-serif);
+    font-size: 4rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.85;
+    margin-right: 12px;
+    margin-top: 4px;
+    color: var(--color-accent);
 }
 
 .blog-post-footer {

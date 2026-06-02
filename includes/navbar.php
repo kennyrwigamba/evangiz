@@ -20,6 +20,7 @@ if (!function_exists('is_active')) {
         <!-- Logo Branding for Mobile (Visible on Mobile, Hidden on Desktop) -->
         <a href="<?php echo url('/'); ?>" class="navbar-logo-mobile">
             <img src="<?php echo url('/image/logo/logo.png'); ?>" alt="Evangiz Logo">
+            <span class="mobile-logo-text font-serif">Evangiz</span>
         </a>
 
         <!-- Hamburger Icon for Mobile -->
@@ -31,6 +32,11 @@ if (!function_exists('is_active')) {
 
         <!-- Split Navigation Menu Links -->
         <nav class="navbar-menu" id="navbar-menu-container">
+            <!-- Mobile Menu Brand Logo -->
+            <div class="mobile-menu-brand">
+                <a href="<?php echo url('/'); ?>" class="mobile-menu-logo font-serif">Evangiz</a>
+            </div>
+
             <!-- Left Side Menu Links -->
             <ul class="nav-list nav-list-left">
                 <li class="nav-item">

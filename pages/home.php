@@ -168,7 +168,7 @@
         <div class="grid-3 menu-promo-grid" style="margin-top: var(--space-xl); margin-bottom: var(--space-xl);">
             <!-- Card 1: Special Menu -->
             <div class="menu-promo-card animate-scroll-reveal">
-                <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/menu_special.png"); ?>');"></div>
+                <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/pizza.jpg"); ?>');"></div>
                 <div class="promo-card-overlay"></div>
                 <div class="promo-card-content">
                     <span class="promo-subtitle">Can not be ignored</span>
@@ -178,7 +178,7 @@
             
             <!-- Card 2: Seasonal Food -->
             <div class="menu-promo-card animate-scroll-reveal">
-                <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/menu_seasonal.png"); ?>');"></div>
+                <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/special.jpg"); ?>');"></div>
                 <div class="promo-card-overlay"></div>
                 <div class="promo-card-content">
                     <span class="promo-subtitle">Enjoy on occasion</span>
@@ -188,11 +188,11 @@
             
             <!-- Card 3: Wine List -->
             <div class="menu-promo-card animate-scroll-reveal">
-                <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/menu_wine.png"); ?>');"></div>
+                <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/drink.jpg"); ?>');"></div>
                 <div class="promo-card-overlay"></div>
                 <div class="promo-card-content">
                     <span class="promo-subtitle">New experience</span>
-                    <h3 class="promo-title">Wine List</h3>
+                    <h3 class="promo-title">Soft Drinks</h3>
                 </div>
             </div>
         </div>

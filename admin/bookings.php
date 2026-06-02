@@ -68,7 +68,7 @@ if ($action === 'list') {
 
 <!-- VIEW STATE: Detailed Booking View -->
 <?php if ($action === 'view' && $view_booking): ?>
-    <div class="admin-form-panel" style="max-width: 600px;">
+    <div class="admin-form-panel" style="max-width: 900px; width: 100%;">
         <h3 style="margin-bottom: var(--space-lg); color: var(--color-primary);">Reservation Details</h3>
         
         <table class="admin-table" style="margin-bottom: var(--space-lg);">
@@ -118,12 +118,12 @@ if ($action === 'list') {
             </tr>
         </table>
         
-        <div style="display: flex; gap: var(--space-sm);">
+        <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
             <?php if ($view_booking['status'] === 'Pending'): ?>
-                <a href="<?php echo admin_url('/bookings.php?action=approve&id=' . $view_booking['id']); ?>" class="btn-action btn-action-approve" style="padding: 0.65rem 1.25rem; font-size: 0.9rem;">✅ Approve Booking</a>
-                <a href="<?php echo admin_url('/bookings.php?action=cancel&id=' . $view_booking['id']); ?>" class="btn-action btn-action-delete" style="padding: 0.65rem 1.25rem; font-size: 0.9rem;">❌ Cancel Booking</a>
+                <a href="<?php echo admin_url('/bookings.php?action=approve&id=' . $view_booking['id']); ?>" class="btn-action btn-action-approve" style="padding: 0.65rem 1.25rem; font-size: 0.9rem; white-space: nowrap;"><i class="hgi-stroke hgi-tick-01"></i> Approve Booking</a>
+                <a href="<?php echo admin_url('/bookings.php?action=cancel&id=' . $view_booking['id']); ?>" class="btn-action btn-action-delete" style="padding: 0.65rem 1.25rem; font-size: 0.9rem; white-space: nowrap;"><i class="hgi-stroke hgi-cancel-01"></i> Cancel Booking</a>
             <?php endif; ?>
-            <a href="<?php echo admin_url('/bookings.php'); ?>" class="btn btn-secondary">Back to List</a>
+            <a href="<?php echo admin_url('/bookings.php'); ?>" class="btn-action btn-action-secondary" style="padding: 0.65rem 1.25rem; font-size: 0.9rem; white-space: nowrap;"><i class="hgi-stroke hgi-arrow-left-01"></i> Back to List</a>
         </div>
     </div>
 
@@ -165,10 +165,10 @@ if ($action === 'list') {
                                 </span>
                             </td>
                             <td>
-                                <a href="<?php echo admin_url('/bookings.php?action=view&id=' . $booking['id']); ?>" class="btn-action btn-action-edit">🔍 View</a>
+                                <a href="<?php echo admin_url('/bookings.php?action=view&id=' . $booking['id']); ?>" class="btn-action btn-action-edit" style="white-space: nowrap;"><i class="hgi-stroke hgi-search-01"></i> View</a>
                                 <?php if ($booking['status'] === 'Pending'): ?>
-                                    <a href="<?php echo admin_url('/bookings.php?action=approve&id=' . $booking['id']); ?>" class="btn-action btn-action-approve" onclick="return confirm('Confirm and approve this reservation?');">✅</a>
-                                    <a href="<?php echo admin_url('/bookings.php?action=cancel&id=' . $booking['id']); ?>" class="btn-action btn-action-delete" onclick="return confirm('Cancel this reservation?');">❌</a>
+                                    <a href="<?php echo admin_url('/bookings.php?action=approve&id=' . $booking['id']); ?>" class="btn-action btn-action-approve" onclick="return confirm('Confirm and approve this reservation?');" title="Approve"><i class="hgi-stroke hgi-tick-01"></i></a>
+                                    <a href="<?php echo admin_url('/bookings.php?action=cancel&id=' . $booking['id']); ?>" class="btn-action btn-action-delete" onclick="return confirm('Cancel this reservation?');" title="Cancel"><i class="hgi-stroke hgi-cancel-01"></i></a>
                                 <?php endif; ?>
                             </td>
                         </tr>

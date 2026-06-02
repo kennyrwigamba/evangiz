@@ -31,6 +31,9 @@ if (!function_exists('admin_url')) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
     
+    <!-- Icons and Fonts -->
+    <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css">
+    
     <link rel="stylesheet" href="<?php echo url('/css/main.css'); ?>">
     <link rel="stylesheet" href="<?php echo url('/css/components.css'); ?>">
     
@@ -188,6 +191,19 @@ if (!function_exists('admin_url')) {
             color: var(--color-text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        .sidebar-icon {
+            margin-right: 12px;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+            transition: var(--transition-fast);
+        }
+        .kpi-icon {
+            font-size: 1rem;
+            color: var(--color-accent);
         }
         /* Custom buttons styling for actions */
         .btn-action {
@@ -213,11 +229,19 @@ if (!function_exists('admin_url')) {
             background-color: var(--color-success);
             color: var(--color-white);
         }
+        .btn-action-secondary {
+            background-color: var(--color-primary-light);
+            color: var(--color-white);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
         .btn-action-edit:hover,
         .btn-action-delete:hover,
-        .btn-action-approve:hover {
+        .btn-action-approve:hover,
+        .btn-action-secondary:hover {
             opacity: 0.9;
             transform: translateY(-1px);
+            color: var(--color-white);
         }
         .alert-admin {
             padding: var(--space-md) var(--space-lg);
@@ -250,21 +274,21 @@ if (!function_exists('admin_url')) {
             
             <ul class="sidebar-menu">
                 <li class="sidebar-item <?php echo $current_script === 'index.php' ? 'active' : ''; ?>">
-                    <a href="<?php echo admin_url('/'); ?>">📊 Dashboard</a>
+                    <a href="<?php echo admin_url('/'); ?>"><i class="hgi-stroke hgi-dashboard-square-01 sidebar-icon"></i>Dashboard</a>
                 </li>
                 <li class="sidebar-item <?php echo $current_script === 'bookings.php' ? 'active' : ''; ?>">
-                    <a href="<?php echo admin_url('/bookings.php'); ?>">📅 Bookings</a>
+                    <a href="<?php echo admin_url('/bookings.php'); ?>"><i class="hgi-stroke hgi-calendar-01 sidebar-icon"></i>Bookings</a>
                 </li>
                 <li class="sidebar-item <?php echo $current_script === 'blogs.php' ? 'active' : ''; ?>">
-                    <a href="<?php echo admin_url('/blogs.php'); ?>">✍️ Manage Blogs</a>
+                    <a href="<?php echo admin_url('/blogs.php'); ?>"><i class="hgi-stroke hgi-pencil-edit-01 sidebar-icon"></i>Manage Blogs</a>
                 </li>
                 <li class="sidebar-item <?php echo $current_script === 'inquiries.php' ? 'active' : ''; ?>">
-                    <a href="<?php echo admin_url('/inquiries.php'); ?>">✉️ Inquiries</a>
+                    <a href="<?php echo admin_url('/inquiries.php'); ?>"><i class="hgi-stroke hgi-mail-01 sidebar-icon"></i>Inquiries</a>
                 </li>
             </ul>
             
             <div class="sidebar-footer">
-                <a href="<?php echo admin_url('/logout.php'); ?>" class="sidebar-logout">🚪 Log Out</a>
+                <a href="<?php echo admin_url('/logout.php'); ?>" class="sidebar-logout"><i class="hgi-stroke hgi-logout-01 sidebar-icon"></i>Log Out</a>
             </div>
         </aside>
         <?php endif; ?>

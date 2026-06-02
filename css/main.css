@@ -19,6 +19,7 @@
     --color-success: #10b981;
     --color-error: #ef4444;
     --color-white: #ffffff;
+    --color-blue: #0084f7;
     
     /* Typography Font Families */
     --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -126,7 +127,7 @@ img {
 
 .text-center { text-align: center; }
 .text-accent { color: var(--color-accent); }
-.text-serif { font-family: var(--font-serif); }
+.text-serif, .font-serif { font-family: var(--font-serif); }
 .text-muted { color: var(--color-text-muted); }
 
 .flex-center {

@@ -59,7 +59,7 @@ if ($action === 'list') {
 
 <!-- VIEW STATE: Detailed Inquiry View -->
 <?php if ($action === 'view' && $view_inquiry): ?>
-    <div class="admin-form-panel" style="max-width: 600px;">
+    <div class="admin-form-panel" style="max-width: 900px; width: 100%;">
         <h3 style="margin-bottom: var(--space-lg); color: var(--color-primary);">Inquiry Message details</h3>
         
         <table class="admin-table" style="margin-bottom: var(--space-lg);">
@@ -93,10 +93,10 @@ if ($action === 'list') {
             </tr>
         </table>
         
-        <div style="display: flex; gap: var(--space-sm);">
-            <a href="mailto:<?php echo htmlspecialchars($view_inquiry['email']); ?>?subject=Re: <?php echo urlencode($view_inquiry['subject']); ?>" class="btn-action btn-action-approve" style="padding: 0.65rem 1.25rem; font-size: 0.9rem;">📨 Reply via Email</a>
-            <a href="<?php echo admin_url('/inquiries.php?action=delete&id=' . $view_inquiry['id']); ?>" class="btn-action btn-action-delete" style="padding: 0.65rem 1.25rem; font-size: 0.9rem;" onclick="return confirm('Are you sure you want to delete this message?');">🗑️ Delete message</a>
-            <a href="<?php echo admin_url('/inquiries.php'); ?>" class="btn btn-secondary">Back to List</a>
+        <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
+            <a href="mailto:<?php echo htmlspecialchars($view_inquiry['email']); ?>?subject=Re: <?php echo urlencode($view_inquiry['subject']); ?>" class="btn-action btn-action-approve" style="padding: 0.65rem 1.25rem; font-size: 0.9rem; white-space: nowrap;"><i class="hgi-stroke hgi-mail-01"></i> Reply via Email</a>
+            <a href="<?php echo admin_url('/inquiries.php?action=delete&id=' . $view_inquiry['id']); ?>" class="btn-action btn-action-delete" style="padding: 0.65rem 1.25rem; font-size: 0.9rem; white-space: nowrap;" onclick="return confirm('Are you sure you want to delete this message?');"><i class="hgi-stroke hgi-delete-02"></i> Delete message</a>
+            <a href="<?php echo admin_url('/inquiries.php'); ?>" class="btn-action btn-action-secondary" style="padding: 0.65rem 1.25rem; font-size: 0.9rem; white-space: nowrap;"><i class="hgi-stroke hgi-arrow-left-01"></i> Back to List</a>
         </div>
     </div>
 
@@ -129,8 +129,8 @@ if ($action === 'list') {
                             <td><strong><?php echo htmlspecialchars($inquiry['subject']); ?></strong></td>
                             <td><?php echo date('M d, Y - h:i A', strtotime($inquiry['created_at'])); ?></td>
                             <td>
-                                <a href="<?php echo admin_url('/inquiries.php?action=view&id=' . $inquiry['id']); ?>" class="btn-action btn-action-edit">🔍 View</a>
-                                <a href="<?php echo admin_url('/inquiries.php?action=delete&id=' . $inquiry['id']); ?>" class="btn-action btn-action-delete" onclick="return confirm('Confirm permanent deletion of this message?');">🗑️ Delete</a>
+                                <a href="<?php echo admin_url('/inquiries.php?action=view&id=' . $inquiry['id']); ?>" class="btn-action btn-action-edit" style="white-space: nowrap;"><i class="hgi-stroke hgi-search-01"></i> View</a>
+                                <a href="<?php echo admin_url('/inquiries.php?action=delete&id=' . $inquiry['id']); ?>" class="btn-action btn-action-delete" style="white-space: nowrap;" onclick="return confirm('Confirm permanent deletion of this message?');"><i class="hgi-stroke hgi-delete-02"></i> Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

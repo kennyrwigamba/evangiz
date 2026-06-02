@@ -107,6 +107,10 @@
     display: none; /* Hidden on desktop */
 }
 
+.mobile-menu-brand {
+    display: none; /* Hidden on desktop */
+}
+
 .navbar-logo-desktop-wrapper {
     position: absolute;
     left: 50%;
@@ -311,6 +315,8 @@
 
     .navbar-logo-mobile {
         display: flex;
+        align-items: center;
+        gap: var(--space-sm);
     }
     
     .navbar-logo-mobile img {
@@ -320,6 +326,14 @@
         border-radius: 50%;
         background-color: var(--color-white);
         border: 2px solid var(--color-accent);
+    }
+
+    .mobile-logo-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-primary);
+        letter-spacing: -0.01em;
+        font-family: var(--font-serif);
     }
     
     .navbar-logo-desktop-wrapper {
@@ -347,6 +361,26 @@
     
     .navbar-menu.active {
         right: 0;
+    }
+
+    .mobile-menu-brand {
+        display: block;
+        margin-bottom: var(--space-md);
+        padding-bottom: var(--space-sm);
+        border-bottom: 1px solid var(--color-border);
+    }
+    
+    .mobile-menu-logo {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-primary);
+        letter-spacing: -0.02em;
+        transition: var(--transition-fast);
+        display: inline-block;
+    }
+    
+    .mobile-menu-logo:hover {
+        color: var(--color-accent);
     }
     
     .nav-list {
@@ -466,7 +500,7 @@
 
 /* 5. Footer Layout Styles */
 .footer-wrapper {
-    background-color: var(--color-primary);
+    background-color: var(--color-blue);
     color: var(--color-text-light);
     padding: var(--space-xxl) 0 0;
     margin-top: auto;
@@ -503,13 +537,12 @@
 .social-link {
     width: 36px;
     height: 36px;
-    background-color: var(--color-primary-light);
     color: var(--color-text-light);
     border-radius: var(--radius-round);
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .social-link:hover {
