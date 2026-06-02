@@ -1,0 +1,599 @@
+<?php
+/**
+ * Evangiz Restaurant - Contact Us page & Form Handlers
+ */
+
+// 1. PHP Form Submission Controller
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $form_type = $_POST['form_type'] ?? 'contact';
+    $name = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $phone = trim($_POST['phone'] ?? '');
+    $subject = trim($_POST['subject'] ?? '');
+    $message = trim($_POST['message'] ?? '');
+    
+    // Default values for general inquiries to match the new minimalist layout
+    if ($form_type === 'contact') {
+        if (empty($phone)) $phone = 'N/A';
+        if (empty($subject)) $subject = 'General Inquiry';
+    }
+    
+    $booking_date = $_POST['booking_date'] ?? '';
+    $booking_time = $_POST['booking_time'] ?? '';
+    $guests = intval($_POST['guests'] ?? 0);
+    
+    $errors = [];
+    if (empty($name)) $errors[] = "Full Name is required.";
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "A valid Email Address is required.";
+    if (empty($phone)) $errors[] = "Phone Number is required.";
+    
+    if ($form_type === 'booking') {
+        if (empty($booking_date)) $errors[] = "Booking Date is required.";
+        if (empty($booking_time)) $errors[] = "Booking Time is required.";
+        if ($guests <= 0) $errors[] = "Guests count must be at least 1.";
+    } else {
+        if (empty($subject)) $errors[] = "Subject is required.";
+        if (empty($message)) $errors[] = "Message body is required.";
+    }
+    
+    // Check if AJAX submit
+    $is_ajax = (!empty($_SERVER['HTTP_X_REQUEST_WITH']) && strtolower($_SERVER['HTTP_X_REQUEST_WITH']) === 'xmlhttprequest') || isset($_POST['ajax_submit']);
+    
+    if (!empty($errors)) {
+        $err_msg = implode(" ", $errors);
+        if ($is_ajax) {
+            echo json_encode(['status' => 'error', 'message' => $err_msg]);
+            exit;
+        } else {
+            header("Location: " . url('/contact?status=error&msg=' . urlencode($err_msg)));
+            exit;
+        }
+    }
+    
+    try {
+        if ($form_type === 'booking') {
+            // Save to bookings table
+            $stmt = $conn->prepare("INSERT INTO bookings (name, email, phone, booking_date, booking_time, guests, subject, message, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Pending')");
+            $stmt->execute([$name, $email, $phone, $booking_date, $booking_time, $guests, $subject ?: 'Table Booking', $message]);
+            $success_message = "Your table reservation request was logged successfully! We will contact you soon.";
+        } else {
+            // Save to contacts table
+            $stmt = $conn->prepare("INSERT INTO contacts (name, email, phone, subject, message) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$name, $email, $phone, $subject, $message]);
+            $success_message = "Your contact inquiry message has been submitted successfully!";
+        }
+        
+        // 2. Email Transmission Dispatch (HTML layout template)
+        $to = CONTACT_RECEIVER_EMAIL;
+        $mail_subject = "Evangiz Web Submission: " . ($form_type === 'booking' ? "New Table Booking" : "New Contact Inquiry");
+        
+        $mail_content = "
+        <html>
+        <head>
+            <title>{$mail_subject}</title>
+            <style>
+                body { font-family: Arial, sans-serif; color: #2c323f; line-height: 1.6; }
+                .email-card { max-width: 600px; margin: 20px auto; border: 1px solid #ebdcd0; border-radius: 0px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+                .email-header { background-color: #0b1325; color: #ffffff; padding: 20px; text-align: center; }
+                .email-body { padding: 30px; background-color: #fcf9f5; }
+                .email-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+                .email-table th, .email-table td { padding: 12px; border-bottom: 1px solid #ebdcd0; text-align: left; }
+                .email-table th { color: #0b1325; font-weight: bold; width: 30%; }
+            </style>
+        </head>
+        <body>
+            <div class='email-card'>
+                <div class='email-header'>
+                    <h2>{$mail_subject}</h2>
+                </div>
+                <div class='email-body'>
+                    <p>You have received a new inquiry from the Evangiz Restaurant website:</p>
+                    <table class='email-table'>
+                        <tr><th>Sender Name</th><td>" . htmlspecialchars($name) . "</td></tr>
+                        <tr><th>Email Address</th><td>" . htmlspecialchars($email) . "</td></tr>
+                        <tr><th>Phone Number</th><td>" . htmlspecialchars($phone) . "</td></tr>";
+                        
+        if ($form_type === 'booking') {
+            $mail_content .= "
+                        <tr><th>Booking Date</th><td>" . htmlspecialchars($booking_date) . "</td></tr>
+                        <tr><th>Booking Time</th><td>" . htmlspecialchars($booking_time) . "</td></tr>
+                        <tr><th>Total Guests</th><td>" . htmlspecialchars($guests) . "</td></tr>";
+        }
+        
+        $mail_content .= "
+                        <tr><th>Subject Option</th><td>" . htmlspecialchars($subject ?: 'Table Booking') . "</td></tr>
+                        <tr><th>Message Body</th><td>" . nl2br(htmlspecialchars($message)) . "</td></tr>
+                    </table>
+                </div>
+            </div>
+        </body>
+        </html>";
+        
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= "From: " . CONTACT_SENDER_EMAIL . "\r\n";
+        $headers .= "Reply-To: " . $email . "\r\n";
+        
+        // Trigger mail delivery (ignore local setup SMTP failures gracefully)
+        @mail($to, $mail_subject, $mail_content, $headers);
+        
+        if ($is_ajax) {
+            echo json_encode(['status' => 'success', 'message' => $success_message]);
+            exit;
+        } else {
+            header("Location: " . url('/contact?status=success&msg=' . urlencode($success_message)));
+            exit;
+        }
+        
+    } catch (PDOException $e) {
+        $db_err = "System Error: Failed to save details. " . $e->getMessage();
+        if ($is_ajax) {
+            echo json_encode(['status' => 'error', 'message' => $db_err]);
+            exit;
+        } else {
+            header("Location: " . url('/contact?status=error&msg=' . urlencode($db_err)));
+            exit;
+        }
+    }
+}
+
+// 3. Status messages formatting indicators for non-AJAX fallbacks
+$status = $_GET['status'] ?? null;
+$status_msg = $_GET['msg'] ?? '';
+?>
+
+<!-- Page Header -->
+<section class="page-header" style="background-image: url('<?php echo url("/image/page-header/page-contact.jpg"); ?>');">
+    <div class="container">
+        <h1 class="animate-fade-in">Connect With Evangiz</h1>
+        <div class="breadcrumb animate-fade-in delay-100">
+            <a href="<?php echo url('/'); ?>">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Contact Us</span>
+        </div>
+    </div>
+</section>
+
+<!-- Content Block -->
+<section class="section contact-section">
+    <div class="container">
+        
+        <!-- Display Status Alert if POST fallback redirects here -->
+        <?php if ($status): ?>
+            <div class="form-status-alert alert-<?php echo $status === 'success' ? 'success' : 'error'; ?>" style="display: block; margin-bottom: var(--space-lg);">
+                <strong><?php echo $status === 'success' ? 'Success!' : 'Error:'; ?></strong> <?php echo htmlspecialchars($status_msg); ?>
+            </div>
+        <?php endif; ?>
+
+        <div class="grid-2 contact-grid">
+            <!-- Column 1: Details & Address -->
+            <div class="contact-info-column animate-scroll-reveal reveal-left">
+                <h2 class="contact-main-heading">Just Drop A Line!</h2>
+                <p class="contact-lead-desc">If you have any questions or concerns, just write a question and we will reply you within 24 hours, we are always welcome.</p>
+                
+                <!-- Orange wave divider -->
+                <div class="menu-title-wave" style="margin-bottom: var(--space-lg); margin-top: var(--space-sm);"></div>
+                
+                <div class="grid-2 contact-subgrid" style="gap: var(--space-md) var(--space-lg); margin-bottom: var(--space-lg); margin-top: var(--space-lg);">
+                    <div class="info-block">
+                        <h4 class="info-block-title">OUR LOCATION</h4>
+                        <p class="info-block-text">Lubowa, Entebbe Road<br>(opposite Roofings)</p>
+                    </div>
+                    <div class="info-block">
+                        <h4 class="info-block-title">OPENING HOURS</h4>
+                        <p class="info-block-text">
+                            Mon - Fri : 9:00am - 22:00pm,<br>
+                            Sat - Sun: 11:00am - 23:00pm<br>
+                            Happy hour: 17:00pm - 21:00pm<br>
+                            Holidays: Closed
+                        </p>
+                    </div>
+                </div>
+
+                <div class="contact-links-box" style="margin-bottom: var(--space-lg);">
+                    <p class="contact-link-item">Mail: <a href="mailto:info@evangiz.com" class="text-serif" style="color: var(--color-primary); font-weight: 500;">info@evangiz.com</a></p>
+                    <p class="contact-link-item">Call to reserve a table: <a href="tel:+256705183818" style="color: var(--color-primary); font-weight: 500;">+256-705183818</a> / <a href="tel:+256784618282" style="color: var(--color-primary); font-weight: 500;">+256-784618282</a></p>
+                </div>
+
+                <!-- Social links circle badges -->
+                <div class="contact-social-row">
+                    <a href="#" aria-label="Facebook" class="contact-social-circle">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                    <a href="mailto:info@evangiz.com" aria-label="Mail" class="contact-social-circle">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </a>
+                    <a href="#" aria-label="Instagram" class="contact-social-circle">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Column 2: Interactive Input Forms -->
+            <div class="contact-forms-column animate-scroll-reveal reveal-right">
+                <!-- Tab Controls for Booking vs General Message -->
+                <div class="form-toggle-tabs">
+                    <button class="form-toggle-tab active" onclick="switchForm('contact-form-wrapper', this)">General Inquiry</button>
+                    <button class="form-toggle-tab" onclick="switchForm('booking-form-wrapper', this)" id="booking">Table Booking</button>
+                </div>
+
+                <!-- Form A: General Inquiry -->
+                <div class="form-panel-wrapper" id="contact-form-wrapper">
+                    <form action="<?php echo url('/contact'); ?>" method="POST" id="contact-form" class="clean-form" novalidate>
+                        <input type="hidden" name="form_type" value="contact">
+                        
+                        <div class="form-group">
+                            <label class="form-label">Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Name*" required>
+                            <span class="form-error-msg"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email*" required>
+                            <span class="form-error-msg"></span>
+                        </div>
+                        
+                        <!-- Hidden defaults for phone & subject to satisfy DB requirements -->
+                        <input type="hidden" name="phone" value="N/A">
+                        <input type="hidden" name="subject" value="General Inquiry">
+                        
+                        <div class="form-group">
+                            <label class="form-label">Write message</label>
+                            <textarea name="message" class="form-control form-textarea" placeholder="Write message" rows="6" required></textarea>
+                            <span class="form-error-msg"></span>
+                        </div>
+                        
+                        <div class="form-action-row" style="margin-top: var(--space-md);">
+                            <button type="submit" class="btn-send-message">SEND A MESSAGE</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Form B: Table Reservation Booking -->
+                <div class="form-panel-wrapper" id="booking-form-wrapper" style="display: none;">
+                    <form action="<?php echo url('/contact'); ?>" method="POST" id="booking-form" class="clean-form" novalidate>
+                        <input type="hidden" name="form_type" value="booking">
+                        
+                        <div class="form-group">
+                            <label class="form-label">Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Name*" required>
+                            <span class="form-error-msg"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email*" required>
+                            <span class="form-error-msg"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" name="phone" class="form-control" placeholder="Phone Number*" required>
+                            <span class="form-error-msg"></span>
+                        </div>
+                        
+                        <div class="grid-2" style="gap: 0 var(--space-md);">
+                            <div class="form-group">
+                                <label class="form-label">Number of Guests</label>
+                                <input type="number" name="guests" class="form-control" placeholder="Guests (Number)*" min="1" required>
+                                <span class="form-error-msg"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Booking Date</label>
+                                <input type="date" name="booking_date" class="form-control" required>
+                                <span class="form-error-msg"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Booking Time</label>
+                            <input type="time" name="booking_time" class="form-control" required>
+                            <span class="form-error-msg"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Special Requests</label>
+                            <textarea name="message" class="form-control form-textarea" placeholder="Write message / Special requests (Optional)" rows="4"></textarea>
+                            <span class="form-error-msg"></span>
+                        </div>
+                        
+                        <div class="form-action-row" style="margin-top: var(--space-md);">
+                            <button type="submit" class="btn-send-message">CONFIRM BOOKING</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Google Map Section at the bottom -->
+        <div class="contact-map-wrapper animate-scroll-reveal" style="margin-top: var(--space-xl);">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.782173338572!2d32.556929!3d0.243892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177d976cf2f407a3%3A0xe1e781134847204c!2sEvangiz%20Restaurant!5e0!3m2!1sen!2srw!4v1780362147943!5m2!1sen!2srw" width="100%" height="450" style="border:0; display: block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</section>
+
+<!-- Script for switching local forms views -->
+<script>
+function switchForm(formId, tabEl) {
+    // Hide all forms
+    document.getElementById('contact-form-wrapper').style.display = 'none';
+    document.getElementById('booking-form-wrapper').style.display = 'none';
+    
+    // Deactivate tabs
+    const tabs = document.querySelectorAll('.form-toggle-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+    
+    // Show active form & set tab active
+    document.getElementById(formId).style.display = 'block';
+    tabEl.classList.add('active');
+}
+
+// Auto activate booking tab on URL hash match
+window.addEventListener('DOMContentLoaded', () => {
+    if (window.location.hash === '#booking' || window.location.hash === '#catering-inquiry') {
+        const bookingTab = document.getElementById('booking');
+        if (bookingTab) {
+            bookingTab.click();
+        }
+    }
+});
+</script>
+
+<!-- Inline styles for Contact Page -->
+<style>
+/* Styling for Contact Page to match design mockup */
+.contact-main-heading {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--color-primary);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.contact-lead-desc {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+}
+
+.contact-subgrid {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.info-block-title {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: var(--space-xs);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.info-block-text {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 0;
+}
+
+.contact-link-item {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+}
+
+.contact-link-item a {
+    transition: var(--transition-fast);
+}
+
+.contact-link-item a:hover {
+    color: var(--color-accent) !important;
+}
+
+.contact-social-row {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+}
+
+.contact-social-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e9f0f8;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+}
+
+.contact-social-circle:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-3px);
+}
+
+/* Tabs */
+.form-toggle-tabs {
+    display: flex;
+    border-bottom: 2px solid var(--color-border);
+    margin-bottom: var(--space-lg);
+    gap: var(--space-md);
+}
+
+.form-toggle-tab {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    padding: var(--space-sm) 0;
+    position: relative;
+    transition: var(--transition-fast);
+    text-transform: uppercase;
+}
+
+.form-toggle-tab.active {
+    color: var(--color-primary);
+}
+
+.form-toggle-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: var(--transition-fast);
+}
+
+.form-toggle-tab.active::after {
+    width: 100%;
+}
+
+/* Forms */
+.form-panel-wrapper {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.clean-form .form-group {
+    margin-bottom: var(--space-md);
+    position: relative;
+}
+
+.clean-form label.form-label {
+    display: none !important; /* Hide labels visually, but keep in DOM for JS validation */
+}
+
+.clean-form .form-control {
+    width: 100%;
+    padding: 1.1rem 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    color: var(--color-primary);
+    outline: none;
+    transition: var(--transition-fast);
+    box-shadow: none !important;
+}
+
+.clean-form .form-control:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(231, 86, 42, 0.08) !important;
+}
+
+.clean-form .form-control.is-invalid {
+    border-color: var(--color-error);
+}
+
+.clean-form .form-control::placeholder {
+    color: #999;
+}
+
+.clean-form .form-textarea {
+    resize: vertical;
+    min-height: 180px;
+}
+
+.clean-form .form-error-msg {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-error);
+    margin-top: 0.25rem;
+    font-family: var(--font-heading);
+}
+
+/* Outline Send Message Button */
+.btn-send-message {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.95rem 2.25rem;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #007bff; /* Royal blue */
+    border: 1.5px solid #007bff;
+    background: transparent;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    border-radius: 0;
+}
+
+.btn-send-message:hover {
+    background-color: #007bff;
+    color: var(--color-white);
+}
+
+.btn-send-message:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Alert Boxes */
+.form-status-alert {
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    margin-bottom: var(--space-lg);
+    display: none;
+    font-family: var(--font-heading);
+}
+
+.alert-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.alert-error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+.btn-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(0, 123, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #007bff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: var(--space-xs);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Map Wrapper */
+.contact-map-wrapper {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+}
+</style>

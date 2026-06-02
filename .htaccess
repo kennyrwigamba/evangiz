@@ -1,0 +1,26 @@
+# Evangiz Restaurant Rewrite Rules & Security Configuration
+
+# Enable rewrite engine
+RewriteEngine On
+
+# Block direct access to database files
+<FilesMatch "\.(sqlite|db|sql)$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Block direct access to config.php
+<Files config.php>
+    Order deny,allow
+    Deny from all
+</Files>
+
+# Disable directory browsing
+Options -Indexes
+
+# If requested path is not a physical file
+RewriteCond %{REQUEST_FILENAME} !-f
+# And is not a physical directory
+RewriteCond %{REQUEST_FILENAME} !-d
+# Rewrite request silently to index.php
+RewriteRule ^(.*)$ index.php [QSA,L]
