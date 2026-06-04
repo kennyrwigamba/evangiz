@@ -1,26 +1,37 @@
-# Evangiz Restaurant Rewrite Rules & Security Configuration
+    # Evangiz Restaurant Rewrite Rules & Security Configuration
 
-# Enable rewrite engine
-RewriteEngine On
+    # Make sure Apache serves index.php for folder requests.
+    DirectoryIndex index.php
 
-# Block direct access to database files
-<FilesMatch "\.(sqlite|db|sql)$">
-    Order deny,allow
-    Deny from all
-</FilesMatch>
+    # Disable directory browsing and MultiViews (can interfere with clean URLs).
+    Options -Indexes -MultiViews
 
-# Block direct access to config.php
-<Files config.php>
-    Order deny,allow
-    Deny from all
-</Files>
+    # Enable rewrite engine and define the install base.
+    RewriteEngine On
+    RewriteBase /
 
-# Disable directory browsing
-Options -Indexes
+    # Never rewrite the front controller itself.
+    RewriteRule ^index\.php$ - [L]
 
-# If requested path is not a physical file
-RewriteCond %{REQUEST_FILENAME} !-f
-# And is not a physical directory
-RewriteCond %{REQUEST_FILENAME} !-d
-# Rewrite request silently to index.php
-RewriteRule ^(.*)$ index.php [QSA,L]
+    # Allow existing files and directories to pass through untouched.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Route all other requests to the front controller.
+    RewriteRule ^ index.php [QSA,L]
+
+    # Fallback for Apache setups where mod_rewrite is unavailable but FallbackResource is enabled.
+    FallbackResource /index.php
+
+    # Block direct access to database files
+    <FilesMatch "\.(sql)$">
+        Order deny,allow
+        Deny from all
+    </FilesMatch>
+
+    # Block direct access to config.php
+    <Files config.php>
+        Order deny,allow
+        Deny from all
+    </Files>
