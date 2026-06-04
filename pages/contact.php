@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($errors)) {
         $err_msg = implode(" ", $errors);
         if ($is_ajax) {
+            header('Content-Type: application/json');
+            http_response_code(400);
             echo json_encode(['status' => 'error', 'message' => $err_msg]);
             exit;
         } else {
@@ -118,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         @mail($to, $mail_subject, $mail_content, $headers);
         
         if ($is_ajax) {
+            header('Content-Type: application/json');
             echo json_encode(['status' => 'success', 'message' => $success_message]);
             exit;
         } else {
@@ -128,6 +131,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } catch (PDOException $e) {
         $db_err = "System Error: Failed to save details. " . $e->getMessage();
         if ($is_ajax) {
+            header('Content-Type: application/json');
+            http_response_code(500);
             echo json_encode(['status' => 'error', 'message' => $db_err]);
             exit;
         } else {
@@ -140,19 +145,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // 3. Status messages formatting indicators for non-AJAX fallbacks
 $status = $_GET['status'] ?? null;
 $status_msg = $_GET['msg'] ?? '';
-?>
 
-<!-- Page Header -->
-<section class="page-header" style="background-image: url('<?php echo url("/image/page-header/page-contact.jpg"); ?>');">
-    <div class="container">
-        <h1 class="animate-fade-in">Connect With Evangiz</h1>
-        <div class="breadcrumb animate-fade-in delay-100">
-            <a href="<?php echo url('/'); ?>">Home</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">Contact Us</span>
-        </div>
-    </div>
-</section>
+$page_header_title = 'Connect With Evangiz';
+$page_header_image = '/image/page-header/page-contact.jpg';
+$page_header_breadcrumbs = [
+    ['label' => 'Home', 'href' => url('/')],
+    ['label' => 'Contact Us'],
+];
+
+include __DIR__ . '/../includes/page-header.php';
+?>
 
 <!-- Content Block -->
 <section class="section contact-section">

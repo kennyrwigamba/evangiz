@@ -2,27 +2,113 @@
 /**
  * Evangiz Restaurant - Homepage
  */
+
+// Fetch active categories and menu items from database
+try {
+    $categories_stmt = $conn->query("SELECT * FROM categories ORDER BY sort_order ASC");
+    $categories = $categories_stmt->fetchAll();
+    
+    // Fetch all active menu items
+    $menu_items_stmt = $conn->query("SELECT m.*, c.slug as category_slug FROM menu_items m JOIN categories c ON m.category_id = c.id WHERE m.is_active = 1 ORDER BY m.sort_order ASC");
+    $all_menu_items = $menu_items_stmt->fetchAll();
+    
+    // Group menu items by category slug
+    $menu_by_category = [];
+    foreach ($categories as $cat) {
+        $menu_by_category[$cat['slug']] = [];
+    }
+    foreach ($all_menu_items as $item) {
+        $menu_by_category[$item['category_slug']][] = $item;
+    }
+} catch (PDOException $e) {
+    $categories = [];
+    $menu_by_category = [];
+}
 ?>
 
 <!-- Hero Slider Section -->
 <section class="hero-section">
+    <?php
+    $hero_slides = [
+        '/image/page-header/page-header_1.jpg',
+        '/image/page-header/page-header_2.jpg',
+        '/image/page-header/page-header_3.jpg',
+        '/image/page-header/page-header_4.jpg',
+        '/image/page-header/page-header_5.jpg',
+    ];
+    ?>
+    <div class="hero-slider" aria-hidden="true">
+        <?php foreach ($hero_slides as $index => $slide): ?>
+            <div class="hero-slide <?php echo $index === 0 ? 'active' : ''; ?>" style="background-image: url('<?php echo url($slide); ?>');"></div>
+        <?php endforeach; ?>
+    </div>
     <div class="hero-bg-overlay"></div>
     <div class="container hero-container text-center">
         <div class="hero-content animate-slide-up">
             <h1 class="hero-title">
-                <span class="text-serif">A Taste You’ll Remember</span><br>
-                <span class="text-serif text-accent font-italic">Where Every Flavor Tells A Story!</span>
+                <span>A Taste You’ll Remember</span><br>
+                <span class="text-accent font-italic">Where Every Flavor Tells A Story!</span>
             </h1>
             <p class="hero-lead text-muted">
                 Experience high-quality, delicious, and affordable local Ugandan staples & fast foods in Lubowa.
             </p>
             <div class="hero-ctas">
                 <?php echo render_button('View Our Menu', url('/menu'), 'primary'); ?>
+                <?php echo render_button('Book Now', url('/contact#booking'), 'white'); ?>
             </div>
         </div>
     </div>
-    <!-- Curved Wave Divider -->
-    <div class="hero-waves"></div>
+    <div class="hero-slider-controls" aria-hidden="true">
+        <div class="hero-slider-dots">
+            <?php foreach ($hero_slides as $index => $slide): ?>
+                <button class="hero-slider-dot <?php echo $index === 0 ? 'active' : ''; ?>" type="button" aria-label="Go to hero slide <?php echo $index + 1; ?>" data-slide="<?php echo $index; ?>"></button>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <!-- Brush Stroke Divider -->
+    <div class="custom-shape-divider-bottom" aria-hidden="true">
+        <svg viewBox="0 0 1200 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0,30 C80,18 160,38 240,28 C320,18 380,42 460,32 C560,20 620,36 700,26 C780,16 860,40 940,30 C1020,20 1100,38 1200,24 L1200,50 L0,50 Z" class="shape-fill" opacity="0.7"></path>
+            <path d="M0,34 C100,22 200,42 300,30 C420,16 500,44 600,30 C720,14 820,44 920,32 C1020,22 1120,40 1200,28 L1200,50 L0,50 Z" class="shape-fill"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- Quick Menu Promo Cards -->
+<section class="section promo-grid-section" style="padding: var(--space-xl) 0 var(--space-md); background-color: var(--color-bg-warm);">
+    <div class="container">
+        <div class="grid-3 menu-promo-grid">
+            <!-- Card 1: Special Menu -->
+            <a href="<?php echo url('/menu#fast-foods'); ?>" class="menu-promo-card animate-scroll-reveal">
+                <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/pizza.jpg"); ?>');"></div>
+                <div class="promo-card-overlay"></div>
+                <div class="promo-card-content">
+                    <span class="promo-subtitle">Can not be ignored</span>
+                    <h3 class="promo-title">Special Menu</h3>
+                </div>
+            </a>
+            
+            <!-- Card 2: Seasonal Food -->
+            <a href="<?php echo url('/menu#local-dishes'); ?>" class="menu-promo-card animate-scroll-reveal">
+                <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/special.jpg"); ?>');"></div>
+                <div class="promo-card-overlay"></div>
+                <div class="promo-card-content">
+                    <span class="promo-subtitle">Enjoy on occasion</span>
+                    <h3 class="promo-title">Seasonal Food</h3>
+                </div>
+            </a>
+            
+            <!-- Card 3: Soft Drinks -->
+            <a href="<?php echo url('/menu#drinks'); ?>" class="menu-promo-card animate-scroll-reveal">
+                <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/drink.jpg"); ?>');"></div>
+                <div class="promo-card-overlay"></div>
+                <div class="promo-card-content">
+                    <span class="promo-subtitle">New experience</span>
+                    <h3 class="promo-title">Soft Drinks</h3>
+                </div>
+            </a>
+        </div>
+    </div>
 </section>
 
 <!-- Slogan & Welcome Section -->
@@ -163,107 +249,72 @@
                 <?php echo render_button('View Menu', url('/menu'), 'outline', 'btn-view-menu'); ?>
             </div>
         </div>
-        
-        <!-- Promo Cards Grid -->
-        <div class="grid-3 menu-promo-grid" style="margin-top: var(--space-xl); margin-bottom: var(--space-xl);">
-            <!-- Card 1: Special Menu -->
-            <div class="menu-promo-card animate-scroll-reveal">
-                <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/pizza.jpg"); ?>');"></div>
-                <div class="promo-card-overlay"></div>
-                <div class="promo-card-content">
-                    <span class="promo-subtitle">Can not be ignored</span>
-                    <h3 class="promo-title">Special Menu</h3>
-                </div>
-            </div>
-            
-            <!-- Card 2: Seasonal Food -->
-            <div class="menu-promo-card animate-scroll-reveal">
-                <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/special.jpg"); ?>');"></div>
-                <div class="promo-card-overlay"></div>
-                <div class="promo-card-content">
-                    <span class="promo-subtitle">Enjoy on occasion</span>
-                    <h3 class="promo-title">Seasonal Food</h3>
-                </div>
-            </div>
-            
-            <!-- Card 3: Wine List -->
-            <div class="menu-promo-card animate-scroll-reveal">
-                <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/drink.jpg"); ?>');"></div>
-                <div class="promo-card-overlay"></div>
-                <div class="promo-card-content">
-                    <span class="promo-subtitle">New experience</span>
-                    <h3 class="promo-title">Soft Drinks</h3>
-                </div>
-            </div>
-        </div>
 
         <!-- Interactive Category Tabs -->
         <div class="menu-tabs-container animate-scroll-reveal" style="margin-bottom: var(--space-xl);">
-            <button class="menu-tab active" data-category="fast-foods">Fast Foods</button>
-            <button class="menu-tab" data-category="local-dishes">Local Dishes</button>
-            <button class="menu-tab" data-category="snacks">Light Meals & Snacks</button>
-            <button class="menu-tab" data-category="drinks">Soft Drinks</button>
+            <?php $is_first = true; ?>
+            <?php foreach ($categories as $cat): ?>
+                <button class="menu-tab <?php echo $is_first ? 'active' : ''; ?>" data-category="<?php echo htmlspecialchars($cat['slug']); ?>">
+                    <?php echo htmlspecialchars($cat['name']); ?>
+                </button>
+                <?php $is_first = false; ?>
+            <?php endforeach; ?>
         </div>
 
         <!-- Menu Listings Sheets -->
         <div class="menu-listings-wrapper">
-            
-            <!-- Category: Fast Foods -->
-            <div class="menu-section" id="category-fast-foods">
-                <div class="grid-2 text-left stagger-container">
-                    <?php
-                    echo render_food_item('Classic Beef Burger', 15000, 'Beef patty, lettuce, tomato, house sauce', ['Fast Foods']);
-                    echo render_food_item('Beef Burger (Double)', 22000, 'Double beef, cheese, pickles', ['Fast Foods']);
-                    echo render_food_item('Chicken Burger', 12000, 'Crispy chicken, mayo, lettuce', ['Fast Foods']);
-                    echo render_food_item('Chicken Wings (6 pcs)', 14000, 'Spicy house wings', ['Fast Foods']);
-                    echo render_food_item('French Fries', 6000, 'Crispy salted fries', ['Fast Foods']);
-                    echo render_food_item('Onion Rings', 5000, 'Crispy beer-battered rings', ['Fast Foods']);
-                    echo render_food_item('Fried Chicken (3 pcs)', 18000, 'Golden fried chicken pieces', ['Fast Foods']);
-                    echo render_food_item('Grilled Chicken Sandwich', 11000, 'Grilled chicken, salad, sauce', ['Fast Foods']);
-                    echo render_food_item('Pizza Slice', 10000, 'Cheese & tomato slice', ['Fast Foods']);
-                    echo render_food_item('Veggie Burger', 10000, 'House vegetable patty', ['Fast Foods']);
-                    ?>
+            <?php $is_first = true; ?>
+            <?php foreach ($categories as $cat): ?>
+                <?php $cat_slug = $cat['slug']; ?>
+                <div class="menu-section" id="category-<?php echo htmlspecialchars($cat_slug); ?>" style="<?php echo $is_first ? '' : 'display: none;'; ?>">
+                    <div class="grid-2 text-left stagger-container">
+                        <?php
+                        if (isset($menu_by_category[$cat_slug])) {
+                            foreach ($menu_by_category[$cat_slug] as $item) {
+                                $tags = !empty($item['tags']) ? array_map('trim', explode(',', $item['tags'])) : [];
+                                echo render_food_item($item['name'], $item['price'], $item['description'], $tags);
+                            }
+                        }
+                        ?>
+                    </div>
                 </div>
-            </div>
+                <?php $is_first = false; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
 
-            <!-- Category: Local Dishes -->
-            <div class="menu-section" id="category-local-dishes" style="display: none;">
-                <div class="grid-2 text-left stagger-container">
-                    <?php
-                    echo render_food_item('Traditional Beef Luwombo', 22000, 'Slow-cooked beef stew prepared traditionally inside banana leaves with rich spices', ['Local Dishes']);
-                    echo render_food_item('Chicken Luwombo', 24000, 'Traditional local chicken stew steamed inside fresh banana leaves', ['Local Dishes']);
-                    echo render_food_item('Matooke & Groundnut Stew', 12000, 'Steamed and mashed plantain served with rich peanut/groundnut paste sauce', ['Local Dishes']);
-                    echo render_food_item('Fresh Whole Tilapia (Wet or Dry)', 25000, 'Local lake fish prepared to order, served with french fries or local foods', ['Local Dishes']);
-                    echo render_food_item('Evangiz Local Platter', 26000, 'Combination of Matooke, sweet potatoes, yams, posho, rice, and beans, served with beef stew', ['Local Dishes']);
-                    ?>
-                </div>
-            </div>
+<!-- Partners Logo Strip -->
+<section class="section partners-section">
+    <div class="container">
+        <div class="partners-header text-center animate-scroll-reveal">
+            <span class="section-label">Our Partners</span>
+            <h2 class="partners-title text-serif">Trusted by Organizations We Value</h2>
+        </div>
 
-            <!-- Category: Snacks -->
-            <div class="menu-section" id="category-snacks" style="display: none;">
-                <div class="grid-2 text-left stagger-container">
-                    <?php
-                    echo render_food_item('Ugandan Rolex (2 Eggs, 2 Chapatis)', 5000, 'Famous local street snack consisting of rolled fried eggs and vegetables inside chapati', ['Snacks']);
-                    echo render_food_item('Beef Samosas (3 pcs)', 4000, 'Crispy triangular pastry wrappers stuffed with spiced minced beef filling', ['Snacks']);
-                    echo render_food_item('Vegetable Spring Rolls (3 pcs)', 3000, 'Crispy rolls stuffed with seasoned fresh garden vegetables', ['Snacks']);
-                    echo render_food_item('Toasted Sandwich', 8000, 'Cheese and tomato, or ham and cheese fillings toasted to golden perfection', ['Snacks']);
-                    ?>
-                </div>
-            </div>
+        <?php
+        $partner_logos = [
+            '/image/partners/africa2trust.png',
+            '/image/partners/CAA-Uganda.png',
+            '/image/partners/ugandabaati.png',
+            '/image/partners/tecnovia.png',
+            '/image/partners/mastermindconsults.jpg',
+            '/image/partners/m-kopa.svg',
+            '/image/partners/fasttrack.png',
+            '/image/partners/eco-trust.png',
+        ];
+        ?>
 
-            <!-- Category: Soft Drinks -->
-            <div class="menu-section" id="category-drinks" style="display: none;">
-                <div class="grid-2 text-left stagger-container">
-                    <?php
-                    echo render_food_item('Fresh Passion Fruit Juice', 5000, 'Chilled freshly-squeezed organic passion fruit juice', ['Soft Drinks']);
-                    echo render_food_item('Spiced African Tea', 6000, 'Brewed hot milk tea infused with local ginger, tea leaves, and spices', ['Soft Drinks']);
-                    echo render_food_item('House Brewed Coffee', 7000, 'Brewed aromatic coffee made from premium Ugandan coffee beans', ['Soft Drinks']);
-                    echo render_food_item('Soda (350ml)', 3000, 'Chilled Coca Cola, Fanta, Sprite, or Stoney in classic glass bottles', ['Soft Drinks']);
-                    echo render_food_item('Mineral Water (500ml)', 2500, 'Bottled pure mineral drinking water served chilled or room temp', ['Soft Drinks']);
-                    ?>
-                </div>
+        <div class="partners-marquee animate-scroll-reveal" aria-label="Our partners logos">
+            <div class="partners-track">
+                <?php for ($i = 0; $i < 2; $i++): ?>
+                    <?php foreach ($partner_logos as $logo): ?>
+                        <div class="partner-logo-card">
+                            <img src="<?php echo url($logo); ?>" alt="Partner logo" loading="lazy">
+                        </div>
+                    <?php endforeach; ?>
+                <?php endfor; ?>
             </div>
-
         </div>
     </div>
 </section>
@@ -489,6 +540,57 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<!-- Hero Slider JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+    const heroDots = Array.from(document.querySelectorAll('.hero-slider-dot'));
+
+    if (!heroSlides.length || !heroDots.length) {
+        return;
+    }
+
+    let currentHeroSlide = 0;
+    let heroTimer = null;
+
+    const showHeroSlide = (index) => {
+        currentHeroSlide = (index + heroSlides.length) % heroSlides.length;
+
+        heroSlides.forEach((slide, slideIndex) => {
+            slide.classList.toggle('active', slideIndex === currentHeroSlide);
+        });
+
+        heroDots.forEach((dot, dotIndex) => {
+            dot.classList.toggle('active', dotIndex === currentHeroSlide);
+        });
+    };
+
+    const startHeroAutoplay = () => {
+        heroTimer = window.setInterval(() => {
+            showHeroSlide(currentHeroSlide + 1);
+        }, 5000);
+    };
+
+    const resetHeroAutoplay = () => {
+        if (heroTimer) {
+            window.clearInterval(heroTimer);
+        }
+
+        startHeroAutoplay();
+    };
+
+    heroDots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            showHeroSlide(Number(dot.dataset.slide || 0));
+            resetHeroAutoplay();
+        });
+    });
+
+    showHeroSlide(0);
+    startHeroAutoplay();
+});
+</script>
+
 
 <!-- Additional Homepage Styles inline for beautiful layout support -->
 <style>
@@ -496,30 +598,37 @@ document.addEventListener('DOMContentLoaded', () => {
 .hero-section {
     position: relative;
     padding: var(--space-xxl) 0;
-    min-height: 80vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--color-primary);
     color: var(--color-white);
-    background-image: url('<?php echo url("/image/page-header/slide-index-1.jpg"); ?>');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     overflow: hidden;
 }
 
-.hero-waves {
+.hero-slider {
     position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    background-color: var(--color-bg-warm);
-    z-index: 2;
-    -webkit-mask: url('<?php echo url("/image/item/page-title-wave.png"); ?>') repeat-x bottom / auto 20px;
-    mask: url('<?php echo url("/image/item/page-title-wave.png"); ?>') repeat-x bottom / auto 20px;
+    inset: 0;
+    z-index: 0;
 }
+
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 900ms ease, transform 4.5s ease;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
 
 .hero-bg-overlay {
     position: absolute;
@@ -547,6 +656,7 @@ document.addEventListener('DOMContentLoaded', () => {
 .hero-title {
     color: var(--color-white);
     margin-bottom: var(--space-lg);
+    font-family: var(--font-body);
 }
 
 .hero-lead {
@@ -562,10 +672,49 @@ document.addEventListener('DOMContentLoaded', () => {
     justify-content: center;
 }
 
+.hero-slider-controls {
+    position: absolute;
+    left: 0;
+    bottom: 46px;
+    width: 100%;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.hero-slider-dots {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hero-slider-dot {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.4);
+    transition: var(--transition-fast);
+}
+
+.hero-slider-dot.active {
+    width: 28px;
+    background: var(--color-accent);
+}
+
 @media (max-width: 576px) {
     .hero-ctas {
         flex-direction: column;
         align-items: center;
+    }
+
+    .hero-slider-controls {
+        bottom: 34px;
     }
 }
 
@@ -699,15 +848,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 .menu-promo-card {
     position: relative;
-    height: 380px;
+    height: 190px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
     box-shadow: var(--shadow-medium);
     transition: var(--transition-smooth);
     cursor: pointer;
+    text-decoration: none !important;
+}
+
+.menu-promo-card:hover {
+    text-decoration: none !important;
+}
+
+.menu-promo-card * {
+    text-decoration: none !important;
 }
 
 .promo-card-bg {
@@ -813,6 +971,96 @@ document.addEventListener('DOMContentLoaded', () => {
 
 .text-left {
     text-align: left;
+}
+.menu-preview-section .menu-section {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Partners Strip */
+.partners-section {
+    background-color: var(--color-bg-cream);
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    overflow: hidden;
+}
+
+.partners-header {
+    margin-bottom: var(--space-lg);
+}
+
+.partners-title {
+    margin-bottom: 0;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.partners-marquee {
+    position: relative;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+
+.partners-track {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+    width: max-content;
+    animation: partners-scroll 26s linear infinite;
+}
+
+.partner-logo-card {
+    flex: 0 0 auto;
+    min-width: 140px;
+    height: 74px;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    background: rgba(252, 249, 245, 0.7);
+    border: 1px solid rgba(235, 220, 208, 0.55);
+    box-shadow: var(--shadow-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.partner-logo-card img {
+    max-width: 110px;
+    max-height: 42px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: saturate(0.95);
+    transition: var(--transition-fast);
+}
+
+.partner-logo-card:hover img {
+    transform: scale(1.05);
+}
+
+@keyframes partners-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .partners-track {
+        gap: var(--space-md);
+        animation-duration: 18s;
+    }
+
+    .partner-logo-card {
+        min-width: 120px;
+        height: 68px;
+        padding: 0.6rem 0.85rem;
+    }
+
+    .partner-logo-card img {
+        max-width: 96px;
+        max-height: 36px;
+    }
 }
 
 /* Why Choose Us Section Styling */

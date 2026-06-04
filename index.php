@@ -23,6 +23,13 @@ if ($base_dir !== '/') {
 // Normalize trailing slashes (except root)
 $path = '/' . trim($path, '/');
 
+// Handle contact form submissions before rendering layout HTML.
+// This prevents "headers already sent" warnings and ensures AJAX gets pure JSON.
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $path === '/contact') {
+    include __DIR__ . '/pages/contact.php';
+    exit;
+}
+
 // Extract slugs for blog posts (e.g. /blog/post-slug -> route to blog-post page)
 $blog_slug = null;
 if (strpos($path, '/blog/') === 0 && strlen($path) > 6) {

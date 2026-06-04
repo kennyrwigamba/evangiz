@@ -2,19 +2,16 @@
 /**
  * Evangiz Restaurant - About Page
  */
-?>
 
-<!-- Page Header -->
-<section class="page-header" style="background-image: url('<?php echo url("/image/page-header/about-res.jpg"); ?>');">
-    <div class="container">
-        <h1 class="animate-fade-in">Our Culinary Story</h1>
-        <div class="breadcrumb animate-fade-in delay-100">
-            <a href="<?php echo url('/'); ?>">Home</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">About Us</span>
-        </div>
-    </div>
-</section>
+$page_header_title = 'Our Culinary Story';
+$page_header_image = '/image/page-header/about-res.jpg';
+$page_header_breadcrumbs = [
+    ['label' => 'Home', 'href' => url('/')],
+    ['label' => 'About Us'],
+];
+
+include __DIR__ . '/../includes/page-header.php';
+?>
 
 <!-- Brand Story Section -->
 <section class="section story-section">

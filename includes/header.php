@@ -23,10 +23,10 @@
     <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css">
     
     <!-- CSS Design System and Stylesheets -->
-    <link rel="stylesheet" href="<?php echo url('/css/main.css?v=1.1.0'); ?>">
-    <link rel="stylesheet" href="<?php echo url('/css/layout.css?v=1.1.0'); ?>">
-    <link rel="stylesheet" href="<?php echo url('/css/components.css?v=1.1.0'); ?>">
-    <link rel="stylesheet" href="<?php echo url('/css/animations.css?v=1.0.9'); ?>">
+    <link rel="stylesheet" href="<?php echo url('/css/main.css'); ?>">
+    <link rel="stylesheet" href="<?php echo url('/css/layout.css'); ?>">
+    <link rel="stylesheet" href="<?php echo url('/css/components.css'); ?>">
+    <link rel="stylesheet" href="<?php echo url('/css/animations.css'); ?>">
     
     <link rel="shortcut icon" href="<?php echo url('/image/logo/favicon.png'); ?>" type="image/x-icon">
 </head>

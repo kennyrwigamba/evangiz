@@ -36,6 +36,8 @@ if (!function_exists('admin_url')) {
     
     <link rel="stylesheet" href="<?php echo url('/css/main.css'); ?>">
     <link rel="stylesheet" href="<?php echo url('/css/components.css'); ?>">
+    <link rel="shortcut icon" href="<?php echo url('/image/logo/favicon.png'); ?>" type="image/x-icon">
+
     
     <!-- Admin Custom Layout Rules -->
     <style>
@@ -65,7 +67,7 @@ if (!function_exists('admin_url')) {
             z-index: 10;
         }
         .sidebar-brand {
-            padding: var(--space-lg);
+            padding: var(--space-md);
             font-size: 1.5rem;
             font-family: var(--font-heading);
             font-weight: 700;
@@ -111,7 +113,7 @@ if (!function_exists('admin_url')) {
         .admin-main {
             margin-left: var(--admin-sidebar-width);
             flex-grow: 1;
-            padding: var(--space-xl);
+            padding: var(--space-lg);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -269,7 +271,7 @@ if (!function_exists('admin_url')) {
         <!-- Admin Panel Navigation Sidebar -->
         <aside class="admin-sidebar">
             <div class="sidebar-brand">
-                Evangiz<span>.Admin</span>
+                Evangiz<span> Admin</span>
             </div>
             
             <ul class="sidebar-menu">
@@ -279,11 +281,20 @@ if (!function_exists('admin_url')) {
                 <li class="sidebar-item <?php echo $current_script === 'bookings.php' ? 'active' : ''; ?>">
                     <a href="<?php echo admin_url('/bookings.php'); ?>"><i class="hgi-stroke hgi-calendar-01 sidebar-icon"></i>Bookings</a>
                 </li>
+                <li class="sidebar-item <?php echo $current_script === 'menu.php' ? 'active' : ''; ?>">
+                    <a href="<?php echo admin_url('/menu.php'); ?>"><i class="hgi hgi-stroke hgi-rounded hgi-menu-02 sidebar-icon"></i>Manage Menu</a>
+                </li>
+                <li class="sidebar-item <?php echo $current_script === 'categories.php' ? 'active' : ''; ?>">
+                    <a href="<?php echo admin_url('/categories.php'); ?>"><i class="hgi hgi-stroke hgi-rounded hgi-dashboard-square-edit sidebar-icon"></i>Manage Categories</a>
+                </li>
                 <li class="sidebar-item <?php echo $current_script === 'blogs.php' ? 'active' : ''; ?>">
                     <a href="<?php echo admin_url('/blogs.php'); ?>"><i class="hgi-stroke hgi-pencil-edit-01 sidebar-icon"></i>Manage Blogs</a>
                 </li>
                 <li class="sidebar-item <?php echo $current_script === 'inquiries.php' ? 'active' : ''; ?>">
                     <a href="<?php echo admin_url('/inquiries.php'); ?>"><i class="hgi-stroke hgi-mail-01 sidebar-icon"></i>Inquiries</a>
+                </li>
+                <li class="sidebar-item <?php echo $current_script === 'settings.php' ? 'active' : ''; ?>">
+                    <a href="<?php echo admin_url('/settings.php'); ?>"><i class="hgi hgi-stroke hgi-rounded hgi-settings-01 sidebar-icon"></i>Settings</a>
                 </li>
             </ul>
             
@@ -303,8 +314,11 @@ if (!function_exists('admin_url')) {
                     switch ($current_script) {
                         case 'index.php': echo 'Dashboard Overview'; break;
                         case 'bookings.php': echo 'Table Bookings'; break;
+                        case 'menu.php': echo 'Manage Menu'; break;
+                        case 'categories.php': echo 'Manage Categories'; break;
                         case 'blogs.php': echo 'Manage Blogs'; break;
                         case 'inquiries.php': echo 'Contact Inquiries'; break;
+                        case 'settings.php': echo 'Account Settings'; break;
                         default: echo 'Admin Center';
                     }
                     ?>

@@ -4,6 +4,7 @@ This document outlines our strategy to rebuild the Evangiz Restaurant website fr
 
 ---
 
+
 ## 📁 Directory Structure
 ```
 evangiz/

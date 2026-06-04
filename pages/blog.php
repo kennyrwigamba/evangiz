@@ -3,6 +3,15 @@
  * Evangiz Restaurant - Blog Feed Page
  */
 
+$page_header_title = 'Evangiz Culinary Blog';
+$page_header_image = '/image/page-header/page-header_7.jpg';
+$page_header_breadcrumbs = [
+    ['label' => 'Home', 'href' => url('/')],
+    ['label' => 'Blog'],
+];
+
+include __DIR__ . '/../includes/page-header.php';
+
 // Retrieve all blog posts from database
 try {
     $stmt = $conn->query("SELECT * FROM blogs ORDER BY created_at DESC");
@@ -11,18 +20,6 @@ try {
     $blog_posts = [];
 }
 ?>
-
-<!-- Page Header -->
-<section class="page-header" style="background-image: url('<?php echo url("/image/page-header/slide-index-2.jpg"); ?>');">
-    <div class="container">
-        <h1 class="animate-fade-in">Evangiz Culinary Blog</h1>
-        <div class="breadcrumb animate-fade-in delay-100">
-            <a href="<?php echo url('/'); ?>">Home</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">Blog</span>
-        </div>
-    </div>
-</section>
 
 <!-- Blog List Feed -->
 <section class="section blog-feed-section">

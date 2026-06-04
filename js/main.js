@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Mobile Menu Toggler
     const menuToggle = document.getElementById('mobile-menu-toggle');
     const navMenu = document.getElementById('navbar-menu-container');
+    const dropdownParent = document.querySelector('.nav-item.dropdown');
+    const dropdownToggle = document.querySelector('.nav-dropdown-toggle');
 
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', (e) => {
@@ -27,21 +29,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.innerWidth > 992) {
                 menuToggle.classList.remove('active');
                 navMenu.classList.remove('active');
-                if (dropdownParent) dropdownParent.classList.remove('open');
+                if (dropdownParent) {
+                    dropdownParent.classList.remove('open');
+                }
+                if (dropdownToggle) {
+                    dropdownToggle.setAttribute('aria-expanded', 'false');
+                }
             }
         });
     }
 
-    // 2. Dropdown accordion toggler for mobile viewports
-    const dropdownToggle = document.getElementById('services-dropdown-toggle');
-    const dropdownParent = document.querySelector('.nav-item.dropdown');
-
     if (dropdownToggle && dropdownParent) {
         dropdownToggle.addEventListener('click', (e) => {
             if (window.innerWidth <= 992) {
-                e.preventDefault();
                 e.stopPropagation();
-                dropdownParent.classList.toggle('open');
+                const isOpen = dropdownParent.classList.toggle('open');
+                dropdownToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             }
         });
     }

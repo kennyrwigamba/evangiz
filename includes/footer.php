@@ -100,6 +100,7 @@ $current_path = $path ?? '/';
     <?php if ($current_path === '/menu' || $current_path === '/' || $current_path === '/home'): ?>
         <script src="<?php echo url('/js/menu-filter.js'); ?>"></script>
     <?php elseif ($current_path === '/contact'): ?>
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
         <script src="<?php echo url('/js/contact-form.js'); ?>"></script>
     <?php endif; ?>
 </body>

@@ -37,5 +37,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         });
+
+        // Check URL hash for category selection on page load
+        const checkHash = () => {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                const correspondingTab = Array.from(menuTabs).find(t => t.getAttribute('data-category') === hash);
+                if (correspondingTab) {
+                    correspondingTab.click();
+                    setTimeout(() => {
+                        correspondingTab.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                }
+            }
+        };
+
+        checkHash();
+        window.addEventListener('hashchange', checkHash);
     }
 });

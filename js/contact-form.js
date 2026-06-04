@@ -3,6 +3,14 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // EmailJS configuration
+    const EMAILJS_PUBLIC_KEY = 'dOVcu0nvTMk5cSVLh';
+    if (window.emailjs && typeof window.emailjs.init === 'function') {
+        window.emailjs.init({
+            publicKey: EMAILJS_PUBLIC_KEY
+        });
+    }
+
     const contactForm = document.getElementById('contact-form');
     const bookingForm = document.getElementById('booking-form');
 
@@ -19,15 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
  * Validates inputs and binds AJAX handlers to forms
  */
 function setupFormHandler(form, formType) {
+    const EMAILJS_SERVICE_ID = 'service_tvh6uqa';
+    const EMAILJS_TEMPLATE_ID = 'template_k94wivw';
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn ? submitBtn.innerHTML : 'Submit';
     
-    // Create status wrapper if not exists
+    // Create status wrapper if not exists and place it at top of form
     let statusDiv = form.querySelector('.form-status-alert');
     if (!statusDiv) {
         statusDiv = document.createElement('div');
         statusDiv.className = 'form-status-alert';
-        form.appendChild(statusDiv);
+        form.insertBefore(statusDiv, form.firstChild);
     }
 
     form.addEventListener('submit', (e) => {
@@ -93,9 +103,18 @@ function setupFormHandler(form, formType) {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Server responded with an error status.');
+                return response.text().then(text => {
+                    throw new Error('HTTP ' + response.status + ': ' + (text || response.statusText));
+                });
             }
-            return response.json();
+            // Attempt to parse JSON but fall back to text for diagnostics
+            return response.text().then(txt => {
+                try {
+                    return JSON.parse(txt);
+                } catch (e) {
+                    throw new Error('Invalid JSON response from server: ' + txt);
+                }
+            });
         })
         .then(data => {
             // Re-enable button
@@ -105,14 +124,37 @@ function setupFormHandler(form, formType) {
             }
 
             if (data.status === 'success') {
+                const emailParams = {
+                    form_type: formType,
+                    name: formData.get('name') || '',
+                    email: formData.get('email') || '',
+                    phone: formData.get('phone') || 'N/A',
+                    subject: formData.get('subject') || (formType === 'booking' ? 'Table Booking' : 'General Inquiry'),
+                    message: formData.get('message') || '',
+                    booking_date: formData.get('booking_date') || '',
+                    booking_time: formData.get('booking_time') || '',
+                    guests: formData.get('guests') || ''
+                };
+
+                if (window.emailjs && typeof window.emailjs.send === 'function') {
+                    // Email notification is best-effort: DB success should still be shown to user.
+                    window.emailjs
+                        .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams)
+                        .catch(error => {
+                            console.warn('EmailJS send failed:', error);
+                        });
+                }
+
                 form.reset();
                 statusDiv.className = 'form-status-alert alert-success';
                 statusDiv.innerHTML = `<strong>Success!</strong> ${data.message}`;
                 statusDiv.style.display = 'block';
+                try { statusDiv.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
             } else {
                 statusDiv.className = 'form-status-alert alert-error';
                 statusDiv.innerHTML = `<strong>Error:</strong> ${data.message}`;
                 statusDiv.style.display = 'block';
+                try { statusDiv.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
             }
         })
         .catch(error => {
@@ -122,8 +164,11 @@ function setupFormHandler(form, formType) {
                 submitBtn.innerHTML = originalBtnText;
             }
             statusDiv.className = 'form-status-alert alert-error';
-            statusDiv.innerHTML = '<strong>Error:</strong> A network connection problem occurred. Please try again.';
+            // Show diagnostic message to help root-cause (trim large HTML responses)
+            const msg = (error && error.message) ? error.message : 'A network connection problem occurred. Please try again.';
+            statusDiv.innerHTML = `<strong>Error:</strong> ${msg}`;
             statusDiv.style.display = 'block';
+            try { statusDiv.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
             console.error('Submission error:', error);
         });
     });

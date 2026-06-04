@@ -33,26 +33,22 @@ $page_image = !empty($post['image_path']) ? $post['image_path'] : '';
 
 $date = date('F d, Y', strtotime($post['created_at']));
 $image = !empty($post['image_path']) ? htmlspecialchars($post['image_path']) : '';
-?>
 
-<!-- Blog Header -->
-<section class="blog-header-section page-header" style="background-image: url('<?php echo url($image ?: "/image/page-header/slide-index-2.jpg"); ?>');">
-    <div class="container">
-        <div class="blog-meta animate-fade-in">
-            <span class="blog-meta-item"><i class="hgi-stroke hgi-calendar-01"></i> <?php echo $date; ?></span>
-            <span class="blog-meta-divider">•</span>
-            <span class="blog-meta-item"><i class="hgi-stroke hgi-user-circle"></i> By Evangiz Team</span>
-        </div>
-        <h1 class="animate-fade-in blog-post-title-main" style="margin-top: var(--space-sm);"><?php echo htmlspecialchars($post['title']); ?></h1>
-        <div class="breadcrumb animate-fade-in delay-100" style="margin-top: var(--space-md);">
-            <a href="<?php echo url('/'); ?>">Home</a>
-            <span class="breadcrumb-separator">/</span>
-            <a href="<?php echo url('/blog'); ?>">Blog</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">Story Details</span>
-        </div>
-    </div>
-</section>
+$page_header_title = $post['title'];
+$page_header_image = $image ?: '/image/page-header/slide-index-2.jpg';
+$page_header_meta = '<div class="blog-meta animate-fade-in"><span class="blog-meta-item"><i class="hgi-stroke hgi-calendar-01"></i> ' . $date . '</span><span class="blog-meta-divider">•</span><span class="blog-meta-item"><i class="hgi-stroke hgi-user-circle"></i> By Evangiz Team</span></div>';
+$page_header_breadcrumbs = [
+    ['label' => 'Home', 'href' => url('/')],
+    ['label' => 'Blog', 'href' => url('/blog')],
+    ['label' => 'Story Details'],
+];
+$page_header_extra_classes = 'blog-header-section';
+$page_header_title_class = 'animate-fade-in blog-post-title-main';
+$page_header_title_style = 'margin-top: var(--space-sm);';
+$page_header_breadcrumb_style = 'margin-top: var(--space-md);';
+
+include __DIR__ . '/../includes/page-header.php';
+?>
 
 <!-- Blog Content Viewer -->
 <section class="section blog-details-wrapper">

@@ -2,19 +2,16 @@
 /**
  * Evangiz Restaurant - Services Page
  */
-?>
 
-<!-- Page Header -->
-<section class="page-header" style="background-image: url('<?php echo url("/image/page-header/page-private-event.jpg"); ?>');">
-    <div class="container">
-        <h1 class="animate-fade-in">Our Gastronomy Services</h1>
-        <div class="breadcrumb animate-fade-in delay-100">
-            <a href="<?php echo url('/'); ?>">Home</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">Services</span>
-        </div>
-    </div>
-</section>
+$page_header_title = 'Our Gastronomy Services';
+$page_header_image = '/image/page-header/page-private-event.jpg';
+$page_header_breadcrumbs = [
+    ['label' => 'Home', 'href' => url('/')],
+    ['label' => 'Services'],
+];
+
+include __DIR__ . '/../includes/page-header.php';
+?>
 
 <!-- Core Services Grid -->
 <section class="section core-services-section">
