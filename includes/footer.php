@@ -93,15 +93,15 @@ $current_path = $path ?? '/';
     </footer>
 
     <!-- Global Scripts -->
-    <script src="<?php echo url('/js/main.js'); ?>"></script>
-    <script src="<?php echo url('/js/animations.js'); ?>"></script>
+    <script src="<?php echo url('/js/main.js'); ?>?v=<?php echo filemtime(__DIR__ . '/../js/main.js'); ?>"></script>
+    <script src="<?php echo url('/js/animations.js'); ?>?v=<?php echo filemtime(__DIR__ . '/../js/animations.js'); ?>"></script>
     
     <!-- Conditional Page-Specific Scripts -->
     <?php if ($current_path === '/menu' || $current_path === '/' || $current_path === '/home'): ?>
-        <script src="<?php echo url('/js/menu-filter.js'); ?>"></script>
+        <script src="<?php echo url('/js/menu-filter.js'); ?>?v=<?php echo filemtime(__DIR__ . '/../js/menu-filter.js'); ?>"></script>
     <?php elseif ($current_path === '/contact'): ?>
         <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-        <script src="<?php echo url('/js/contact-form.js'); ?>"></script>
+        <script src="<?php echo url('/js/contact-form.js'); ?>?v=<?php echo filemtime(__DIR__ . '/../js/contact-form.js'); ?>"></script>
     <?php endif; ?>
 </body>
 </html>
