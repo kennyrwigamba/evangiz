@@ -640,7 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.9) 100%);
+    background: linear-gradient(to bottom, rgba(29, 0, 0, 0.5) 0%, rgba(38, 0, 0, 0.9) 100%);
     z-index: 1;
 }
 
