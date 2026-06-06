@@ -679,7 +679,7 @@
 
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding: var(--space-lg) 0;
+    padding: 1rem 0;
     font-size: 0.85rem;
     color: rgba(245, 246, 248, 0.5);
     font-family: var(--font-heading);
@@ -687,7 +687,7 @@
 
 .footer-bottom-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 

@@ -121,11 +121,11 @@ try {
                 <h2 class="welcome-heading">A Culinary Adventure <br>For All The Senses</h2>
                 <div class="welcome-paragraphs">
                     <p class="welcome-lead-para">
-                        Welcome to Evangiz Restaurant, where we pride ourselves on offering the best of both delicious, locally-sourced cuisine and top-notch service. We believe that the best meals start with the freshest ingredients. But we know that a great meal is about more than just the food.
+                        Welcome to Evangiz Restaurant, where we pride ourselves on offering the best of both delicious, locally sourced cuisine and top notch service. We believe that the best meals start with the freshest ingredients. But we know that a great meal is about more than just the food.
                     </p>
-                    <!--<p>
-                        That's why we also place a premium on providing exceptional service to each and every one of our guests. So if you're looking for a restaurant that offers the best of local cuisine and top-notch service, look no further. We can't wait to welcome you to our table and show you why we're one of the best restaurants in town!
-                    </p>-->
+                    <p>
+                        That's why we also place a premium on providing exceptional service to each and every one of our guests. <!--So if you're looking for a restaurant that offers the best of local cuisine and top-notch service, look no further. We can't wait to welcome you to our table and show you why we're one of the best restaurants in town!-->
+                    </p>
                 </div>
                 <div class="welcome-ctas">
                     <?php echo render_button('Read More About Us', url('/about'), 'primary-outline'); ?>
@@ -147,6 +147,7 @@ try {
         </div>
     </div>
 </section>
+
 
 <!-- Partners Logo Strip -->
 <section class="section partners-section">
@@ -182,6 +183,7 @@ try {
         </div>
     </div>
 </section>
+
 
 <!-- Why Choose Us Section -->
 <section class="section why-choose-section">
@@ -341,7 +343,7 @@ try {
                     <div class="accordion-item">
                         <button class="accordion-header">
                             <span class="accordion-toggle-icon">&plus;</span>
-                            <span class="accordion-title">Corporate gatherings</span>
+                            <span class="accordion-title">Corporate Gatherings</span>
                         </button>
                         <div class="accordion-panel">
                             <p class="accordion-desc">
@@ -354,7 +356,7 @@ try {
                     <div class="accordion-item">
                         <button class="accordion-header">
                             <span class="accordion-toggle-icon">&plus;</span>
-                            <span class="accordion-title">Private celebrations</span>
+                            <span class="accordion-title">Private Celebrations</span>
                         </button>
                         <div class="accordion-panel">
                             <p class="accordion-desc">
@@ -367,7 +369,7 @@ try {
                     <div class="accordion-item">
                         <button class="accordion-header">
                             <span class="accordion-toggle-icon">&plus;</span>
-                            <span class="accordion-title">Flexible event catering</span>
+                            <span class="accordion-title">Flexible Event Catering</span>
                         </button>
                         <div class="accordion-panel">
                             <p class="accordion-desc">
@@ -446,9 +448,9 @@ $testimonials = [
         'rating' => 5
     ],
     [
-        'quote' => "We hired Evangiz Restaurant for our corporate event catering, and they exceeded all expectations. The presentation was gorgeous, the food was delicious, and the staff was extremely professional.",
+        'quote' => "We hired Evangiz Restaurant for our corporate event catering, and they exceeded all expectations. The presentation was gorgeous and the staff was extremely professional.",
         'author' => "Aisha Namurinda",
-        'role' => "HR Manager",
+        'role' => "HR Manager, CAA",
         'rating' => 5
     ]
 ];
