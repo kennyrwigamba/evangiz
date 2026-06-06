@@ -116,8 +116,8 @@
     left: 50%;
     transform: translateX(-50%);
     top: 0;
-    width: 90px;
-    height: 90px;
+    width: 120px;
+    height: 130px;
     background-color: var(--color-bg-cream);
     border-left: 1px solid var(--color-border);
     border-right: 1px solid var(--color-border);
@@ -135,8 +135,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     transition: var(--transition-fast);
 }
 
@@ -559,9 +559,9 @@
 
 /* 5. Footer Layout Styles */
 .footer-wrapper {
-    background-color: var(--color-blue);
+    background-color: #3f1800;
     color: var(--color-text-light);
-    padding: var(--space-xxl) 0 0;
+    padding: 4rem 0 0;
     margin-top: auto;
     font-family: var(--font-body);
 }
@@ -570,7 +570,7 @@
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1fr;
     gap: var(--space-xl);
-    padding-bottom: var(--space-xxl);
+    padding-bottom: 1rem;
 }
 
 .footer-logo {
@@ -679,7 +679,7 @@
 
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding: var(--space-lg) 0;
+    padding: 1rem 0;
     font-size: 0.85rem;
     color: rgba(245, 246, 248, 0.5);
     font-family: var(--font-heading);
@@ -687,7 +687,7 @@
 
 .footer-bottom-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 

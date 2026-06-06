@@ -11,10 +11,10 @@ $current_path = $path ?? '/';
             <!-- Brand Column -->
             <div class="footer-col footer-col-brand">
                 <a href="<?php echo url('/'); ?>" class="footer-logo">
-                    Evangiz<span class="logo-dot">.</span>
+                    <img src="image/logo/logo-footer.png" alt="" style="max-height: 100px;">
                 </a>
                 <p class="footer-brand-desc">
-                    Where every flavor tells a story. We serve premium fast food, authentic local Ugandan dishes, and professional outside catering services along Kampala–Entebbe Road.
+                    Where every flavor tells a story. We serve Premium Fast Food, Authentic Local Ugandan dishes, and professional outside catering services along Kampala–Entebbe Road opposite Roofings Lubowa.
                 </p>
                 <div class="footer-socials">
                     <!-- Custom mock social links with simple SVG icons -->
@@ -34,7 +34,6 @@ $current_path = $path ?? '/';
             <div class="footer-col footer-col-links">
                 <h4 class="footer-title">Explore</h4>
                 <ul class="footer-links-list">
-                    <li><a href="<?php echo url('/'); ?>">Home</a></li>
                     <li><a href="<?php echo url('/menu'); ?>">Food Menu</a></li>
                     <li><a href="<?php echo url('/about'); ?>">About Us</a></li>
                     <li><a href="<?php echo url('/services'); ?>">Our Services</a></li>
@@ -67,7 +66,7 @@ $current_path = $path ?? '/';
                 <h4 class="footer-title">Get In Touch</h4>
                 <address class="footer-address">
                     <p class="footer-contact-item">
-                        <strong>Location:</strong> Lubowa, Kampala-Entebbe Road (directly opposite Roofings), Uganda
+                        <strong>Location:</strong> Lubowa, Kampala-Entebbe Road (directly Opposite Roofings)
                     </p>
                     <p class="footer-contact-item">
                         <strong>Tel:</strong> <a href="tel:+256705183818">+256-705183818</a>
