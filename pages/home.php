@@ -46,8 +46,8 @@ try {
     <div class="container hero-container text-center">
         <div class="hero-content animate-slide-up">
             <h1 class="hero-title">
-                <span>A Taste You’ll Remember</span><br>
-                <span class="text-accent font-italic">Where Every Flavor Tells A Story!</span>
+                <span  style="font-weight: 200;">A Taste You’ll Remember</span><br>
+                <span>Where Every Flavor</span> <span class="font-italic" style="color: #e5643d; font-family: Cormorant Garamond; "><i> Tells A Story!</i></span>
             </h1>
             <p class="hero-lead text-muted">
                 Experience high-quality, delicious, and affordable local Ugandan staples & fast foods in Lubowa.
@@ -75,11 +75,11 @@ try {
 </section>
 
 <!-- Quick Menu Promo Cards -->
-<section class="section promo-grid-section" style="padding: var(--space-xl) 0 var(--space-md); background-color: var(--color-bg-warm);">
+<section class="section promo-grid-section" style="padding: 2rem 0 var(--space-md); background-color: var(--color-bg-warm);">
     <div class="container">
         <div class="grid-3 menu-promo-grid">
             <!-- Card 1: Special Menu -->
-            <a href="<?php echo url('/menu#fast-foods'); ?>" class="menu-promo-card animate-scroll-reveal">
+            <a href="<?php echo url('/menu#fast-foods'); ?>" class="menu-promo-card "><!-- animate-scroll-reveal -->
                 <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/pizza.jpg"); ?>');"></div>
                 <div class="promo-card-overlay"></div>
                 <div class="promo-card-content">
@@ -89,7 +89,7 @@ try {
             </a>
             
             <!-- Card 2: Seasonal Food -->
-            <a href="<?php echo url('/menu#local-dishes'); ?>" class="menu-promo-card animate-scroll-reveal">
+            <a href="<?php echo url('/menu#local-dishes'); ?>" class="menu-promo-card ">
                 <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/special.jpg"); ?>');"></div>
                 <div class="promo-card-overlay"></div>
                 <div class="promo-card-content">
@@ -99,7 +99,7 @@ try {
             </a>
             
             <!-- Card 3: Soft Drinks -->
-            <a href="<?php echo url('/menu#drinks'); ?>" class="menu-promo-card animate-scroll-reveal">
+            <a href="<?php echo url('/menu#drinks'); ?>" class="menu-promo-card ">
                 <div class="promo-card-bg" style="background-image: url('<?php echo url("/image/section/drink.jpg"); ?>');"></div>
                 <div class="promo-card-overlay"></div>
                 <div class="promo-card-content">
@@ -118,14 +118,14 @@ try {
             <!-- Text Content Column -->
             <div class="welcome-text-column animate-scroll-reveal reveal-left">
                 <span class="section-label">Culinary Excellence</span>
-                <h2 class="welcome-heading">A Culinary Adventure For All The Senses</h2>
+                <h2 class="welcome-heading">A Culinary Adventure <br>For All The Senses</h2>
                 <div class="welcome-paragraphs">
                     <p class="welcome-lead-para">
                         Welcome to Evangiz Restaurant, where we pride ourselves on offering the best of both delicious, locally-sourced cuisine and top-notch service. We believe that the best meals start with the freshest ingredients. But we know that a great meal is about more than just the food.
                     </p>
-                    <p>
+                    <!--<p>
                         That's why we also place a premium on providing exceptional service to each and every one of our guests. So if you're looking for a restaurant that offers the best of local cuisine and top-notch service, look no further. We can't wait to welcome you to our table and show you why we're one of the best restaurants in town!
-                    </p>
+                    </p>-->
                 </div>
                 <div class="welcome-ctas">
                     <?php echo render_button('Read More About Us', url('/about'), 'primary-outline'); ?>
@@ -148,13 +148,48 @@ try {
     </div>
 </section>
 
+<!-- Partners Logo Strip -->
+<section class="section partners-section">
+    <div class="container">
+        <div class="partners-header text-center animate-scroll-reveal">
+            <span class="section-label">Our Partners</span>
+            <h2 class="partners-title text-serif">Trusted by Organizations We Value</h2>
+        </div>
+
+        <?php
+        $partner_logos = [
+            '/image/partners/africa2trust.png',
+            '/image/partners/CAA-Uganda.png',
+            '/image/partners/ugandabaati.png',
+            '/image/partners/tecnovia.png',
+            '/image/partners/mastermindconsults.jpg',
+            '/image/partners/m-kopa.svg',
+            '/image/partners/fasttrack.png',
+            '/image/partners/eco-trust.png',
+        ];
+        ?>
+
+        <div class="partners-marquee animate-scroll-reveal" aria-label="Our partners logos">
+            <div class="partners-track">
+                <?php for ($i = 0; $i < 2; $i++): ?>
+                    <?php foreach ($partner_logos as $logo): ?>
+                        <div class="partner-logo-card">
+                            <img src="<?php echo url($logo); ?>" alt="Partner logo" loading="lazy">
+                        </div>
+                    <?php endforeach; ?>
+                <?php endfor; ?>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Why Choose Us Section -->
 <section class="section why-choose-section">
     <div class="container">
         <!-- Top Centered Slogan Banner -->
-        <div class="why-choose-slogan-wrapper animate-scroll-reveal text-center">
+        <!--<div class="why-choose-slogan-wrapper animate-scroll-reveal text-center">
             <h3 class="why-choose-slogan text-serif">We bring you a culinary experience like no other</h3>
-        </div>
+        </div>-->
 
         <div class="grid-2 why-choose-grid align-items-center" style="margin-top: var(--space-xl);">
             <!-- Left Column: Chef Image & Overlapping Blue Box -->
@@ -164,12 +199,12 @@ try {
                     
                     <!-- Overlapping Blue Box -->
                     <div class="floating-info-card">
-                        <div class="info-card-icon-box">
+                        <div class="info-card-icon-box hidden">
                             <!-- Seafood / Shrimp Icon -->
                             <img src="<?php echo url('/image/item/shrimp.png'); ?>" alt="Shrimp Icon" class="info-card-icon">
                         </div>
                         <p class="info-card-text">
-                            At Evangiz Restaurant we use fresh, locally sourced ingredients to create authentic Ugandan flavours with a modern touch. From comforting local dishes to quick snacks, our kitchen serves food made with care for every occasion.
+                            At Evangiz Restaurant we use fresh, locally sourced ingredients to create authentic Ugandan flavours with a modern touch. From comforting local dishes to quick snacks, our kitchen serves food made with care.
                         </p>
                         <a href="<?php echo url('/about'); ?>" class="info-card-btn" aria-label="Read more">
                             <span class="info-card-btn-arrow">&rarr;</span>
@@ -180,8 +215,8 @@ try {
 
             <!-- Right Column: Context & List -->
             <div class="why-choose-content-column animate-scroll-reveal">
-                <span class="section-label">Why Choose Restaurant</span>
-                <h2 class="why-choose-heading text-serif">Your Perfect Choice To Enjoy Seafood</h2>
+                <span class="section-label">Why Choose Evangiz Restaurant</span>
+                <h2 class="why-choose-heading text-serif">We bring you a Culinary experience like no other</h2>
                 <div class="menu-title-wave" style="margin-bottom: var(--space-md);"></div>
                 
                 <p class="why-choose-description">
@@ -220,7 +255,7 @@ try {
                     <div class="accordion-item">
                         <button class="accordion-header">
                             <span class="accordion-toggle-icon">&plus;</span>
-                            <span class="accordion-title">Sea view dining table</span>
+                            <span class="accordion-title">Serene Dining Experience</span>
                         </button>
                         <div class="accordion-panel">
                             <p class="accordion-desc">
@@ -284,40 +319,7 @@ try {
     </div>
 </section>
 
-<!-- Partners Logo Strip -->
-<section class="section partners-section">
-    <div class="container">
-        <div class="partners-header text-center animate-scroll-reveal">
-            <span class="section-label">Our Partners</span>
-            <h2 class="partners-title text-serif">Trusted by Organizations We Value</h2>
-        </div>
 
-        <?php
-        $partner_logos = [
-            '/image/partners/africa2trust.png',
-            '/image/partners/CAA-Uganda.png',
-            '/image/partners/ugandabaati.png',
-            '/image/partners/tecnovia.png',
-            '/image/partners/mastermindconsults.jpg',
-            '/image/partners/m-kopa.svg',
-            '/image/partners/fasttrack.png',
-            '/image/partners/eco-trust.png',
-        ];
-        ?>
-
-        <div class="partners-marquee animate-scroll-reveal" aria-label="Our partners logos">
-            <div class="partners-track">
-                <?php for ($i = 0; $i < 2; $i++): ?>
-                    <?php foreach ($partner_logos as $logo): ?>
-                        <div class="partner-logo-card">
-                            <img src="<?php echo url($logo); ?>" alt="Partner logo" loading="lazy">
-                        </div>
-                    <?php endforeach; ?>
-                <?php endfor; ?>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- Outside Catering Section -->
 <section class="section catering-showcase-section">
@@ -597,8 +599,8 @@ document.addEventListener('DOMContentLoaded', () => {
 /* Hero Styles */
 .hero-section {
     position: relative;
-    padding: var(--space-xxl) 0;
-    min-height: 90vh;
+    padding: 7rem 0;
+    min-height: 65vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -636,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(11, 19, 37, 0.4) 0%, rgba(11, 19, 37, 0.8) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.9) 100%);
     z-index: 1;
 }
 
@@ -657,7 +659,10 @@ document.addEventListener('DOMContentLoaded', () => {
     color: var(--color-white);
     margin-bottom: var(--space-lg);
     font-family: var(--font-body);
+    font-size: 52px;
+    line-height: 50px;
 }
+
 
 .hero-lead {
     max-width: 650px;
@@ -978,9 +983,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* Partners Strip */
 .partners-section {
-    background-color: var(--color-bg-cream);
-    padding-top: var(--space-xl);
-    padding-bottom: var(--space-xl);
+    background-color: var(--color-bg-warm);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     overflow: hidden;
 }
 
