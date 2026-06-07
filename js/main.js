@@ -8,6 +8,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMenu = document.getElementById('navbar-menu-container');
     const dropdownParent = document.querySelector('.nav-item.dropdown');
     const dropdownToggle = document.querySelector('.nav-dropdown-toggle');
+    const bookNavLink = document.getElementById('book-nav-link');
+
+    const syncBookingNavState = () => {
+        if (!bookNavLink || window.location.hash !== '#booking') {
+            return;
+        }
+
+        document.querySelectorAll('.navbar-menu .nav-link.active').forEach((link) => {
+            link.classList.remove('active');
+        });
+        bookNavLink.classList.add('active');
+    };
+
+    syncBookingNavState();
+    window.addEventListener('hashchange', syncBookingNavState);
 
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', (e) => {

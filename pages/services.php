@@ -68,7 +68,7 @@ include __DIR__ . '/../includes/page-header.php';
                 <p class="welcome-lead-para text-white" style="opacity: 0.95;">
                     Evangiz Restaurant brings the delectable flavors of our kitchen to your special events. Experience the perfect blend of culinary expertise and personalized service with our outside catering.
                 </p>
-                <p style="color: rgba(245, 246, 248, 0.75);">
+                <p >
                     From corporate gatherings to private celebrations, we cater to your unique tastes and preferences, ensuring a memorable dining experience for you and your guests. Let us make your event extraordinary with our exquisite cuisine.
                 </p>
                 <div class="catering-ctas" style="margin-top: var(--space-lg);">

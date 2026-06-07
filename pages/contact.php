@@ -179,34 +179,35 @@ include __DIR__ . '/../includes/page-header.php';
                 <div class="grid-2 contact-subgrid" style="gap: var(--space-md) var(--space-lg); margin-bottom: var(--space-lg); margin-top: var(--space-lg);">
                     <div class="info-block">
                         <h4 class="info-block-title">OUR LOCATION</h4>
-                        <p class="info-block-text">Lubowa, Entebbe Road<br>(opposite Roofings)</p>
+                        <p class="info-block-text">Lubowa, along Kampala-Entebbe Road (directly opposite Roofings)</p>
                     </div>
                     <div class="info-block">
                         <h4 class="info-block-title">OPENING HOURS</h4>
                         <p class="info-block-text">
-                            Mon - Fri : 9:00am - 22:00pm,<br>
-                            Sat - Sun: 11:00am - 23:00pm<br>
-                            Happy hour: 17:00pm - 21:00pm<br>
-                            Holidays: Closed
+                            Mon - Fri : 9:00am - 10:00pm,<br>
+                            Sat - Sun: 9:00am - 11:00pm<br>
                         </p>
                     </div>
                 </div>
 
                 <div class="contact-links-box" style="margin-bottom: var(--space-lg);">
-                    <p class="contact-link-item">Mail: <a href="mailto:info@evangiz.com" class="text-serif" style="color: var(--color-primary); font-weight: 500;">info@evangiz.com</a></p>
+                    <p class="contact-link-item">Mail: <a href="mailto:info@evangiz.com" style="color: var(--color-primary); font-weight: 500;">info@evangiz.com</a></p>
                     <p class="contact-link-item">Call to reserve a table: <a href="tel:+256705183818" style="color: var(--color-primary); font-weight: 500;">+256-705183818</a> / <a href="tel:+256784618282" style="color: var(--color-primary); font-weight: 500;">+256-784618282</a></p>
                 </div>
 
                 <!-- Social links circle badges -->
                 <div class="contact-social-row">
-                    <a href="#" aria-label="Facebook" class="contact-social-circle">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    <a href="https://www.tiktok.com/@evangizrestaurant" aria-label="TikTok" class="contact-social-circle" target="_blank" rel="noopener noreferrer">
+                        <svg width="18" height="18" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M448 209.9a210.1 210.1 0 0 1-122.8-39.3v178.7a162.6 162.6 0 1 1-140.2-161v89.9a74.6 74.6 0 1 0 52.2 71.2V0h88a122.2 122.2 0 0 0 55.8 102.4 121.4 121.4 0 0 0 67 20.1z"></path></svg>
                     </a>
-                    <a href="mailto:info@evangiz.com" aria-label="Mail" class="contact-social-circle">
+                    <a href="mailto:info@evangiz.com" aria-label="Mail" class="contact-social-circle" target="_blank">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                     </a>
-                    <a href="#" aria-label="Instagram" class="contact-social-circle">
+                    <a href="https://www.instagram.com/evangizrestaurant" aria-label="Instagram" class="contact-social-circle" target="_blank" rel="noopener noreferrer">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <a href="https://www.youtube.com/@evangizrestaurant" aria-label="YouTube" class="contact-social-circle" target="_blank" rel="noopener noreferrer">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
                     </a>
                 </div>
             </div>

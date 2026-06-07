@@ -30,11 +30,11 @@ try {
 <section class="hero-section">
     <?php
     $hero_slides = [
+        '/image/page-header/page-header_5.jpg',
         '/image/page-header/page-header_1.jpg',
-        '/image/page-header/page-header_2.jpg',
         '/image/page-header/page-header_3.jpg',
         '/image/page-header/page-header_4.jpg',
-        '/image/page-header/page-header_5.jpg',
+        '/image/page-header/page-header_2.jpg',
     ];
     ?>
     <div class="hero-slider" aria-hidden="true">
@@ -205,11 +205,11 @@ try {
                             <!-- Seafood / Shrimp Icon -->
                             <img src="<?php echo url('/image/item/shrimp.png'); ?>" alt="Shrimp Icon" class="info-card-icon">
                         </div>
-                        <p class="info-card-text">
+                        <p class="info-card-text" style="margin-bottom: 0px!important;">
                             At Evangiz Restaurant we use fresh, locally sourced ingredients to create authentic Ugandan flavours with a modern touch. From comforting local dishes to quick snacks, our kitchen serves food made with care.
                         </p>
-                        <a href="<?php echo url('/about'); ?>" class="info-card-btn" aria-label="Read more">
-                            <span class="info-card-btn-arrow">&rarr;</span>
+                        <a href="<?php echo url('/about'); ?>" class="info-card-btn hidden" aria-label="Read more">
+                            <span class="info-card-btn-arrow"> &rarr;</span>
                         </a>
                     </div>
                 </div>
@@ -219,7 +219,6 @@ try {
             <div class="why-choose-content-column animate-scroll-reveal">
                 <span class="section-label">Why Choose Evangiz Restaurant</span>
                 <h2 class="why-choose-heading text-serif">We bring you a Culinary experience like no other</h2>
-                <div class="menu-title-wave" style="margin-bottom: var(--space-md);"></div>
                 
                 <p class="why-choose-description">
                     Evangiz Restaurant celebrates Ugandan flavours and hospitality. We offer relaxed, family-friendly dining and thoughtfully prepared meals using local ingredients &mdash; perfect for everyday lunches, special dinners, and events.
@@ -244,7 +243,7 @@ try {
                     <div class="accordion-item">
                         <button class="accordion-header">
                             <span class="accordion-toggle-icon">&plus;</span>
-                            <span class="accordion-title">Professional chefs</span>
+                            <span class="accordion-title">Professional Chefs</span>
                         </button>
                         <div class="accordion-panel">
                             <p class="accordion-desc">
@@ -272,7 +271,7 @@ try {
 </section>
 
 <!-- Menu Preview Highlight -->
-<section class="section menu-preview-section">
+<section class="section menu-preview-section" style="padding-top: 20px!important">
     <div class="menu-preview-overlay"></div>
     <div class="container" style="position: relative; z-index: 2;">
         
@@ -640,7 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.9) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.85) 100%);
     z-index: 1;
 }
 

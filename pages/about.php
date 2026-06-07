@@ -3,7 +3,7 @@
  * Evangiz Restaurant - About Page
  */
 
-$page_header_title = 'Our Culinary Story';
+$page_header_title = 'Our Story';
 $page_header_image = '/image/page-header/about-res.jpg';
 $page_header_breadcrumbs = [
     ['label' => 'Home', 'href' => url('/')],
@@ -22,7 +22,7 @@ include __DIR__ . '/../includes/page-header.php';
                     <div class="panel-border-decor"></div>
                     <div class="panel-image-placeholder">
                         <img src="<?php echo url('/image/section/about.jpg'); ?>" alt="Evangiz Kitchen and Bakery Preparation" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                        <span class="about-decor-text">Established 2026</span>
+                        <span class="about-decor-text">Established in 2019</span>
                     </div>
                 </div>
             </div>

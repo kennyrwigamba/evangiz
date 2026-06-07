@@ -3,7 +3,7 @@
  * Evangiz Restaurant - Blog Feed Page
  */
 
-$page_header_title = 'Evangiz Culinary Blog';
+$page_header_title = 'Evangiz Blog';
 $page_header_image = '/image/page-header/page-header_7.jpg';
 $page_header_breadcrumbs = [
     ['label' => 'Home', 'href' => url('/')],
