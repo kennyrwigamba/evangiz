@@ -6,9 +6,8 @@
     # Disable directory browsing and MultiViews (can interfere with clean URLs).
     Options -Indexes -MultiViews
 
-    # Enable rewrite engine and define the install base.
+    # Enable rewrite engine.
     RewriteEngine On
-    RewriteBase /
 
     # Never rewrite the front controller itself.
     RewriteRule ^index\.php$ - [L]
@@ -20,9 +19,6 @@
 
     # Route all other requests to the front controller.
     RewriteRule ^ index.php [QSA,L]
-
-    # Fallback for Apache setups where mod_rewrite is unavailable but FallbackResource is enabled.
-    FallbackResource /index.php
 
     # Block direct access to database files
     <FilesMatch "\.(sql)$">

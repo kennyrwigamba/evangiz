@@ -3,7 +3,7 @@
  * Evangiz Restaurant - Services Page
  */
 
-$page_header_title = 'Our Gastronomy Services';
+$page_header_title = 'Our Services';
 $page_header_image = '/image/page-header/page-private-event.jpg';
 $page_header_breadcrumbs = [
     ['label' => 'Home', 'href' => url('/')],
