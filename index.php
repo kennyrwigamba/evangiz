@@ -64,6 +64,11 @@ $routes = [
         'title' => 'Our Services - Evangiz Restaurant',
         'desc' => 'Discover our premium services: Dine-in, Takeaway, Food Preparation, and Outside Catering for your events.'
     ],
+    '/catering' => [
+        'file' => 'pages/catering.php',
+        'title' => 'Outside Catering Services - Evangiz Restaurant',
+        'desc' => 'Premium outside catering services for corporate events, private celebrations, weddings, and gatherings along Kampala-Entebbe Road.'
+    ],
     '/contact' => [
         'file' => 'pages/contact.php',
         'title' => 'Contact Us - Evangiz Restaurant',

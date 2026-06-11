@@ -46,7 +46,7 @@ if (!function_exists('is_active')) {
                     <a href="<?php echo url('/menu'); ?>" class="nav-link <?php echo is_active('/menu', $current_path); ?>">OUR MENU</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?php echo url('/contact#booking'); ?>" class="nav-link <?php echo is_active('/contact#booking', $current_path); ?>" id="book-nav-link">BOOK</a>
+                    <a href="<?php echo url('/catering'); ?>" class="nav-link <?php echo is_active('/catering', $current_path); ?>" id="catering-nav-link">CATERING</a>
                 </li>
             </ul>
 

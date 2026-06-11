@@ -1,6 +1,6 @@
 <?php
 /**
- * Evangiz Admin Panel - Table Reservation Management
+ * Evangiz Admin Panel - Catering Booking Management
  */
 
 // Load security header
@@ -11,24 +11,24 @@ $booking_id = intval($_GET['id'] ?? 0);
 $alert_success = '';
 $alert_error = '';
 
-// 1. Process Reservation Status Changes
+// 1. Process Catering Booking Status Changes
 if ($action === 'approve' && $booking_id > 0) {
     try {
         $stmt = $conn->prepare("UPDATE bookings SET status = 'Confirmed' WHERE id = ?");
         $stmt->execute([$booking_id]);
-        $alert_success = "Booking request has been approved and confirmed!";
+        $alert_success = "Catering booking request has been approved and confirmed!";
         $action = 'list';
     } catch (PDOException $e) {
-        $alert_error = "Failed to update reservation status: " . $e->getMessage();
+        $alert_error = "Failed to update booking status: " . $e->getMessage();
     }
 } elseif ($action === 'cancel' && $booking_id > 0) {
     try {
         $stmt = $conn->prepare("UPDATE bookings SET status = 'Cancelled' WHERE id = ?");
         $stmt->execute([$booking_id]);
-        $alert_success = "Booking request has been cancelled.";
+        $alert_success = "Catering booking request has been cancelled.";
         $action = 'list';
     } catch (PDOException $e) {
-        $alert_error = "Failed to update reservation status: " . $e->getMessage();
+        $alert_error = "Failed to update booking status: " . $e->getMessage();
     }
 }
 
@@ -48,7 +48,7 @@ if ($action === 'list') {
         $stmt->execute([$booking_id]);
         $view_booking = $stmt->fetch();
         if (!$view_booking) {
-            $alert_error = "Reservation record not found.";
+            $alert_error = "Catering booking record not found.";
             $action = 'list';
         }
     } catch (PDOException $e) {
@@ -69,7 +69,7 @@ if ($action === 'list') {
 <!-- VIEW STATE: Detailed Booking View -->
 <?php if ($action === 'view' && $view_booking): ?>
     <div class="admin-form-panel" style="max-width: 900px; width: 100%;">
-        <h3 style="margin-bottom: var(--space-lg); color: var(--color-primary);">Reservation Details</h3>
+        <h3 style="margin-bottom: var(--space-lg); color: var(--color-primary);">Catering Booking Details</h3>
         
         <table class="admin-table" style="margin-bottom: var(--space-lg);">
             <tr>
@@ -89,15 +89,15 @@ if ($action === 'list') {
                 <td><a href="tel:<?php echo htmlspecialchars($view_booking['phone']); ?>"><?php echo htmlspecialchars($view_booking['phone']); ?></a></td>
             </tr>
             <tr>
-                <td><strong>Reservation Date</strong></td>
+                <td><strong>Event Date</strong></td>
                 <td><?php echo date('F d, Y', strtotime($view_booking['booking_date'])); ?></td>
             </tr>
             <tr>
-                <td><strong>Reservation Time</strong></td>
+                <td><strong>Event Time</strong></td>
                 <td><?php echo date('h:i A', strtotime($view_booking['booking_time'])); ?></td>
             </tr>
             <tr>
-                <td><strong>Guests count</strong></td>
+                <td><strong>Number of Guests</strong></td>
                 <td><?php echo intval($view_booking['guests']); ?> guests</td>
             </tr>
             <tr>
@@ -132,7 +132,7 @@ if ($action === 'list') {
     <div class="admin-table-card">
         <?php if (empty($bookings)): ?>
             <div style="padding: var(--space-xl);" class="text-center text-muted">
-                <p>No table bookings registered in the system.</p>
+                <p>No catering bookings registered in the system yet.</p>
             </div>
         <?php else: ?>
             <table class="admin-table">
@@ -155,7 +155,7 @@ if ($action === 'list') {
                             </td>
                             <td><?php echo htmlspecialchars($booking['phone']); ?></td>
                             <td>
-                                <strong><?php echo date('M d, Y', strtotime($booking['booking_date'])); ?></strong> at 
+                                <strong><?php echo date('M d, Y', strtotime($booking['booking_date'])); ?></strong><br>
                                 <?php echo date('h:i A', strtotime($booking['booking_time'])); ?>
                             </td>
                             <td><?php echo intval($booking['guests']); ?></td>
@@ -167,8 +167,8 @@ if ($action === 'list') {
                             <td>
                                 <a href="<?php echo admin_url('/bookings.php?action=view&id=' . $booking['id']); ?>" class="btn-action btn-action-edit" style="white-space: nowrap;"><i class="hgi-stroke hgi-search-01"></i> View</a>
                                 <?php if ($booking['status'] === 'Pending'): ?>
-                                    <a href="<?php echo admin_url('/bookings.php?action=approve&id=' . $booking['id']); ?>" class="btn-action btn-action-approve" onclick="return confirm('Confirm and approve this reservation?');" title="Approve"><i class="hgi-stroke hgi-tick-01"></i></a>
-                                    <a href="<?php echo admin_url('/bookings.php?action=cancel&id=' . $booking['id']); ?>" class="btn-action btn-action-delete" onclick="return confirm('Cancel this reservation?');" title="Cancel"><i class="hgi-stroke hgi-cancel-01"></i></a>
+                                    <a href="<?php echo admin_url('/bookings.php?action=approve&id=' . $booking['id']); ?>" class="btn-action btn-action-approve" onclick="return confirm('Confirm and approve this catering booking?');" title="Approve"><i class="hgi-stroke hgi-tick-01"></i></a>
+                                    <a href="<?php echo admin_url('/bookings.php?action=cancel&id=' . $booking['id']); ?>" class="btn-action btn-action-delete" onclick="return confirm('Cancel this catering booking?');" title="Cancel"><i class="hgi-stroke hgi-cancel-01"></i></a>
                                 <?php endif; ?>
                             </td>
                         </tr>

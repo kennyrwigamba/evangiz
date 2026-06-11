@@ -54,7 +54,7 @@ try {
             </p>
             <div class="hero-ctas">
                 <?php echo render_button('View Our Menu', url('/menu'), 'primary'); ?>
-                <?php echo render_button('Book Now', url('/contact#booking'), 'white'); ?>
+                <?php echo render_button('Book Catering', url('/catering#catering-inquiry-section'), 'white'); ?>
             </div>
         </div>
     </div>
@@ -380,7 +380,7 @@ try {
                 
                 <!-- CTA Button -->
                 <div class="catering-showcase-action" style="margin-top: var(--space-lg);">
-                    <?php echo render_button('Book Outside Catering', url('/contact#catering-inquiry'), 'outline', 'btn-view-menu'); ?>
+                    <?php echo render_button('Book Outside Catering', url('/catering'), 'outline', 'btn-view-menu'); ?>
                 </div>
             </div>
             

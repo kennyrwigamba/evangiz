@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const contactForm = document.getElementById('contact-form');
     const bookingForm = document.getElementById('booking-form');
+    const cateringForm = document.getElementById('catering-form');
 
     if (contactForm) {
         setupFormHandler(contactForm, 'contact');
@@ -20,6 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (bookingForm) {
         setupFormHandler(bookingForm, 'booking');
+    }
+
+    if (cateringForm) {
+        setupFormHandler(cateringForm, 'booking');
     }
 });
 

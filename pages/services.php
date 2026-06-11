@@ -64,15 +64,15 @@ include __DIR__ . '/../includes/page-header.php';
         <div class="grid-2 align-items-center">
             <div class="catering-text animate-scroll-reveal reveal-left">
                 <span class="section-label text-accent">Event Bookings</span>
-                <h2 class="text-white">Outside Catering Services</h2>
-                <p class="welcome-lead-para text-white" style="opacity: 0.95;">
+                <h2>Outside Catering Services</h2>
+                <p class="welcome-lead-para" style="opacity: 0.95;">
                     Evangiz Restaurant brings the delectable flavors of our kitchen to your special events. Experience the perfect blend of culinary expertise and personalized service with our outside catering.
                 </p>
                 <p >
                     From corporate gatherings to private celebrations, we cater to your unique tastes and preferences, ensuring a memorable dining experience for you and your guests. Let us make your event extraordinary with our exquisite cuisine.
                 </p>
                 <div class="catering-ctas" style="margin-top: var(--space-lg);">
-                    <?php echo render_button('Inquire About Catering', url('/contact#catering-inquiry'), 'primary'); ?>
+                    <?php echo render_button('Inquire About Catering', url('/catering'), 'primary'); ?>
                 </div>
             </div>
             

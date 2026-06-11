@@ -32,7 +32,7 @@ try {
 <!-- Metric KPI Grid -->
 <div class="kpi-grid">
     <div class="kpi-card">
-        <span class="kpi-lbl"><i class="hgi-stroke hgi-calendar-01 kpi-icon"></i>Table Bookings</span>
+        <span class="kpi-lbl"><i class="hgi-stroke hgi-calendar-01 kpi-icon"></i>Catering Bookings</span>
         <span class="kpi-val"><?php echo $bookings_count; ?></span>
         <a href="<?php echo admin_url('/bookings.php'); ?>" style="font-size: 0.85rem; color: var(--color-accent); margin-top: var(--space-xs); font-weight: 500;">View all bookings &rarr;</a>
     </div>
@@ -50,12 +50,12 @@ try {
 
 <!-- Recent Reservations Panel -->
 <div style="margin-top: var(--space-lg);">
-    <h3 style="margin-bottom: var(--space-md); color: var(--color-primary); font-family: var(--font-heading);">Recent Table Bookings</h3>
+    <h3 style="margin-bottom: var(--space-md); color: var(--color-primary); font-family: var(--font-heading);">Recent Catering Bookings</h3>
     
     <div class="admin-table-card">
         <?php if (empty($recent_bookings)): ?>
             <div style="padding: var(--space-lg);" class="text-center text-muted">
-                <p>No table bookings registered yet.</p>
+                <p>No catering bookings registered yet.</p>
             </div>
         <?php else: ?>
             <table class="admin-table">

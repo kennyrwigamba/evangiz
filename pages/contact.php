@@ -57,7 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Save to bookings table
             $stmt = $conn->prepare("INSERT INTO bookings (name, email, phone, booking_date, booking_time, guests, subject, message, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Pending')");
             $stmt->execute([$name, $email, $phone, $booking_date, $booking_time, $guests, $subject ?: 'Table Booking', $message]);
-            $success_message = "Your table reservation request was logged successfully! We will contact you soon.";
+            if (strpos($subject, 'Catering') !== false) {
+                $success_message = "Your catering inquiry request was logged successfully! We will contact you soon.";
+            } else {
+                $success_message = "Your table reservation request was logged successfully! We will contact you soon.";
+            }
         } else {
             // Save to contacts table
             $stmt = $conn->prepare("INSERT INTO contacts (name, email, phone, subject, message) VALUES (?, ?, ?, ?, ?)");
@@ -214,13 +218,7 @@ include __DIR__ . '/../includes/page-header.php';
 
             <!-- Column 2: Interactive Input Forms -->
             <div class="contact-forms-column animate-scroll-reveal reveal-right">
-                <!-- Tab Controls for Booking vs General Message -->
-                <div class="form-toggle-tabs">
-                    <button class="form-toggle-tab active" onclick="switchForm('contact-form-wrapper', this)">General Inquiry</button>
-                    <button class="form-toggle-tab" onclick="switchForm('booking-form-wrapper', this)" id="booking">Table Booking</button>
-                </div>
-
-                <!-- Form A: General Inquiry -->
+                <!-- Form: General Inquiry -->
                 <div class="form-panel-wrapper" id="contact-form-wrapper">
                     <form action="<?php echo url('/contact'); ?>" method="POST" id="contact-form" class="clean-form" novalidate>
                         <input type="hidden" name="form_type" value="contact">
@@ -247,59 +245,7 @@ include __DIR__ . '/../includes/page-header.php';
                         </div>
                         
                         <div class="form-action-row" style="margin-top: var(--space-md);">
-                            <button type="submit" class="btn-send-message">SEND A MESSAGE</button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Form B: Table Reservation Booking -->
-                <div class="form-panel-wrapper" id="booking-form-wrapper" style="display: none;">
-                    <form action="<?php echo url('/contact'); ?>" method="POST" id="booking-form" class="clean-form" novalidate>
-                        <input type="hidden" name="form_type" value="booking">
-                        
-                        <div class="form-group">
-                            <label class="form-label">Name</label>
-                            <input type="text" name="name" class="form-control" placeholder="Name*" required>
-                            <span class="form-error-msg"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email*" required>
-                            <span class="form-error-msg"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Phone Number</label>
-                            <input type="tel" name="phone" class="form-control" placeholder="Phone Number*" required>
-                            <span class="form-error-msg"></span>
-                        </div>
-                        
-                        <div class="grid-2" style="gap: 0 var(--space-md);">
-                            <div class="form-group">
-                                <label class="form-label">Number of Guests</label>
-                                <input type="number" name="guests" class="form-control" placeholder="Guests (Number)*" min="1" required>
-                                <span class="form-error-msg"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Booking Date</label>
-                                <input type="date" name="booking_date" class="form-control" required>
-                                <span class="form-error-msg"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Booking Time</label>
-                            <input type="time" name="booking_time" class="form-control" required>
-                            <span class="form-error-msg"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Special Requests</label>
-                            <textarea name="message" class="form-control form-textarea" placeholder="Write message / Special requests (Optional)" rows="4"></textarea>
-                            <span class="form-error-msg"></span>
-                        </div>
-                        
-                        <div class="form-action-row" style="margin-top: var(--space-md);">
-                            <button type="submit" class="btn-send-message">CONFIRM BOOKING</button>
+                            <button type="submit" class="btn-send-message btn-send-message-blue">SEND A MESSAGE</button>
                         </div>
                     </form>
                 </div>
@@ -312,33 +258,6 @@ include __DIR__ . '/../includes/page-header.php';
         </div>
     </div>
 </section>
-
-<!-- Script for switching local forms views -->
-<script>
-function switchForm(formId, tabEl) {
-    // Hide all forms
-    document.getElementById('contact-form-wrapper').style.display = 'none';
-    document.getElementById('booking-form-wrapper').style.display = 'none';
-    
-    // Deactivate tabs
-    const tabs = document.querySelectorAll('.form-toggle-tab');
-    tabs.forEach(t => t.classList.remove('active'));
-    
-    // Show active form & set tab active
-    document.getElementById(formId).style.display = 'block';
-    tabEl.classList.add('active');
-}
-
-// Auto activate booking tab on URL hash match
-window.addEventListener('DOMContentLoaded', () => {
-    if (window.location.hash === '#booking' || window.location.hash === '#catering-inquiry') {
-        const bookingTab = document.getElementById('booking');
-        if (bookingTab) {
-            bookingTab.click();
-        }
-    }
-});
-</script>
 
 <!-- Inline styles for Contact Page -->
 <style>
@@ -394,30 +313,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 .contact-link-item a:hover {
     color: var(--color-accent) !important;
-}
-
-.contact-social-row {
-    display: flex;
-    gap: var(--space-sm);
-    margin-top: var(--space-md);
-}
-
-.contact-social-circle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #e9f0f8;
-    color: var(--color-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition-smooth);
-}
-
-.contact-social-circle:hover {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    transform: translateY(-3px);
 }
 
 /* Tabs */
@@ -519,36 +414,8 @@ window.addEventListener('DOMContentLoaded', () => {
     font-family: var(--font-heading);
 }
 
-/* Outline Send Message Button */
-.btn-send-message {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.95rem 2.25rem;
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #007bff; /* Royal blue */
-    border: 1.5px solid #007bff;
-    background: transparent;
-    cursor: pointer;
-    transition: var(--transition-smooth);
-    border-radius: 0;
-}
 
-.btn-send-message:hover {
-    background-color: #007bff;
-    color: var(--color-white);
-}
-
-.btn-send-message:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-/* Alert Boxes */
+/* Redesigned Alert Boxes with Premium look */
 .form-status-alert {
     padding: var(--space-md) var(--space-lg);
     border-radius: var(--radius-sm);
@@ -556,18 +423,29 @@ window.addEventListener('DOMContentLoaded', () => {
     margin-bottom: var(--space-lg);
     display: none;
     font-family: var(--font-heading);
+    line-height: 1.5;
+    animation: alertFadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes alertFadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .alert-success {
-    background-color: #d1fae5;
-    color: #065f46;
-    border: 1px solid #a7f3d0;
+    background-color: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+    border-left: 5px solid #22c55e;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.05);
 }
 
 .alert-error {
-    background-color: #fee2e2;
+    background-color: #fef2f2;
     color: #991b1b;
-    border: 1px solid #fca5a5;
+    border: 1px solid #fecaca;
+    border-left: 5px solid #ef4444;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.05);
 }
 
 .btn-spinner {

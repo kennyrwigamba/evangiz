@@ -131,6 +131,7 @@ img {
 
 .text-center { text-align: center; }
 .text-accent { color: var(--color-accent); }
+.text-white { color: var(--color-white); }
 .text-serif, .font-serif { font-family: var(--font-serif); }
 .text-muted { color: var(--color-text-muted); }
 

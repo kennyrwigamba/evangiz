@@ -279,7 +279,7 @@ if (!function_exists('admin_url')) {
                     <a href="<?php echo admin_url('/'); ?>"><i class="hgi-stroke hgi-dashboard-square-01 sidebar-icon"></i>Dashboard</a>
                 </li>
                 <li class="sidebar-item <?php echo $current_script === 'bookings.php' ? 'active' : ''; ?>">
-                    <a href="<?php echo admin_url('/bookings.php'); ?>"><i class="hgi-stroke hgi-calendar-01 sidebar-icon"></i>Bookings</a>
+                    <a href="<?php echo admin_url('/bookings.php'); ?>"><i class="hgi-stroke hgi-calendar-01 sidebar-icon"></i>Catering Bookings</a>
                 </li>
                 <li class="sidebar-item <?php echo $current_script === 'menu.php' ? 'active' : ''; ?>">
                     <a href="<?php echo admin_url('/menu.php'); ?>"><i class="hgi hgi-stroke hgi-rounded hgi-menu-02 sidebar-icon"></i>Manage Menu</a>
@@ -313,7 +313,7 @@ if (!function_exists('admin_url')) {
                     <?php 
                     switch ($current_script) {
                         case 'index.php': echo 'Dashboard Overview'; break;
-                        case 'bookings.php': echo 'Table Bookings'; break;
+                        case 'bookings.php': echo 'Catering Bookings'; break;
                         case 'menu.php': echo 'Manage Menu'; break;
                         case 'categories.php': echo 'Manage Categories'; break;
                         case 'blogs.php': echo 'Manage Blogs'; break;
