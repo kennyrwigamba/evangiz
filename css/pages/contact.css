@@ -1,0 +1,242 @@
+/* Extracted from pages/contact.php - Evangiz contact page styles */
+                body { font-family: Arial, sans-serif; color: #2c323f; line-height: 1.6; }
+                .email-card { max-width: 600px; margin: 20px auto; border: 1px solid #ebdcd0; border-radius: 0px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+                .email-header { background-color: #0b1325; color: #ffffff; padding: 20px; text-align: center; }
+                .email-body { padding: 30px; background-color: #fcf9f5; }
+                .email-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+                .email-table th, .email-table td { padding: 12px; border-bottom: 1px solid #ebdcd0; text-align: left; }
+                .email-table th { color: #0b1325; font-weight: bold; width: 30%; }
+            
+
+/* Styling for Contact Page to match design mockup */
+.contact-main-heading {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--color-primary);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.contact-lead-desc {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+}
+
+.contact-subgrid {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    gap: var(--space-md) var(--space-lg);
+}
+
+.info-block-title {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: var(--space-xs);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.info-block-text {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 0;
+}
+
+.contact-link-item {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+}
+
+.contact-link-item a {
+    transition: var(--transition-fast);
+}
+
+.contact-link-item a:hover {
+    color: var(--color-accent) !important;
+}
+
+/* Tabs */
+.form-toggle-tabs {
+    display: flex;
+    border-bottom: 2px solid var(--color-border);
+    margin-bottom: var(--space-lg);
+    gap: var(--space-md);
+}
+
+.form-toggle-tab {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    padding: var(--space-sm) 0;
+    position: relative;
+    transition: var(--transition-fast);
+    text-transform: uppercase;
+}
+
+.form-toggle-tab.active {
+    color: var(--color-primary);
+}
+
+.form-toggle-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: var(--transition-fast);
+}
+
+.form-toggle-tab.active::after {
+    width: 100%;
+}
+
+/* Forms */
+.form-panel-wrapper {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.clean-form .form-group {
+    margin-bottom: var(--space-md);
+    position: relative;
+}
+
+.clean-form label.form-label {
+    display: none !important; /* Hide labels visually, but keep in DOM for JS validation */
+}
+
+.clean-form .form-control {
+    width: 100%;
+    padding: 1.1rem 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    color: var(--color-primary);
+    outline: none;
+    transition: var(--transition-fast);
+    box-shadow: none !important;
+}
+
+.clean-form .form-control:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(231, 86, 42, 0.08) !important;
+}
+
+.clean-form .form-control.is-invalid {
+    border-color: var(--color-error);
+}
+
+.clean-form .form-control::placeholder {
+    color: #999;
+}
+
+.clean-form .form-textarea {
+    resize: vertical;
+    min-height: 180px;
+}
+
+.clean-form .form-error-msg {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-error);
+    margin-top: 0.25rem;
+    font-family: var(--font-heading);
+}
+
+
+/* Redesigned Alert Boxes with Premium look */
+.form-status-alert {
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    margin-bottom: var(--space-lg);
+    display: none;
+    font-family: var(--font-heading);
+    line-height: 1.5;
+    animation: alertFadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes alertFadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.alert-success {
+    background-color: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+    border-left: 5px solid #22c55e;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.05);
+}
+
+.alert-error {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    border-left: 5px solid #ef4444;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.05);
+}
+
+.btn-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(0, 123, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #007bff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: var(--space-xs);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Map Wrapper */
+.contact-map-wrapper {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+}
+
+/* Moved out of inline style="" attributes (identical values) */
+.contact-links-box a {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.contact-map-wrapper iframe {
+    border: 0;
+    display: block;
+}
+
+.form-status-alert.show-alert {
+    display: block;
+}

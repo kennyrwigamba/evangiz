@@ -23,6 +23,61 @@ if ($base_dir !== '/') {
 // Normalize trailing slashes (except root)
 $path = '/' . trim($path, '/');
 
+// Public-facing URL path for canonical/OG/sitemap. This stays the real request
+// URL even when $path is later rewritten to an internal routing key (e.g. blog
+// posts route to '/blog-post'). '/home' collapses to '/' to avoid duplicates.
+$canonical_path = ($path === '/home') ? '/' : $path;
+
+// Serve the XML sitemap dynamically so newly published blog posts are included
+// automatically. Reachable at /sitemap.xml (referenced from robots.txt).
+if ($path === '/sitemap.xml') {
+    header('Content-Type: application/xml; charset=utf-8');
+
+    $urls = [
+        ['loc' => '/',        'priority' => '1.0', 'changefreq' => 'weekly'],
+        ['loc' => '/menu',    'priority' => '0.9', 'changefreq' => 'weekly'],
+        ['loc' => '/catering','priority' => '0.8', 'changefreq' => 'monthly'],
+        ['loc' => '/services','priority' => '0.7', 'changefreq' => 'monthly'],
+        ['loc' => '/about',   'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['loc' => '/contact', 'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['loc' => '/blog',    'priority' => '0.7', 'changefreq' => 'weekly'],
+    ];
+
+    // Append published blog posts (most recent first).
+    try {
+        $blog_stmt = $conn->query("SELECT slug, updated_at, created_at FROM blogs ORDER BY created_at DESC");
+        foreach ($blog_stmt->fetchAll() as $b) {
+            if (empty($b['slug'])) {
+                continue;
+            }
+            $ts = !empty($b['updated_at']) ? $b['updated_at'] : ($b['created_at'] ?? null);
+            $urls[] = [
+                'loc' => '/blog/' . $b['slug'],
+                'priority' => '0.5',
+                'changefreq' => 'monthly',
+                'lastmod' => $ts ? date('Y-m-d', strtotime($ts)) : null,
+            ];
+        }
+    } catch (PDOException $e) {
+        // If the blogs table is unavailable, still emit the static URLs.
+    }
+
+    echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    foreach ($urls as $u) {
+        echo "  <url>\n";
+        echo '    <loc>' . htmlspecialchars(site_url($u['loc'])) . "</loc>\n";
+        if (!empty($u['lastmod'])) {
+            echo '    <lastmod>' . $u['lastmod'] . "</lastmod>\n";
+        }
+        echo '    <changefreq>' . $u['changefreq'] . "</changefreq>\n";
+        echo '    <priority>' . $u['priority'] . "</priority>\n";
+        echo "  </url>\n";
+    }
+    echo '</urlset>' . "\n";
+    exit;
+}
+
 // Handle contact form submissions before rendering layout HTML.
 // This prevents "headers already sent" warnings and ensures AJAX gets pure JSON.
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $path === '/contact') {
@@ -86,18 +141,48 @@ $routes = [
     ]
 ];
 
+// Map each route to its extracted per-page stylesheet (in /css/pages/).
+// Pages not listed here simply load no extra stylesheet.
+$page_css_map = [
+    '/'          => 'home',
+    '/home'      => 'home',
+    '/menu'      => 'menu',
+    '/about'     => 'about',
+    '/catering'  => 'catering',
+    '/contact'   => 'contact',
+    '/blog'      => 'blog',
+    '/blog-post' => 'blog-post',
+];
+
+// Largest Contentful Paint image per route (preloaded with high priority in
+// header.php). These mirror each page's hero/page-header background image.
+$page_lcp_map = [
+    '/'         => '/image/page-header/page-header_5.jpg',
+    '/home'     => '/image/page-header/page-header_5.jpg',
+    '/menu'     => '/image/page-header/page-our-menu.jpg',
+    '/about'    => '/image/page-header/about-res.jpg',
+    '/services' => '/image/page-header/page-private-event.jpg',
+    '/catering' => '/image/page-header/page-private-event.jpg',
+    '/contact'  => '/image/page-header/page-contact.jpg',
+    '/blog'     => '/image/page-header/page-header_7.jpg',
+];
+
 // Check path in routing table
 if (array_key_exists($path, $routes)) {
     $route = $routes[$path];
     $page_title = $route['title'];
     $page_desc = $route['desc'];
     $page_content = __DIR__ . '/' . $route['file'];
+    $page_css = $page_css_map[$path] ?? null;
+    $page_lcp_image = $page_lcp_map[$path] ?? null;
 } else {
     // Graceful 404 handler
     http_response_code(404);
     $page_title = 'Page Not Found - Evangiz Restaurant';
     $page_desc = 'The requested page was not found.';
     $page_content = __DIR__ . '/pages/404.php';
+    $page_css = '404';
+    $page_noindex = true; // Don't let search engines index the 404 page.
 }
 
 // Global Components Helpers for component-based rendering

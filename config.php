@@ -21,6 +21,10 @@ define('DB_PASS', getenv('DB_PASS') ?: '');
 define('CONTACT_RECEIVER_EMAIL', 'info@evangiz.com');
 define('CONTACT_SENDER_EMAIL', 'no-reply@evangiz.com');
 
+// Canonical production domain (used for canonical links, OpenGraph, sitemap).
+// Override per-environment with the SITE_URL env var if needed.
+define('SITE_URL', rtrim(getenv('SITE_URL') ?: 'https://evangiz.com', '/'));
+
 // Initialize database connection
 try {
     $db_driver = DB_DRIVER;
@@ -76,5 +80,15 @@ function url($path = '') {
     
     $base_url = rtrim(str_replace('\\', '/', $base_url), '/');
     return $base_url . '/' . ltrim($path, '/');
+}
+
+/**
+ * Build an absolute URL on the canonical production domain.
+ * Use for canonical links, OpenGraph/Twitter images, and the sitemap —
+ * anywhere a crawler needs a stable, fully-qualified URL regardless of
+ * the local/subdirectory install path.
+ */
+function site_url($path = '') {
+    return SITE_URL . '/' . ltrim((string) $path, '/');
 }
 ?>

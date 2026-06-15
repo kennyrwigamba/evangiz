@@ -60,11 +60,11 @@ include __DIR__ . '/../includes/page-header.php';
         </div>
 
         <!-- Menu Content Sheets -->
-        <div class="menu-listings-wrapper" style="margin-top: var(--space-xl);">
+        <div class="menu-listings-wrapper mt-xl">
             <?php $is_first = true; ?>
             <?php foreach ($categories as $cat): ?>
                 <?php $cat_slug = $cat['slug']; ?>
-                <div class="menu-section" id="category-<?php echo htmlspecialchars($cat_slug); ?>" style="<?php echo $is_first ? '' : 'margin-top: var(--space-xl);'; ?>">
+                <div class="menu-section<?php echo $is_first ? '' : ' mt-xl'; ?>" id="category-<?php echo htmlspecialchars($cat_slug); ?>">
                     <div class="menu-section-header">
                         <h3 class="menu-section-title">
                             <?php 
@@ -95,59 +95,4 @@ include __DIR__ . '/../includes/page-header.php';
 </section>
 
 <!-- Menu Page Specific Styles -->
-<style>
-.menu-tabs-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    /* border-bottom: 1px solid var(--color-border); */
-    padding-bottom: var(--space-md);
-}
-
-.menu-tab {
-    background: none;
-    border: none;
-    outline: none;
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 500;
-    padding: var(--space-sm) var(--space-lg);
-    cursor: pointer;
-    border-radius: var(--radius-round);
-    color: var(--color-text-muted);
-    transition: var(--transition-fast);
-}
-
-.menu-tab:hover,
-.menu-tab.active {
-    color: var(--color-accent);
-    background-color: rgba(231, 86, 42, 0.08);
-}
-
-.menu-section-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    margin-bottom: var(--space-lg);
-}
-
-.menu-section-title {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    color: var(--color-primary);
-    white-space: nowrap;
-}
-
-.menu-section-line {
-    flex-grow: 1;
-    height: 1px;
-    background-color: var(--color-border);
-}
-
-.menu-section-desc {
-    margin-top: calc(-1 * var(--space-md));
-    margin-bottom: var(--space-lg);
-    font-size: 0.95rem;
-}
-</style>
+<!-- Page styles moved to /css/pages/menu.css for caching & performance -->

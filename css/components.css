@@ -499,6 +499,13 @@
     font-style: italic;
 }
 
+.welcome-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 /* Left Offset Graphic Panel Modifier */
 .graphic-panel-wrapper.decor-left .panel-border-decor {
     left: 0;

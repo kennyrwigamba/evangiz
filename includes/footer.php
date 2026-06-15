@@ -91,6 +91,9 @@ $current_path = $path ?? '/';
         </div>
     </footer>
 
+    <!-- Structured Data (Schema.org JSON-LD) for rich search results -->
+    <?php include __DIR__ . '/structured-data.php'; ?>
+
     <!-- Global Scripts -->
     <script src="<?php echo url('/js/main.js'); ?>?v=<?php echo filemtime(__DIR__ . '/../js/main.js'); ?>"></script>
     <script src="<?php echo url('/js/animations.js'); ?>?v=<?php echo filemtime(__DIR__ . '/../js/animations.js'); ?>"></script>

@@ -28,7 +28,7 @@ try {
             <div class="no-posts-alert text-center">
                 <h3>No Blog Stories Yet</h3>
                 <p class="text-muted">We are preparing delicious content for you. Check back shortly!</p>
-                <div style="margin-top: var(--space-md);">
+                <div class="mt-md">
                     <?php echo render_button('Back to Home', url('/'), 'primary'); ?>
                 </div>
             </div>
@@ -45,22 +45,4 @@ try {
 </section>
 
 <!-- Inline styles for Blog layout page -->
-<style>
-.no-posts-alert {
-    background-color: var(--color-bg-cream);
-    padding: var(--space-xxl) var(--space-lg);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border);
-    max-width: 600px;
-    margin: 0 auto;
-    box-shadow: var(--shadow-medium);
-}
-
-.no-posts-alert h3 {
-    margin-bottom: var(--space-sm);
-}
-
-.blog-feed-section {
-    background-color: var(--color-bg-warm);
-}
-</style>
+<!-- Page styles moved to /css/pages/blog.css for caching & performance -->

@@ -20,7 +20,7 @@ include __DIR__ . '/../includes/page-header.php';
             <div class="catering-intro-text animate-scroll-reveal reveal-left">
                 <span class="section-label text-accent">Tailored Event Dining</span>
                 <h2>Exceptional Flavor, Wherever You Are</h2>
-                <div class="menu-title-wave" style="margin-bottom: var(--space-md); margin-top: var(--space-xs);"></div>
+                <div class="menu-title-wave mb-md mt-xs"></div>
                 <p class="welcome-lead-para">
                     Evangiz Restaurant brings the celebrated culinary artistry of our kitchen directly to your corporate venues, private properties, and events across Kampala and Entebbe Road.
                 </p>
@@ -30,7 +30,7 @@ include __DIR__ . '/../includes/page-header.php';
                 <p>
                     From initial food prep to site setup, our teams ensure exceptional hygiene, stunning presentation, and premium hospitality that leaves your guests thoroughly impressed.
                 </p>
-                <div style="margin-top: var(--space-lg);">
+                <div class="mt-lg">
                     <a href="#catering-packages" class="btn btn-secondary">
                         <span class="btn-text-wrapper">
                             <span class="btn-text-main">Explore Packages</span>
@@ -44,7 +44,7 @@ include __DIR__ . '/../includes/page-header.php';
                 <div class="graphic-panel-wrapper">
                     <div class="panel-border-decor"></div>
                     <div class="panel-image-placeholder">
-                        <img src="<?php echo url('/image/section/s-private.jpg'); ?>" alt="Evangiz Catering Event Setup" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                        <img src="<?php echo url('/image/section/s-private.jpg'); ?>" alt="Evangiz Catering Event Setup" class="media-cover">
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@ include __DIR__ . '/../includes/page-header.php';
             <p class="section-desc text-muted">We design bespoke catering layouts suited for any group size, theme, and taste preferences.</p>
         </div>
 
-        <div class="grid-3 stagger-container" style="margin-top: var(--space-xl);">
+        <div class="grid-3 stagger-container mt-xl">
             <!-- Solution 1: Corporate Events -->
             <div class="type-card animate-scroll-reveal">
                 <div class="type-icon-box">
@@ -101,7 +101,7 @@ include __DIR__ . '/../includes/page-header.php';
             <p class="section-desc text-muted">Select one of our popular predefined menus or choose a custom option in the inquiry form below.</p>
         </div>
 
-        <div class="grid-3 packages-grid" style="margin-top: var(--space-xl);">
+        <div class="grid-3 packages-grid mt-xl">
             <!-- Package 1: Bronze -->
             <div class="package-card animate-scroll-reveal">
                 <div class="package-header">
@@ -199,18 +199,18 @@ include __DIR__ . '/../includes/page-header.php';
         <div class="grid-2 contact-grid">
             <!-- Column 1: Details & Address -->
             <div class="contact-info-column animate-scroll-reveal reveal-left">
-                <h2 class="contact-main-heading" style="color: var(--color-primary); font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; line-height: 1.1;">Let's Plan Your Event!</h2>
-                <p class="contact-lead-desc" style="color: var(--color-text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: var(--space-md);">
+                <h2 class="contact-main-heading">Let's Plan Your Event!</h2>
+                <p class="contact-lead-desc">
                     Tell us about your event and catering requirements, and our team will get back to you with a personalized quotation within 24 hours.
                 </p>
                 
                 <!-- Orange wave divider -->
-                <div class="menu-title-wave" style="margin-bottom: var(--space-lg); margin-top: var(--space-sm);"></div>
-                
+                <div class="menu-title-wave mb-lg mt-sm"></div>
 
-                <div class="contact-links-box" style="margin-bottom: var(--space-lg);">
-                    <p class="contact-link-item">Mail: <a href="mailto:info@evangiz.com" style="color: var(--color-primary); font-weight: 500;">info@evangiz.com</a></p>
-                    <p class="contact-link-item">Call for inquiries: <a href="tel:+256705183818" style="color: var(--color-primary); font-weight: 500;">+256-705183818</a> / <a href="tel:+256784618282" style="color: var(--color-primary); font-weight: 500;">+256-784618282</a></p>
+
+                <div class="contact-links-box mb-lg">
+                    <p class="contact-link-item">Mail: <a href="mailto:info@evangiz.com">info@evangiz.com</a></p>
+                    <p class="contact-link-item">Call for inquiries: <a href="tel:+256705183818">+256-705183818</a> / <a href="tel:+256784618282">+256-784618282</a></p>
                 </div>
                 
                 <!-- Social links circle badges -->
@@ -238,45 +238,45 @@ include __DIR__ . '/../includes/page-header.php';
                     <input type="hidden" name="subject" value="Catering Inquiry">
 
                     <div class="form-group">
-                        <label class="form-label" style="display: none;">Name</label>
+                        <label class="form-label hidden">Name</label>
                         <input type="text" name="name" class="form-control" placeholder="Name*" required>
                         <span class="form-error-msg"></span>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" style="display: none;">Email</label>
+                        <label class="form-label hidden">Email</label>
                         <input type="email" name="email" class="form-control" placeholder="Email*" required>
                         <span class="form-error-msg"></span>
                     </div>
 
-                    <div class="grid-2" style="gap: 0 var(--space-md);">
+                    <div class="grid-2 gap-x-md">
                         <div class="form-group">
-                            <label class="form-label" style="display: none;">Phone Number</label>
+                            <label class="form-label hidden">Phone Number</label>
                             <input type="tel" name="phone" class="form-control" placeholder="Phone Number*" required>
                             <span class="form-error-msg"></span>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" style="display: none;">Estimated Guests</label>
+                            <label class="form-label hidden">Estimated Guests</label>
                             <input type="number" name="guests" class="form-control" placeholder="Guests (Number)*" min="1" required>
                             <span class="form-error-msg"></span>
                         </div>
                     </div>
 
-                    <div class="grid-2" style="gap: 0 var(--space-md);">
+                    <div class="grid-2 gap-x-md">
                         <div class="form-group">
-                            <label class="form-label" style="display: none;">Event Date</label>
+                            <label class="form-label hidden">Event Date</label>
                             <input type="date" name="booking_date" class="form-control" required>
                             <span class="form-error-msg"></span>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" style="display: none;">Setup Time</label>
+                            <label class="form-label hidden">Setup Time</label>
                             <input type="time" name="booking_time" class="form-control" required>
                             <span class="form-error-msg"></span>
                         </div>
                     </div>
 
-                    <div class="grid-2" style="gap: 0 var(--space-md);">
+                    <div class="grid-2 gap-x-md">
                         <div class="form-group">
-                            <label class="form-label" style="display: none;">Event Type</label>
+                            <label class="form-label hidden">Event Type</label>
                             <select name="event_type" id="event_type" class="form-control form-select">
                                 <option value="" disabled selected>Select Event Type</option>
                                 <option value="Corporate Event">Corporate Event</option>
@@ -289,7 +289,7 @@ include __DIR__ . '/../includes/page-header.php';
                             <span class="form-error-msg"></span>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" style="display: none;">Preferred Package</label>
+                            <label class="form-label hidden">Preferred Package</label>
                             <select name="preferred_package" id="preferred_package" class="form-control form-select">
                                 <option value="" disabled selected>Select Preferred Package</option>
                                 <option value="Bronze Local Buffet">Bronze Local Buffet (UGX 6K/plate)</option>
@@ -302,12 +302,12 @@ include __DIR__ . '/../includes/page-header.php';
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" style="display: none;">Menu & Venue Details</label>
+                        <label class="form-label hidden">Menu & Venue Details</label>
                         <textarea name="message" id="catering_details" class="form-control form-textarea" placeholder="Menu preferences, venue location details, or special requests..." rows="5"></textarea>
                         <span class="form-error-msg"></span>
                     </div>
 
-                    <div class="form-action-row" style="margin-top: var(--space-md);">
+                    <div class="form-action-row mt-md">
                         <button type="submit" class="btn-send-message btn-send-message-accent">SUBMIT INQUIRY</button>
                     </div>
                 </form>
@@ -348,270 +348,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <!-- Inline styles for Catering Page Layout -->
-<style>
-/* Catering Intro Styles */
-.catering-intro-section {
-    background-color: var(--color-bg-warm);
-}
-
-.catering-intro-text h2 {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    margin-bottom: var(--space-sm);
-    color: var(--color-primary);
-}
-
-/* Service Type Cards (Dark Section) */
-.catering-types-section {
-    background-color: var(--color-primary);
-    position: relative;
-}
-
-.type-card {
-    background-color: var(--color-primary-light);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: var(--space-xl) var(--space-lg);
-    border-radius: var(--radius-md);
-    text-align: center;
-    transition: var(--transition-smooth);
-}
-
-.type-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--color-accent);
-    box-shadow: var(--shadow-premium);
-}
-
-.type-icon-box {
-    width: 60px;
-    height: 60px;
-    background-color: rgba(231, 86, 42, 0.1);
-    color: var(--color-accent);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto var(--space-lg);
-    font-size: 1.75rem;
-    transition: var(--transition-smooth);
-}
-
-.type-card:hover .type-icon-box {
-    background-color: var(--color-accent);
-    color: var(--color-white);
-    transform: scale(1.1);
-}
-
-.type-card h3 {
-    color: var(--color-white);
-    font-size: 1.35rem;
-    margin-bottom: var(--space-md);
-    font-family: var(--font-heading);
-    font-weight: 600;
-}
-
-.type-card p {
-    color: rgba(245, 246, 248, 0.7);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 0;
-}
-
-/* Packages Card Styles */
-.packages-section {
-    background-color: var(--color-bg-cream);
-}
-
-.packages-grid {
-    align-items: stretch;
-}
-
-.package-card {
-    background-color: var(--color-bg-warm);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl) var(--space-lg);
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    transition: var(--transition-smooth);
-}
-
-.package-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-medium);
-}
-
-/* Featured Package Modifier */
-.package-card.highlighted {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    border-color: var(--color-primary);
-    box-shadow: var(--shadow-premium);
-    transform: scale(1.03);
-}
-
-.package-card.highlighted:hover {
-    transform: scale(1.03) translateY(-6px);
-}
-
-.package-card.highlighted h3.package-title {
-    color: var(--color-white);
-}
-
-.package-card.highlighted .package-features li {
-    color: rgba(245, 246, 248, 0.85);
-}
-
-.package-card.highlighted .package-price .amount {
-    color: var(--color-secondary);
-}
-
-.package-card.highlighted .package-price .per {
-    color: rgba(245, 246, 248, 0.5);
-}
-
-.package-highlight-label {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: var(--color-accent);
-    color: var(--color-white);
-    font-family: var(--font-heading);
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-round);
-    letter-spacing: 0.08em;
-}
-
-.package-header {
-    margin-bottom: var(--space-lg);
-}
-
-.package-badge {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.25rem 0.65rem;
-    border-radius: var(--radius-sm);
-    margin-bottom: var(--space-sm);
-}
-
-.bronze-badge { background-color: rgba(180, 83, 9, 0.1); color: #b45309; }
-.silver-badge { background-color: rgba(229, 92, 52, 0.15); color: var(--color-accent); }
-.gold-badge { background-color: rgba(212, 163, 75, 0.15); color: var(--color-secondary); }
-
-h3.package-title {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: var(--space-md);
-}
-
-.package-price {
-    display: flex;
-    align-items: baseline;
-    font-family: var(--font-heading);
-    margin-bottom: var(--space-sm);
-}
-
-.package-price .currency {
-    font-size: 0.95rem;
-    font-weight: 500;
-    margin-right: 4px;
-}
-
-.package-price .amount {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-accent);
-}
-
-.package-price .per {
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
-    margin-left: 4px;
-}
-
-.package-features {
-    list-style: none;
-    margin: 0 0 var(--space-xl);
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-}
-
-.package-features li {
-    font-size: 0.925rem;
-    color: var(--color-text-dark);
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-}
-
-.package-features li i {
-    font-size: 1.1rem;
-    flex-shrink: 0;
-}
-
-.package-action {
-    margin-top: auto;
-}
-
-.package-action a.btn {
-    width: 100%;
-}
-
-/* Redesigned Success/Error Alerts */
-.form-status-alert {
-    padding: var(--space-md) var(--space-lg);
-    border-radius: var(--radius-sm);
-    font-size: 0.95rem;
-    margin-bottom: var(--space-lg);
-    display: none;
-    font-family: var(--font-heading);
-    line-height: 1.5;
-    animation: alertFadeIn 0.3s ease-in-out forwards;
-}
-
-@keyframes alertFadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.alert-success {
-    background-color: #f0fdf4;
-    color: #166534;
-    border: 1px solid #bbf7d0;
-    border-left: 5px solid #22c55e;
-    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.05);
-}
-
-.alert-error {
-    background-color: #fef2f2;
-    color: #991b1b;
-    border: 1px solid #fecaca;
-    border-left: 5px solid #ef4444;
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.05);
-}
-
-@media (max-width: 992px) {
-    .packages-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-xl);
-    }
-    
-    .package-card.highlighted {
-        transform: none;
-    }
-    
-    .package-card.highlighted:hover {
-        transform: translateY(-6px);
-    }
-}
-</style>
+<!-- Page styles moved to /css/pages/catering.css for caching & performance -->

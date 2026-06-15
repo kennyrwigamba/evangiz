@@ -1,0 +1,18 @@
+/* Extracted from pages/blog.php - Evangiz blog page styles */
+.no-posts-alert {
+    background-color: var(--color-bg-cream);
+    padding: var(--space-xxl) var(--space-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: var(--shadow-medium);
+}
+
+.no-posts-alert h3 {
+    margin-bottom: var(--space-sm);
+}
+
+.blog-feed-section {
+    background-color: var(--color-bg-warm);
+}

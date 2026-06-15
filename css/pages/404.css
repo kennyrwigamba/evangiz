@@ -1,0 +1,40 @@
+/* Extracted from pages/404.php - Evangiz 404 page styles */
+.error-404-section {
+    background-color: var(--color-bg-warm);
+    min-height: 70vh;
+}
+
+.error-code {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: clamp(6rem, 15vw, 10rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    margin-bottom: var(--space-xs);
+    text-shadow: 0 10px 30px rgba(231, 86, 42, 0.1);
+}
+
+.error-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: var(--space-md);
+}
+
+.error-desc {
+    max-width: 500px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+}
+
+.error-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+}
+
+@media (max-width: 576px) {
+    .error-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+}

@@ -22,7 +22,7 @@ include __DIR__ . '/../includes/page-header.php';
             <p class="section-desc text-muted">We provide a range of tailored food service options to fit your schedule, group size, and event requirements.</p>
         </div>
 
-        <div class="grid-2 stagger-container" style="margin-top: var(--space-xl);">
+        <div class="grid-2 stagger-container mt-xl">
             <?php
             // Card 1: Dine-In
             $dine_in_icon = '
@@ -65,13 +65,13 @@ include __DIR__ . '/../includes/page-header.php';
             <div class="catering-text animate-scroll-reveal reveal-left">
                 <span class="section-label text-accent">Event Bookings</span>
                 <h2>Outside Catering Services</h2>
-                <p class="welcome-lead-para" style="opacity: 0.95;">
+                <p class="welcome-lead-para opacity-95">
                     Evangiz Restaurant brings the delectable flavors of our kitchen to your special events. Experience the perfect blend of culinary expertise and personalized service with our outside catering.
                 </p>
                 <p >
                     From corporate gatherings to private celebrations, we cater to your unique tastes and preferences, ensuring a memorable dining experience for you and your guests. Let us make your event extraordinary with our exquisite cuisine.
                 </p>
-                <div class="catering-ctas" style="margin-top: var(--space-lg);">
+                <div class="catering-ctas mt-lg">
                     <?php echo render_button('Inquire About Catering', url('/catering'), 'primary'); ?>
                 </div>
             </div>
@@ -80,8 +80,8 @@ include __DIR__ . '/../includes/page-header.php';
                 <div class="graphic-panel-wrapper">
                     <div class="panel-border-decor"></div>
                     <div class="panel-image-placeholder">
-                        <video autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                            <source src="<?php echo url('/video/evangiz.mp4'); ?>" type="video/mp4">
+                        <video class="welcome-video" loop muted playsinline preload="none" poster="<?php echo url('/image/section/s-private.jpg'); ?>">
+                            <source data-src="<?php echo url('/video/evangiz.mp4'); ?>" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>

@@ -77,16 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <html>
         <head>
             <title>{$mail_subject}</title>
-            <style>
-                body { font-family: Arial, sans-serif; color: #2c323f; line-height: 1.6; }
-                .email-card { max-width: 600px; margin: 20px auto; border: 1px solid #ebdcd0; border-radius: 0px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-                .email-header { background-color: #0b1325; color: #ffffff; padding: 20px; text-align: center; }
-                .email-body { padding: 30px; background-color: #fcf9f5; }
-                .email-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-                .email-table th, .email-table td { padding: 12px; border-bottom: 1px solid #ebdcd0; text-align: left; }
-                .email-table th { color: #0b1325; font-weight: bold; width: 30%; }
-            </style>
-        </head>
+<!-- Page styles moved to /css/pages/contact.css for caching & performance -->
+</head>
         <body>
             <div class='email-card'>
                 <div class='email-header'>
@@ -166,7 +158,7 @@ include __DIR__ . '/../includes/page-header.php';
         
         <!-- Display Status Alert if POST fallback redirects here -->
         <?php if ($status): ?>
-            <div class="form-status-alert alert-<?php echo $status === 'success' ? 'success' : 'error'; ?>" style="display: block; margin-bottom: var(--space-lg);">
+            <div class="form-status-alert alert-<?php echo $status === 'success' ? 'success' : 'error'; ?> show-alert">
                 <strong><?php echo $status === 'success' ? 'Success!' : 'Error:'; ?></strong> <?php echo htmlspecialchars($status_msg); ?>
             </div>
         <?php endif; ?>
@@ -178,9 +170,9 @@ include __DIR__ . '/../includes/page-header.php';
                 <p class="contact-lead-desc">If you have any questions or concerns, just write a question and we will reply you within 24 hours, we are always welcome.</p>
                 
                 <!-- Orange wave divider -->
-                <div class="menu-title-wave" style="margin-bottom: var(--space-lg); margin-top: var(--space-sm);"></div>
-                
-                <div class="grid-2 contact-subgrid" style="gap: var(--space-md) var(--space-lg); margin-bottom: var(--space-lg); margin-top: var(--space-lg);">
+                <div class="menu-title-wave mb-lg mt-sm"></div>
+
+                <div class="grid-2 contact-subgrid">
                     <div class="info-block">
                         <h4 class="info-block-title">OUR LOCATION</h4>
                         <p class="info-block-text">Lubowa, along Kampala-Entebbe Road (directly opposite Roofings)</p>
@@ -194,9 +186,9 @@ include __DIR__ . '/../includes/page-header.php';
                     </div>
                 </div>
 
-                <div class="contact-links-box" style="margin-bottom: var(--space-lg);">
-                    <p class="contact-link-item">Mail: <a href="mailto:info@evangiz.com" style="color: var(--color-primary); font-weight: 500;">info@evangiz.com</a></p>
-                    <p class="contact-link-item">Call to reserve a table: <a href="tel:+256705183818" style="color: var(--color-primary); font-weight: 500;">+256-705183818</a> / <a href="tel:+256784618282" style="color: var(--color-primary); font-weight: 500;">+256-784618282</a></p>
+                <div class="contact-links-box mb-lg">
+                    <p class="contact-link-item">Mail: <a href="mailto:info@evangiz.com">info@evangiz.com</a></p>
+                    <p class="contact-link-item">Call to reserve a table: <a href="tel:+256705183818">+256-705183818</a> / <a href="tel:+256784618282">+256-784618282</a></p>
                 </div>
 
                 <!-- Social links circle badges -->
@@ -244,7 +236,7 @@ include __DIR__ . '/../includes/page-header.php';
                             <span class="form-error-msg"></span>
                         </div>
                         
-                        <div class="form-action-row" style="margin-top: var(--space-md);">
+                        <div class="form-action-row mt-md">
                             <button type="submit" class="btn-send-message btn-send-message-blue">SEND A MESSAGE</button>
                         </div>
                     </form>
@@ -253,228 +245,10 @@ include __DIR__ . '/../includes/page-header.php';
         </div>
 
         <!-- Google Map Section at the bottom -->
-        <div class="contact-map-wrapper animate-scroll-reveal" style="margin-top: var(--space-xl);">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.782173338572!2d32.556929!3d0.243892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177d976cf2f407a3%3A0xe1e781134847204c!2sEvangiz%20Restaurant!5e0!3m2!1sen!2srw!4v1780362147943!5m2!1sen!2srw" width="100%" height="450" style="border:0; display: block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="contact-map-wrapper animate-scroll-reveal mt-xl">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.782173338572!2d32.556929!3d0.243892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177d976cf2f407a3%3A0xe1e781134847204c!2sEvangiz%20Restaurant!5e0!3m2!1sen!2srw!4v1780362147943!5m2!1sen!2srw" width="100%" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 </section>
 
 <!-- Inline styles for Contact Page -->
-<style>
-/* Styling for Contact Page to match design mockup */
-.contact-main-heading {
-    font-size: clamp(2rem, 5vw, 3rem);
-    color: var(--color-primary);
-    font-family: var(--font-serif);
-    font-weight: 700;
-    margin-bottom: var(--space-xs);
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-}
-
-.contact-lead-desc {
-    color: var(--color-text-muted);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: var(--space-md);
-}
-
-.contact-subgrid {
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-lg);
-}
-
-.info-block-title {
-    font-family: var(--font-heading);
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    margin-bottom: var(--space-xs);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.info-block-text {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-    line-height: 1.65;
-    margin-bottom: 0;
-}
-
-.contact-link-item {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-    margin-bottom: 0.35rem;
-}
-
-.contact-link-item a {
-    transition: var(--transition-fast);
-}
-
-.contact-link-item a:hover {
-    color: var(--color-accent) !important;
-}
-
-/* Tabs */
-.form-toggle-tabs {
-    display: flex;
-    border-bottom: 2px solid var(--color-border);
-    margin-bottom: var(--space-lg);
-    gap: var(--space-md);
-}
-
-.form-toggle-tab {
-    background: none;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    padding: var(--space-sm) 0;
-    position: relative;
-    transition: var(--transition-fast);
-    text-transform: uppercase;
-}
-
-.form-toggle-tab.active {
-    color: var(--color-primary);
-}
-
-.form-toggle-tab::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-primary);
-    transition: var(--transition-fast);
-}
-
-.form-toggle-tab.active::after {
-    width: 100%;
-}
-
-/* Forms */
-.form-panel-wrapper {
-    background: none;
-    border: none;
-    box-shadow: none;
-    padding: 0;
-}
-
-.clean-form .form-group {
-    margin-bottom: var(--space-md);
-    position: relative;
-}
-
-.clean-form label.form-label {
-    display: none !important; /* Hide labels visually, but keep in DOM for JS validation */
-}
-
-.clean-form .form-control {
-    width: 100%;
-    padding: 1.1rem 1.25rem;
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    background-color: var(--color-white);
-    border: 1px solid var(--color-border);
-    border-radius: 0;
-    color: var(--color-primary);
-    outline: none;
-    transition: var(--transition-fast);
-    box-shadow: none !important;
-}
-
-.clean-form .form-control:focus {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(231, 86, 42, 0.08) !important;
-}
-
-.clean-form .form-control.is-invalid {
-    border-color: var(--color-error);
-}
-
-.clean-form .form-control::placeholder {
-    color: #999;
-}
-
-.clean-form .form-textarea {
-    resize: vertical;
-    min-height: 180px;
-}
-
-.clean-form .form-error-msg {
-    display: block;
-    font-size: 0.8rem;
-    color: var(--color-error);
-    margin-top: 0.25rem;
-    font-family: var(--font-heading);
-}
-
-
-/* Redesigned Alert Boxes with Premium look */
-.form-status-alert {
-    padding: var(--space-md) var(--space-lg);
-    border-radius: var(--radius-sm);
-    font-size: 0.95rem;
-    margin-bottom: var(--space-lg);
-    display: none;
-    font-family: var(--font-heading);
-    line-height: 1.5;
-    animation: alertFadeIn 0.3s ease-in-out forwards;
-}
-
-@keyframes alertFadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.alert-success {
-    background-color: #f0fdf4;
-    color: #166534;
-    border: 1px solid #bbf7d0;
-    border-left: 5px solid #22c55e;
-    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.05);
-}
-
-.alert-error {
-    background-color: #fef2f2;
-    color: #991b1b;
-    border: 1px solid #fecaca;
-    border-left: 5px solid #ef4444;
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.05);
-}
-
-.btn-spinner {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(0, 123, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: #007bff;
-    animation: spin 1s ease-in-out infinite;
-    margin-right: var(--space-xs);
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* Map Wrapper */
-.contact-map-wrapper {
-    width: 100%;
-    border: 1px solid var(--color-border);
-    overflow: hidden;
-    box-shadow: var(--shadow-subtle);
-}
-
-@media (max-width: 768px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-xl);
-    }
-}
-</style>

@@ -63,4 +63,36 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 3. Lazy-load <video> elements only when they scroll into view.
+    //    Markup uses <source data-src="..."> + preload="none" so the (heavy)
+    //    video file is never fetched during the initial page load.
+    const lazyVideos = document.querySelectorAll('video.welcome-video, video[data-lazy]');
+    if (lazyVideos.length) {
+        const loadVideo = (video) => {
+            video.querySelectorAll('source[data-src]').forEach((source) => {
+                source.src = source.dataset.src;
+                source.removeAttribute('data-src');
+            });
+            video.load();
+            const playAttempt = video.play();
+            if (playAttempt && typeof playAttempt.catch === 'function') {
+                playAttempt.catch(() => {}); // ignore autoplay rejection
+            }
+        };
+
+        if ('IntersectionObserver' in window) {
+            const vObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        loadVideo(entry.target);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '200px' });
+            lazyVideos.forEach((v) => vObserver.observe(v));
+        } else {
+            lazyVideos.forEach(loadVideo); // fallback: load immediately
+        }
+    }
 });
