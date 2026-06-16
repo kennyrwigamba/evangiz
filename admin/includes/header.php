@@ -3,7 +3,7 @@
  * Evangiz Admin Panel - Header Layout & Security Gate
  */
 require_once __DIR__ . '/../../config.php';
-require_once __DIR__ . '/../../includes/components.php';
+require_once SRC_PATH . '/includes/components.php';
 
 // Security Check: Redirect to login if not authenticated
 $current_script = basename($_SERVER['SCRIPT_NAME']);

@@ -12,6 +12,9 @@
     # Never rewrite the front controller itself.
     RewriteRule ^index\.php$ - [L]
 
+    # Keep internal source PHP/data folders private after the /src structure move.
+    RewriteRule ^src/(includes|pages|database)/ - [F,L]
+
     # Allow existing files and directories to pass through untouched.
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d

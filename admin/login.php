@@ -5,7 +5,7 @@
 
 // Load core configuration and helper components before any HTML output
 require_once __DIR__ . '/../config.php';
-require_once __DIR__ . '/../includes/components.php';
+require_once SRC_PATH . '/includes/components.php';
 
 // Function to generate sub-navigation URLs inside admin
 if (!function_exists('admin_url')) {

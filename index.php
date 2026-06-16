@@ -32,15 +32,16 @@ $canonical_path = ($path === '/home') ? '/' : $path;
 // automatically. Reachable at /sitemap.xml (referenced from robots.txt).
 if ($path === '/sitemap.xml') {
     header('Content-Type: application/xml; charset=utf-8');
+    $static_lastmod = date('Y-m-d', filemtime(__FILE__));
 
     $urls = [
-        ['loc' => '/',        'priority' => '1.0', 'changefreq' => 'weekly'],
-        ['loc' => '/menu',    'priority' => '0.9', 'changefreq' => 'weekly'],
-        ['loc' => '/catering','priority' => '0.8', 'changefreq' => 'monthly'],
-        ['loc' => '/services','priority' => '0.7', 'changefreq' => 'monthly'],
-        ['loc' => '/about',   'priority' => '0.6', 'changefreq' => 'monthly'],
-        ['loc' => '/contact', 'priority' => '0.6', 'changefreq' => 'monthly'],
-        ['loc' => '/blog',    'priority' => '0.7', 'changefreq' => 'weekly'],
+        ['loc' => '/',         'priority' => '1.0', 'changefreq' => 'weekly', 'lastmod' => $static_lastmod],
+        ['loc' => '/menu',     'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => $static_lastmod],
+        ['loc' => '/catering', 'priority' => '0.9', 'changefreq' => 'monthly', 'lastmod' => $static_lastmod],
+        ['loc' => '/services', 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => $static_lastmod],
+        ['loc' => '/about',    'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => $static_lastmod],
+        ['loc' => '/contact',  'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => $static_lastmod],
+        ['loc' => '/blog',     'priority' => '0.6', 'changefreq' => 'weekly', 'lastmod' => $static_lastmod],
     ];
 
     // Append published blog posts (most recent first).
@@ -81,7 +82,7 @@ if ($path === '/sitemap.xml') {
 // Handle contact form submissions before rendering layout HTML.
 // This prevents "headers already sent" warnings and ensures AJAX gets pure JSON.
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $path === '/contact') {
-    include __DIR__ . '/pages/contact.php';
+    include SRC_PATH . '/pages/contact.php';
     exit;
 }
 
@@ -96,48 +97,66 @@ if (strpos($path, '/blog/') === 0 && strlen($path) > 6) {
 $routes = [
     '/' => [
         'file' => 'pages/home.php',
-        'title' => 'Evangiz Restaurant - A Taste You\'ll Remember',
-        'desc' => 'Evangiz Restaurant offers delicious locally-sourced Ugandan cuisine and premium fast foods in Lubowa, Kampala-Entebbe Road.'
+        'title' => 'Evangiz Restaurant Lubowa | Ugandan Food & Catering on Entebbe Road',
+        'desc' => 'Visit Evangiz Restaurant in Lubowa on Kampala-Entebbe Road for Ugandan food, fast foods, family dining, takeaway, and outside catering services in Uganda.',
+        'keywords' => 'Evangiz Restaurant, restaurant along Kampala-Entebbe Road, Ugandan food, restaurant in Uganda, family dining, outside catering',
+        'image' => '/image/page-header/page-header_5.jpg',
     ],
     '/home' => [
         'file' => 'pages/home.php',
-        'title' => 'Evangiz Restaurant - A Taste You\'ll Remember',
-        'desc' => 'Evangiz Restaurant offers delicious locally-sourced Ugandan cuisine and premium fast foods in Lubowa, Kampala-Entebbe Road.'
+        'title' => 'Evangiz Restaurant Lubowa | Ugandan Food & Catering on Entebbe Road',
+        'desc' => 'Visit Evangiz Restaurant in Lubowa on Kampala-Entebbe Road for Ugandan food, fast foods, family dining, takeaway, and outside catering services in Uganda.',
+        'keywords' => 'Evangiz Restaurant, restaurant along Kampala-Entebbe Road, Ugandan food, restaurant in Uganda, family dining, outside catering',
+        'image' => '/image/page-header/page-header_5.jpg',
     ],
     '/menu' => [
         'file' => 'pages/menu.php',
-        'title' => 'Menu - Evangiz Restaurant Lubowa',
-        'desc' => 'Explore the Evangiz Restaurant menu: fresh fast foods, burgers, fried chicken, local Ugandan staples, snacks, and soft drinks.'
+        'title' => 'Evangiz Menu | Ugandan Food, Fast Foods & Drinks in Lubowa',
+        'desc' => 'Explore the Evangiz Restaurant menu with local Ugandan dishes, burgers, fried chicken, snacks, light meals, soft drinks, and family dining near Entebbe Road.',
+        'keywords' => 'Evangiz menu, Ugandan food menu, fast foods Lubowa, local dishes Entebbe Road, restaurant menu Uganda',
+        'image' => '/image/page-header/page-our-menu.jpg',
     ],
     '/about' => [
         'file' => 'pages/about.php',
-        'title' => 'About Us - Evangiz Restaurant',
-        'desc' => 'Learn more about Evangiz Restaurant, our mission, commitment to fresh ingredients, and exceptional customer service.'
+        'title' => 'About Evangiz Restaurant | Fresh Ugandan Dining in Lubowa',
+        'desc' => 'Learn about Evangiz Restaurant, our fresh ingredients, Ugandan food heritage, family dining experience, and hospitality along Kampala-Entebbe Road in Lubowa.',
+        'keywords' => 'about Evangiz Restaurant, Ugandan restaurant Lubowa, family dining Uganda, restaurant along Kampala-Entebbe Road',
+        'image' => '/image/page-header/about-res.jpg',
     ],
     '/services' => [
         'file' => 'pages/services.php',
-        'title' => 'Our Services - Evangiz Restaurant',
-        'desc' => 'Discover our premium services: Dine-in, Takeaway, Food Preparation, and Outside Catering for your events.'
+        'title' => 'Restaurant Services in Lubowa | Dine-In, Takeaway & Catering',
+        'desc' => 'Discover Evangiz Restaurant services including dine-in meals, takeaway food, food preparation, customer support, and outside catering in Uganda.',
+        'keywords' => 'restaurant services Uganda, dine-in Lubowa, takeaway Entebbe Road, catering services in Uganda, Evangiz services',
+        'image' => '/image/page-header/page-private-event.jpg',
     ],
     '/catering' => [
         'file' => 'pages/catering.php',
-        'title' => 'Outside Catering Services - Evangiz Restaurant',
-        'desc' => 'Premium outside catering services for corporate events, private celebrations, weddings, and gatherings along Kampala-Entebbe Road.'
+        'title' => 'Outside Catering in Uganda | Corporate & Private Events | Evangiz',
+        'desc' => 'Book Evangiz outside catering for corporate catering, private events, weddings, graduations, buffet packages, local foods, fruit displays, and juice service.',
+        'keywords' => 'outside catering Uganda, corporate catering, private events catering, catering services in Uganda, buffet packages Kampala',
+        'image' => '/image/page-header/page-private-event.jpg',
     ],
     '/contact' => [
         'file' => 'pages/contact.php',
-        'title' => 'Contact Us - Evangiz Restaurant',
-        'desc' => 'Get in touch with Evangiz Restaurant. Make a booking, inquire about catering, or visit us along Entebbe Road.'
+        'title' => 'Contact Evangiz Restaurant | Visit Lubowa on Entebbe Road',
+        'desc' => 'Contact Evangiz Restaurant in Lubowa for reservations, takeaway, outside catering inquiries, directions, phone numbers, and email support.',
+        'keywords' => 'contact Evangiz Restaurant, restaurant Lubowa contact, catering inquiries Uganda, restaurant near Entebbe Road',
+        'image' => '/image/page-header/page-contact.jpg',
     ],
     '/blog' => [
         'file' => 'pages/blog.php',
-        'title' => 'Blog - Evangiz Restaurant',
-        'desc' => 'Stay updated with culinary stories, food recipes, and news from Evangiz Restaurant.'
+        'title' => 'Evangiz Blog | Ugandan Food, Restaurant News & Catering Tips',
+        'desc' => 'Read Evangiz Restaurant stories, Ugandan food updates, restaurant news, catering ideas, and dining tips from our Lubowa team.',
+        'keywords' => 'Evangiz blog, Ugandan food blog, restaurant news Uganda, catering tips Uganda',
+        'image' => '/image/page-header/page-header_7.jpg',
     ],
     '/blog-post' => [
         'file' => 'pages/blog-post.php',
         'title' => 'Read Our Blog - Evangiz Restaurant',
-        'desc' => 'Read our latest culinary posts.'
+        'desc' => 'Read the latest Evangiz Restaurant article about Ugandan food, dining, catering, and restaurant stories.',
+        'keywords' => 'Evangiz Restaurant blog post, Ugandan food article, restaurant story',
+        'image' => '/image/page-header/page-header_7.jpg',
     ]
 ];
 
@@ -148,6 +167,7 @@ $page_css_map = [
     '/home'      => 'home',
     '/menu'      => 'menu',
     '/about'     => 'about',
+    '/services'  => 'services',
     '/catering'  => 'catering',
     '/contact'   => 'contact',
     '/blog'      => 'blog',
@@ -172,7 +192,9 @@ if (array_key_exists($path, $routes)) {
     $route = $routes[$path];
     $page_title = $route['title'];
     $page_desc = $route['desc'];
-    $page_content = __DIR__ . '/' . $route['file'];
+    $page_keywords = $route['keywords'] ?? '';
+    $page_image = $route['image'] ?? null;
+    $page_content = SRC_PATH . '/' . $route['file'];
     $page_css = $page_css_map[$path] ?? null;
     $page_lcp_image = $page_lcp_map[$path] ?? null;
 } else {
@@ -180,21 +202,21 @@ if (array_key_exists($path, $routes)) {
     http_response_code(404);
     $page_title = 'Page Not Found - Evangiz Restaurant';
     $page_desc = 'The requested page was not found.';
-    $page_content = __DIR__ . '/pages/404.php';
+    $page_content = SRC_PATH . '/pages/404.php';
     $page_css = '404';
     $page_noindex = true; // Don't let search engines index the 404 page.
 }
 
 // Global Components Helpers for component-based rendering
-require_once __DIR__ . '/includes/components.php';
+require_once SRC_PATH . '/includes/components.php';
 
 // Assemble Page Template
-include_once __DIR__ . '/includes/header.php';
-include_once __DIR__ . '/includes/topbar.php';
-include_once __DIR__ . '/includes/navbar.php';
+include_once SRC_PATH . '/includes/header.php';
+include_once SRC_PATH . '/includes/topbar.php';
+include_once SRC_PATH . '/includes/navbar.php';
 
 // Load page layout content
 include $page_content;
 
-include_once __DIR__ . '/includes/footer.php';
+include_once SRC_PATH . '/includes/footer.php';
 ?>

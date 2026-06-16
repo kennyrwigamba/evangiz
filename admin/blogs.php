@@ -34,14 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $allowed_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
             if (in_array($file_ext, $allowed_exts)) {
                 $new_filename = ($slug ?: 'cover') . '-' . time() . '.' . $file_ext;
-                $upload_dir = __DIR__ . '/../image/blog/';
+                $upload_dir = SRC_PATH . '/image/blog/';
                 
                 if (!is_dir($upload_dir)) {
                     mkdir($upload_dir, 0755, true);
                 }
                 
                 if (move_uploaded_file($file_tmp, $upload_dir . $new_filename)) {
-                    $image_path = 'image/blog/' . $new_filename;
+                    $image_path = '/image/blog/' . $new_filename;
                 } else {
                     $alert_error = "Failed to save uploaded image file.";
                 }

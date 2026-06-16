@@ -1,5 +1,12 @@
 User-agent: *
 Allow: /
+Allow: /src/css/
+Allow: /src/js/
+Allow: /src/image/
+Allow: /src/video/
+Disallow: /src/pages/
+Disallow: /src/includes/
+Disallow: /src/database/
 Disallow: /admin/
 
 Sitemap: https://evangiz.com/sitemap.xml

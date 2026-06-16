@@ -24,6 +24,8 @@ define('CONTACT_SENDER_EMAIL', 'no-reply@evangiz.com');
 // Canonical production domain (used for canonical links, OpenGraph, sitemap).
 // Override per-environment with the SITE_URL env var if needed.
 define('SITE_URL', rtrim(getenv('SITE_URL') ?: 'https://evangiz.com', '/'));
+define('SRC_PATH', __DIR__ . '/src');
+define('PUBLIC_ASSET_PREFIX', '/src');
 
 // Initialize database connection
 try {
@@ -58,10 +60,24 @@ try {
 /**
  * Helper to generate clean URLs matching the installation path (handles subdirectories)
  */
+function public_path($path = '') {
+    $path = '/' . ltrim((string) $path, '/');
+    $asset_roots = ['/css/', '/js/', '/image/', '/video/'];
+
+    foreach ($asset_roots as $asset_root) {
+        if (strpos($path, $asset_root) === 0) {
+            return PUBLIC_ASSET_PREFIX . $path;
+        }
+    }
+
+    return $path;
+}
+
 function url($path = '') {
     $project_root = str_replace('\\', '/', __DIR__);
     $script_filename = str_replace('\\', '/', $_SERVER['SCRIPT_FILENAME'] ?? '');
     $script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+    $path = public_path($path);
     
     $base_url = '';
     if (!empty($script_filename) && !empty($script_name)) {
@@ -89,6 +105,6 @@ function url($path = '') {
  * the local/subdirectory install path.
  */
 function site_url($path = '') {
-    return SITE_URL . '/' . ltrim((string) $path, '/');
+    return SITE_URL . '/' . ltrim(public_path($path), '/');
 }
 ?>
