@@ -67,16 +67,19 @@ $current_path = $path ?? '/';
                 <h4 class="footer-title">Get In Touch</h4>
                 <address class="footer-address">
                     <p class="footer-contact-item">
-                        <strong>Location:</strong> Lubowa, Kampala-Entebbe Road (directly Opposite Roofings)
+                        <strong>Entebbe Office:</strong> Plot 65 Kiwafu Road Kitooro Entebbe
                     </p>
                     <p class="footer-contact-item">
-                        <strong>Tel:</strong> <a href="tel:+256705183818">+256-705183818</a>
+                        <strong>Tel:</strong> <a href="tel:+256393104494">+256-393104494</a>, <a href="tel:+256200924832">+256-200924832</a>
                     </p>
                     <p class="footer-contact-item">
-                        <strong>Tel 2:</strong> <a href="tel:+256784618282">+256-784618282</a>
+                        <strong>Lubowa Office:</strong> Lubowa, Opp Roofings Ltd Entebbe Road
                     </p>
                     <p class="footer-contact-item">
-                        <strong>Email:</strong> <a href="mailto:info@evangiz.com">info@evangiz.com</a>
+                        <strong>Tel:</strong> <a href="tel:+256393104493">+256-393104493</a>, <a href="tel:+256200924833">+256-200924833</a>
+                    </p>
+                    <p class="footer-contact-item">
+                        <strong>Email:</strong> <a href="mailto:evangizrestaurant@gmail.com">evangizrestaurant@gmail.com</a>
                     </p>
                 </address>
             </div>

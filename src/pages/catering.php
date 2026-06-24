@@ -64,8 +64,8 @@ include __DIR__ . '/../includes/page-header.php';
         <div class="grid-3 stagger-container mt-xl">
             <!-- Solution 1: Buffet Packages -->
             <div class="type-card animate-scroll-reveal">
-                <div class="type-icon-box">
-                    <i class="hgi hgi-stroke hgi-rounded hgi-dish-01"></i>
+                <div class="mb-md" style="border-radius: 8px; overflow: hidden; height: 160px;">
+                    <img src="<?php echo url('/image/catering/cat-3.jpg'); ?>" alt="Buffet Packages" class="lightbox-img" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 </div>
                 <h3>Buffet Packages</h3>
                 <p>Standard and Executive buffet menus with grilled chicken, pan-fried goat meat, beef stew, rice, chapati, matooke, salads, desserts, and fresh juice displays.</p>
@@ -73,8 +73,8 @@ include __DIR__ . '/../includes/page-header.php';
 
             <!-- Solution 2: Non-Buffet Local Foods -->
             <div class="type-card animate-scroll-reveal">
-                <div class="type-icon-box">
-                    <i class="hgi hgi-stroke hgi-rounded hgi-rice-bowl-01"></i>
+                <div class="mb-md" style="border-radius: 8px; overflow: hidden; height: 160px;">
+                    <img src="<?php echo url('/image/catering/cat-5.jpg'); ?>" alt="Local Foods Menu" class="lightbox-img" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 </div>
                 <h3>Local Foods Menu</h3>
                 <p>Flexible non-buffet local food options including goat stew, chicken stew, beef stew, fresh fish, eshabwe, luwombos, cassava, yams, greens, and beverages.</p>
@@ -82,8 +82,8 @@ include __DIR__ . '/../includes/page-header.php';
 
             <!-- Solution 3: Displays & Service -->
             <div class="type-card animate-scroll-reveal">
-                <div class="type-icon-box">
-                    <i class="hgi hgi-stroke hgi-rounded hgi-serving-food"></i>
+                <div class="mb-md" style="border-radius: 8px; overflow: hidden; height: 160px;">
+                    <img src="<?php echo url('/image/catering/cat-1.jpg'); ?>" alt="Displays & Service" class="lightbox-img" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 </div>
                 <h3>Displays & Service</h3>
                 <p>Fruit corners, dessert setup, juice displays, buffet equipment, and service staff support for weddings, graduations, corporate functions, and private celebrations.</p>
@@ -113,6 +113,7 @@ include __DIR__ . '/../includes/page-header.php';
                         <span class="per">/ Event</span>
                     </div>
                 </div>
+                <p class="package-desc mt-sm text-muted" style="margin-bottom: 1rem;">Enjoy our classic selection of popular buffet favorites. The Standard Package Menu is carefully crafted to offer a delicious and satisfying variety of meats, fresh salads, and refreshing juices, perfect for keeping your guests happy at any standard gathering.</p>
                 <ul class="package-features">
                     <li><i class="hgi-stroke hgi-tick-01 text-accent"></i> Grilled chicken, pan-fried goat meat, beef stew, beans, peas, or groundnuts</li>
                     <li><i class="hgi-stroke hgi-tick-01 text-accent"></i> Mixed vegetable rice, chapati, plantain, karo, and eshabwe options</li>
@@ -138,11 +139,12 @@ include __DIR__ . '/../includes/page-header.php';
                     <span class="package-badge executive-badge">Executive Menu</span>
                     <h3 class="package-title">Executive Package Menu</h3>
                     <div class="package-price">
-                        <span class="currency">UGX</span>
-                        <span class="amount">30,000</span>
-                        <span class="per">/ Plate</span>
+                        <span class="currency">Menu</span>
+                        <span class="amount">Quote</span>
+                        <span class="per">/ Event</span>
                     </div>
                 </div>
+                <p class="package-desc mt-sm text-muted" style="margin-bottom: 1rem;">Experience a premium catering service tailored for larger and high-profile events. Our Executive Package offers an expanded menu selection, elegant dessert setups, and dedicated ushers to ensure your guests are treated with the highest level of hospitality.</p>
                 <ul class="package-features">
                     <li><i class="hgi-stroke hgi-tick-01 text-accent"></i> Grilled chicken, pan-fried goat meat, beef stew, mixed vegetable rice, chapati, plantain, karo, and steamed matooke</li>
                     <li><i class="hgi-stroke hgi-tick-01 text-accent"></i> Potato salad and coleslaw salad</li>
@@ -167,11 +169,12 @@ include __DIR__ . '/../includes/page-header.php';
                     <span class="package-badge local-badge">Non-Buffet</span>
                     <h3 class="package-title">Local Foods Menu</h3>
                     <div class="package-price">
-                        <span class="currency">UGX</span>
-                        <span class="amount">8,000+</span>
-                        <span class="per">/ Plate</span>
+                        <span class="currency">Menu</span>
+                        <span class="amount">Quote</span>
+                        <span class="per">/ Event</span>
                     </div>
                 </div>
+                <p class="package-desc mt-sm text-muted" style="margin-bottom: 1rem;">Delight your guests with authentic Ugandan flavors. Our Local Foods Menu provides a rich, traditional dining experience with flexible non-buffet service, perfect for cultural ceremonies, family gatherings, or any event celebrating our local heritage.</p>
                 <ul class="package-features">
                     <li><i class="hgi-stroke hgi-tick-01 text-accent"></i> Main dishes: goat stew, chicken stew, beef stew, fresh fish, and eshabwe</li>
                     <li><i class="hgi-stroke hgi-tick-01 text-accent"></i> Starches and sides: white rice, posho, karo, steamed matooke, cassava, potatoes, yams, and greens</li>
@@ -193,6 +196,24 @@ include __DIR__ . '/../includes/page-header.php';
     </div>
 </section>
 
+<!-- Catering Gallery Section -->
+<section class="section catering-gallery-section" style="padding-top: 0;">
+    <div class="container">
+        <div class="text-center animate-scroll-reveal">
+            <span class="section-label">Event Showcase</span>
+            <h2 class="section-heading">Our Past Events</h2>
+        </div>
+        <div class="grid-3 mt-lg gap-md">
+            <div class="gallery-item"><img src="<?php echo url('/image/catering/cat-1.jpg'); ?>" alt="Catering Event 1" class="img-fluid rounded lightbox-img" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"></div>
+            <div class="gallery-item"><img src="<?php echo url('/image/catering/cat-2.jpg'); ?>" alt="Catering Event 2" class="img-fluid rounded lightbox-img" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"></div>
+            <div class="gallery-item"><img src="<?php echo url('/image/catering/cat-3.jpg'); ?>" alt="Catering Event 3" class="img-fluid rounded lightbox-img" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"></div>
+            <div class="gallery-item"><img src="<?php echo url('/image/catering/cat-4.jpg'); ?>" alt="Catering Event 4" class="img-fluid rounded lightbox-img" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"></div>
+            <div class="gallery-item"><img src="<?php echo url('/image/catering/cat-5.jpg'); ?>" alt="Catering Event 5" class="img-fluid rounded lightbox-img" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"></div>
+            <div class="gallery-item"><img src="<?php echo url('/image/catering/cat-6.jpg'); ?>" alt="Catering Event 6" class="img-fluid rounded lightbox-img" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"></div>
+        </div>
+    </div>
+</section>
+
 <!-- Catering Inquiry Form Section -->
 <section id="catering-inquiry-section" class="section catering-inquiry-section">
     <div class="container">
@@ -209,8 +230,8 @@ include __DIR__ . '/../includes/page-header.php';
 
 
                 <div class="contact-links-box mb-lg">
-                    <p class="contact-link-item">Mail: <a href="mailto:info@evangiz.com">info@evangiz.com</a></p>
-                    <p class="contact-link-item">Call for inquiries: <a href="tel:+256705183818">+256-705183818</a> / <a href="tel:+256784618282">+256-784618282</a></p>
+                    <p class="contact-link-item">Mail: <a href="mailto:evangizrestaurant@gmail.com">evangizrestaurant@gmail.com</a></p>
+                    <p class="contact-link-item">Call for inquiries: <a href="tel:+256393104494">+256-393104494</a> / <a href="tel:+256200924832">+256-200924832</a></p>
                 </div>
                 
                 <!-- Social links circle badges -->
@@ -316,6 +337,12 @@ include __DIR__ . '/../includes/page-header.php';
     </div>
 </section>
 
+<!-- Lightbox Modal -->
+<div id="lightbox-modal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; flex-direction: column;">
+    <span id="lightbox-close" style="position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;">&times;</span>
+    <img id="lightbox-content" style="max-width: 90%; max-height: 80%; object-fit: contain; border-radius: 8px;">
+</div>
+
 <!-- Package Selector and Form Interactivity Scripts -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -344,6 +371,31 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Lightbox logic
+    const lightboxModal = document.getElementById('lightbox-modal');
+    const lightboxImg = document.getElementById('lightbox-content');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxImages = document.querySelectorAll('.lightbox-img');
+
+    if (lightboxModal && lightboxImages) {
+        lightboxImages.forEach(img => {
+            img.addEventListener('click', function() {
+                lightboxModal.style.display = 'flex';
+                lightboxImg.src = this.src;
+            });
+        });
+
+        lightboxClose.addEventListener('click', function() {
+            lightboxModal.style.display = 'none';
+        });
+
+        lightboxModal.addEventListener('click', function(e) {
+            if (e.target === lightboxModal) {
+                lightboxModal.style.display = 'none';
+            }
+        });
+    }
 });
 </script>
 

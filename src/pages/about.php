@@ -85,5 +85,87 @@ include __DIR__ . '/../includes/page-header.php';
     </div>
 </section>
 
+<!-- Vision, Mission and Values Section -->
+<section class="section vmv-section">
+    <div class="container">
+        <div class="text-center animate-scroll-reveal">
+            <span class="section-label">Who We Are</span>
+            <h2 class="section-heading">Vision, Mission and Values</h2>
+        </div>
+        <div class="grid-2 mt-lg gap-xl">
+            <div class="vision-mission-box animate-scroll-reveal reveal-left">
+                <h3 class="mb-sm">Our Vision</h3>
+                <p>To deliver quality-assured catering services that satisfy and exceed our clients' needs at all types of events and locations.</p>
+                <h3 class="mt-lg mb-sm">Our Mission</h3>
+                <p>To deliver quality-assured catering services that satisfy and exceed our clients' needs at all types of events and locations.</p>
+            </div>
+            <div class="values-box animate-scroll-reveal reveal-right">
+                <h3 class="mb-md">Core Values</h3>
+                <ul class="values-list" style="list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 1rem;"><strong class="text-accent" style="display: inline-block; width: 180px;">Professionalism:</strong> We uphold the highest standards in our work and conduct.</li>
+                    <li style="margin-bottom: 1rem;"><strong class="text-accent" style="display: inline-block; width: 180px;">Reliability:</strong> Our clients can depend on us for consistent and timely service.</li>
+                    <li style="margin-bottom: 1rem;"><strong class="text-accent" style="display: inline-block; width: 180px;">Eco-Consciousness:</strong> We prioritize sustainable practices and products.</li>
+                    <li style="margin-bottom: 1rem;"><strong class="text-accent" style="display: inline-block; width: 180px;">Customer Focus:</strong> Your satisfaction is our top priority, and we tailor our services to meet your needs.</li>
+                    <li style="margin-bottom: 1rem;"><strong class="text-accent" style="display: inline-block; width: 180px;">Food Safety:</strong> We follow strict food hygiene standards and medical requirements.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Gallery Section -->
+<section class="section gallery-section">
+    <div class="container">
+        <div class="text-center animate-scroll-reveal">
+            <span class="section-label">Visuals</span>
+            <h2 class="section-heading">Our Gallery</h2>
+        </div>
+        <div class="grid-3 mt-lg gap-md animate-scroll-reveal">
+            <div class="gallery-item"><img src="<?php echo url('/image/gallery/gal-1.jpg'); ?>" alt="Gallery Image 1" class="img-fluid rounded lightbox-img" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"></div>
+            <div class="gallery-item"><img src="<?php echo url('/image/gallery/gal-2.jpg'); ?>" alt="Gallery Image 2" class="img-fluid rounded lightbox-img" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"></div>
+            <div class="gallery-item"><img src="<?php echo url('/image/gallery/gal-3.jpg'); ?>" alt="Gallery Image 3" class="img-fluid rounded lightbox-img" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"></div>
+            <div class="gallery-item"><img src="<?php echo url('/image/gallery/gal-4.jpg'); ?>" alt="Gallery Image 4" class="img-fluid rounded lightbox-img" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"></div>
+            <div class="gallery-item"><img src="<?php echo url('/image/gallery/gal-5.jpg'); ?>" alt="Gallery Image 5" class="img-fluid rounded lightbox-img" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"></div>
+            <div class="gallery-item"><img src="<?php echo url('/image/gallery/gal-6.jpg'); ?>" alt="Gallery Image 6" class="img-fluid rounded lightbox-img" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div id="lightbox-modal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; flex-direction: column;">
+    <span id="lightbox-close" style="position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;">&times;</span>
+    <img id="lightbox-content" style="max-width: 90%; max-height: 80%; object-fit: contain; border-radius: 8px;">
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Lightbox logic
+    const lightboxModal = document.getElementById('lightbox-modal');
+    const lightboxImg = document.getElementById('lightbox-content');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxImages = document.querySelectorAll('.lightbox-img');
+
+    if (lightboxModal && lightboxImages) {
+        lightboxImages.forEach(img => {
+            img.addEventListener('click', function() {
+                lightboxModal.style.display = 'flex';
+                lightboxImg.src = this.src;
+            });
+        });
+
+        lightboxClose.addEventListener('click', function() {
+            lightboxModal.style.display = 'none';
+        });
+
+        lightboxModal.addEventListener('click', function(e) {
+            if (e.target === lightboxModal) {
+                lightboxModal.style.display = 'none';
+            }
+        });
+    }
+});
+</script>
+
 <!-- Inline styles for About Page layout -->
 <!-- Page styles moved to /css/pages/about.css for caching & performance -->
