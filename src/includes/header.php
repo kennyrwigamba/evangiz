@@ -93,8 +93,11 @@
     <link rel="stylesheet" href="<?php echo url('/css/pages/' . $page_css . '.css'); ?>?v=<?php echo filemtime($page_css_path); ?>">
     <?php endif; endif; ?>
 
-    <link rel="shortcut icon" href="<?php echo url('/image/logo/favicon.png'); ?>" type="image/png">
-    <link rel="apple-touch-icon" href="<?php echo url('/image/logo/favicon.png'); ?>">
+    <link rel="icon" href="<?php echo site_url('/favicon.ico'); ?>" sizes="any">
+    <link rel="icon" href="<?php echo site_url('/favicon.png'); ?>" type="image/png" sizes="96x96">
+    <link rel="shortcut icon" href="<?php echo site_url('/favicon.ico'); ?>">
+    <link rel="apple-touch-icon" href="<?php echo site_url('/apple-touch-icon.png'); ?>">
+    <link rel="manifest" href="<?php echo site_url('/site.webmanifest'); ?>">
 </head>
 <body>
     <div id="site-wrapper">
